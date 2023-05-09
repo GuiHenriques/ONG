@@ -1,0 +1,2 @@
+class ControladorDoacao():
+    pass
