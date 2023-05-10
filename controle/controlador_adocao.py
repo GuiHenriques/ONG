@@ -1,2 +1,0 @@
-class ControladorAdocao():
-    pass
