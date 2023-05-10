@@ -1,7 +1,8 @@
 from telas.tela_sistema import TelaSistema
 from controlador_pessoa import ControladorPessoa
 from controlador_doacao import ControladorDoacao
-from controladores.controlador_adocao import ControladorAdocao
+from controlador_adocao import ControladorAdocao
+
 
 class ControladorSistema():
     
@@ -15,6 +16,7 @@ class ControladorSistema():
     def controlador_pessoa(self):
         return self.__controlador_pessoa
     
+    # não tem controlador emprestimo na exemplo mvc
     @property
     def controlador_adocao(self):
         return self.__controlador_adocao
