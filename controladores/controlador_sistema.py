@@ -1,5 +1,5 @@
 from telas.tela_sistema import TelaSistema
-from controlador_pessoa import ControladorPessoa
+from controladores.controlador_pessoa import ControladorPessoa
 from controlador_doacao import ControladorDoacao
 from controlador_adocao import ControladorAdocao
 
@@ -27,9 +27,38 @@ class ControladorSistema():
     
     def inicializa_sistema(self):
         self.abre_tela()
+    
+
+    def controle_pessoa(self):
+        ...
+    
+    def controle_animal(self):
+        self.__controlador_animal.abre_tela()
+        
+    def controle_adocao(self):
+        self.__controlador_adocao.abre_tela()
+
+    def controle_doacao(self):
+        ...
+
+    def encerra_sistema(self):
+        exit(0)
+
+    def abre_tela(self):
+        lista_opcoes = {
+            1: self.controle_animal,
+            2: self.controle_pessoa,
+            3: self.controle_adocao,
+            4: self.controle_doacao,
+            0: self.encerra_sistema,
+        }
+        while True:
+            opcao = self.__tela_sistema.tela_opcoes()
+            lista_opcoes[opcao]()
+
         
     def abre_tela(self):
-        lista_opcoes = {1: self.cadastra_livros, 2: self.cadastra_amigos, 3: self.cadastra_emprestimos,
+        lista_opcoes = {1: self.controle_animal, 2: self.controle_pessoa, 3: self.controle_adocao, 4: self.controle_doacao,
                         0: self.encerra_sistema}
 
         while True:

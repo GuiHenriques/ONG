@@ -1,7 +1,7 @@
 from telas.tela_pessoa import TelaPessoa
 from controladores.controlador_sistema import ControladorSistema
 
-class ControladorPessoa():
+class ControladorPessoa:
 
     def __init__(self, controlador_sistema: ControladorSistema):
         self.__adotantes = list()
