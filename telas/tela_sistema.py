@@ -17,12 +17,11 @@ class TelaSistema():
 
     def tela_opcoes(self):
         print("-------- PREENCHER ---------")
-        print("Escolha sua opcao")
+        print("Escolha sua opcao!")
         print("1 - Realizar doação")
         print("2 - Realizar adoção")
         print("3 - Gerenciar pessoas")
-        print("4 - Sei la")
+        print("4 - Gerenciar animais")
         print("0 - Finalizar Sistema")
-        opcao = self.le_num_inteiro("Escolha a opcao:", [0,1,2,3,4])
+        opcao = self.le_num_inteiro("Escolha a opcao: ", [0,1,2,3,4])
         return opcao
-TelaSistema().tela_opcoes()
