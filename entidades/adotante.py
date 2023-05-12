@@ -21,7 +21,7 @@ class Adotante(Pessoa):
         return self.__tam_hab
 
     @tam_hab.setter
-    def tam_hab(self):
+    def tam_hab(self, tam_hab):
         self.__tam_hab = tam_hab
 
     @property

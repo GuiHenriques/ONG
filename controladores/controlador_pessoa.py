@@ -15,8 +15,29 @@ class ControladorPessoa():
                             dados_adotante['endereco'], dados_adotante['tipo_hab'], dados_adotante['tam_hab'], dados_adotante['outros_animais'])
         self.__adotantes.append(adotante)
 
+    def pega_pessoa_por_cpf(self, cpf: str):
+        for adotante in self.__adotantes:
+            if adotante.cpf == cpf:
+                return adotante
+        return None
     def altera_adotante(self):
-        pass
+        self.lista_adotante()
+        cpf_adotante = self.__tela_pessoa.pega_cpf()
+        adotante = self.pega_pessoa_por_cpf(cpf_adotante) #serve para garantir que a pessoa esta na lista
+
+        if adotante != None:
+        #if cpf(is not None):
+            novos_dados_adotante = self.__tela_pessoa.pega_dados_adotante()
+            adotante.nome = novos_dados_adotante['nome']
+            adotante.cpf = novos_dados_adotante['cpf']
+            adotante.data_nascimento = novos_dados_adotante['data_nascimento']
+            adotante.endereco = novos_dados_adotante['endereco']
+            adotante.tipo_hab = novos_dados_adotante['tipo_hab']
+            adotante.tam_hab = novos_dados_adotante['tam_hab']
+            adotante.outros_animais = novos_dados_adotante['outros_animais']
+            self.lista_adotante()
+
+
 
     def lista_adotante(self):
         for adotante in self.__adotantes:

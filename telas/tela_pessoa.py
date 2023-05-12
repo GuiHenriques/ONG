@@ -31,6 +31,7 @@ class TelaPessoa():
         return opcao
     
     def pega_dados_adotante(self):
+        print('------------------------')
         nome = input('Insira seu nome: ')
         cpf = input('Insira seu cpf: ')
         data_nascimento = input('Insira sua data de nascimento no formato DD/MM/AAAA: ')
@@ -47,6 +48,7 @@ class TelaPessoa():
         return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco,"tipo_hab": tipo_hab, "tam_hab": tam_hab, "outros_animais": outros_animais}
         
     def mostra_adotante(self,dados_adotante):
+        print('----------------------------')
         print('Nome: ', dados_adotante['nome'])
         print('Cpf : ', dados_adotante['cpf'])
         print('Data de nascimento: ', dados_adotante['data_nascimento'])
@@ -55,7 +57,10 @@ class TelaPessoa():
         print('Tamanho da habitacao: ', dados_adotante['tam_hab'])
         print('Possui outros animais: ', dados_adotante['outros_animais'])
         print("\n")
-        
+
+    def pega_cpf(self):
+        cpf = input('Insira o cpf da pessoa: ')
+        return cpf
     
     def mostra_mensagem(self,msg):
         print(msg)
