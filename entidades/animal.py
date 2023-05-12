@@ -1,11 +1,11 @@
 class Animal():
-    def __init__(self, chip: int, nome: str, raca: str, idade:int, vacinas: list, disponivel: bool):
-        self.__chip = chip
+    def __init__(self, nome: str, raca: str, idade:int):
+        self.__chip = int
         self.__nome = nome
         self.__raca = raca
         self.__idade = idade
-        self.__vacinas = vacinas
-        self.__disponivel = disponivel
+        self.__vacinas = []
+        self.__disponivel = bool
     
     @property
     def chip(self):

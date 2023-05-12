@@ -1,9 +1,8 @@
-from animal import Animal
-from adocao import Adocao
+from entidades.animal import Animal
 
 class Cachorro(Animal):
-    def __init__(self, chip: int, nome: str, raca: str, idade: int, vacinas: list, disponivel: bool, tamanho: str):
-        super().__init__(chip,nome,raca,vacinas,disponivel)
+    def __init__(self, nome: str, raca: str, idade: int, tamanho: str):
+        super().__init__(nome,raca,idade)
         self.__tamanho = tamanho
         
     @property

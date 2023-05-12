@@ -1,6 +1,5 @@
-from animal import Animal
-from adocao import Adocao
+from entidades.animal import Animal
 
 class Gato(Animal):
-    def __init__(self, chip: int, nome: str, raca: str, idade: int, vacinas: list, disponivel : bool):
-        super().__init__(chip,nome,raca,vacinas,disponivel)
+    def __init__(self, nome: str, raca: str, idade: int):
+        super().__init__(nome,raca,idade)
