@@ -27,7 +27,7 @@ class TelaPessoa():
         print("8 - Excluir Doador")
         print("0 - Retornar")
     
-        opcao = int(input("Escolha uma opcao: "))
+        opcao = self.le_num_inteiro("Escolha uma opcao: ", [0,1,2,3,4,5,6,7,8])
         return opcao
     
     def pega_dados_adotante(self):
