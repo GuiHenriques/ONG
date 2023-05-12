@@ -2,7 +2,7 @@ from animal import Animal
 from adocao import Adocao
 
 class Cachorro(Animal):
-    def __init__(self, chip: int, nome: str, raca: str, vacinas: list, disponivel: bool, tamanho: str):
+    def __init__(self, chip: int, nome: str, raca: str, idade: int, vacinas: list, disponivel: bool, tamanho: str):
         super().__init__(chip,nome,raca,vacinas,disponivel)
         self.__tamanho = tamanho
         

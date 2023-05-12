@@ -1,8 +1,9 @@
 class Animal():
-    def __init__(self, chip: int, nome: str, raca: str, vacinas: list, disponivel: bool):
+    def __init__(self, chip: int, nome: str, raca: str, idade:int, vacinas: list, disponivel: bool):
         self.__chip = chip
         self.__nome = nome
         self.__raca = raca
+        self.__idade = idade
         self.__vacinas = vacinas
         self.__disponivel = disponivel
     
@@ -29,6 +30,14 @@ class Animal():
     @raca.setter
     def raca(self, raca):
         self.__raca = raca
+    
+    @property
+    def idade(self):
+        return self.__idade
+    
+    @idade.setter
+    def idade(self, idade):
+        self.__idade = idade
         
     @property
     def vacinas(self):
