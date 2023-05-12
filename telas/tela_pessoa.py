@@ -46,9 +46,23 @@ class TelaPessoa():
         #if age < 18:
             #raise alguma exception.Finalizar o programa ou pedir a data de novo?
         return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco,"tipo_hab": tipo_hab, "tam_hab": tam_hab, "outros_animais": outros_animais}
-        
-    def mostra_adotante(self,dados_adotante):
-        print('-----------------------')
+
+    def pega_dados_doador(self):
+        print('------------------------')
+        nome = input('Insira seu nome: ')
+        cpf = input('Insira seu cpf: ')
+        data_nascimento = input('Insira sua data de nascimento no formato DD/MM/AAAA: ')
+        endereco = input('Insira o seu endereço: ')
+        data_f = datetime.strptime(data_nascimento, '%d/%m/%Y').date()
+        # o tratamento da idade caso seja menor de idade:
+        today = date.today()
+        age = today.year - data_f.year - ((today.month, today.day) < (data_f.month, data_f.day))
+        # if age < 18:
+        # raise alguma exception.Finalizar o programa ou pedir a data de novo?
+        return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco}
+
+    def mostra_adotante(self, dados_adotante):
+        print('------------ADOTANTES------------')
         print('Nome: ', dados_adotante['nome'])
         print('Cpf : ', dados_adotante['cpf'])
         print('Data de nascimento: ', dados_adotante['data_nascimento'])
@@ -56,6 +70,14 @@ class TelaPessoa():
         print('Tipo de habitacao: ', dados_adotante['tipo_hab'])
         print('Tamanho da habitacao: ', dados_adotante['tam_hab'])
         print('Possui outros animais: ', dados_adotante['outros_animais'])
+        print("\n")
+
+    def mostra_doador(self, dados_doador):
+        print('------------DOADORES------------')
+        print('Nome: ', dados_doador['nome'])
+        print('Cpf : ', dados_doador['cpf'])
+        print('Data de nascimento: ', dados_doador['data_nascimento'])
+        print('Endereco: ', dados_doador['endereco'])
         print("\n")
 
     def pega_cpf(self):

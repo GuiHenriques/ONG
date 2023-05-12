@@ -1,5 +1,6 @@
 from telas.tela_pessoa import TelaPessoa
 from entidades.adotante import Adotante
+from entidades.doador import Doador
 
 class ControladorPessoa():
 
@@ -20,6 +21,9 @@ class ControladorPessoa():
         for adotante in self.__adotantes:
             if adotante.cpf == cpf:
                 return adotante
+        for doador in self.__doadores:
+            if doador.cpf == cpf:
+                return doador
         return None
     def altera_adotante(self):
         self.lista_adotante()
@@ -56,16 +60,40 @@ class ControladorPessoa():
             self.lista_adotante()
 
     def incluir_doador(self):
-        pass
+        dados_doador = self.__tela_pessoa.pega_dados_doador()
+        doador = Doador(dados_doador['nome'], dados_doador['cpf'], dados_doador['data_nascimento'],
+                            dados_doador['endereco'])
+        self.__doadores.append(doador)
+        self.__tela_pessoa.mostra_mensagem('Doador incluído com sucesso! ')
 
     def altera_doador(self):
-        pass
+        self.lista_doadores()
+        cpf_doador = self.__tela_pessoa.pega_cpf()
+        doador = self.pega_pessoa_por_cpf(cpf_doador)  # serve para garantir que a pessoa esta na lista
 
-    def lista_doador(self):
-        pass
+        if doador != None:
+            # if cpf(is not None):
+            novos_dados_doador = self.__tela_pessoa.pega_dados_doador()
+            doador.nome = novos_dados_doador['nome']
+            doador.cpf = novos_dados_doador['cpf']
+            doador.data_nascimento = novos_dados_doador['data_nascimento']
+            doador.endereco = novos_dados_doador['endereco']
+            self.__tela_pessoa.mostra_mensagem('Dados do doador alterado!')
+            self.lista_doadores()
+
+    def lista_doadores(self):
+        for doador in self.__doadores:
+            self.__tela_pessoa.mostra_doador({'nome': doador.nome, 'cpf': doador.cpf, 'data_nascimento': doador.data_nascimento, 'endereco': doador.endereco})
+
 
     def excluir_doador(self):
-        pass
+        self.lista_doadores()
+        cpf = self.__tela_pessoa.pega_cpf()
+        doador = self.pega_pessoa_por_cpf(cpf)
+        if doador != None:
+            self.__doadores.remove(doador)
+            self.__tela_pessoa.mostra_mensagem('Doador removido!')
+            self.lista_doadores()
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
@@ -73,7 +101,7 @@ class ControladorPessoa():
 
     def abre_tela(self):
         lista_opcoes = {1: self.incluir_adotante, 2: self.altera_adotante, 3: self.lista_adotante, 4: self.excluir_adotante,
-                        5: self.incluir_doador, 6: self.altera_doador, 7: self.lista_doador, 8: self.excluir_doador,
+                        5: self.incluir_doador, 6: self.altera_doador, 7: self.lista_doadores, 8: self.excluir_doador,
                         0: self.retornar}
 
         continua = True
