@@ -3,10 +3,10 @@ from datetime import date as Date
 #nao entendi o que o tipo significa, talvez doador/adotante? nao sei, pretendo apagar.
 class Pessoa(ABC):
     @abstractmethod
-    def __init__(self, cpf: str, nome: str, data_nascimento: Date,
-                 endereco: str):
+    def __init__(self, cpf: str, nome: str, data_nascimento: Date, endereco: str):
         self.__cpf = cpf
         self.__nome = nome
+        self.__data_nascimento = data_nascimento
         self.__endereco = endereco
     
     @property

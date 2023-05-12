@@ -1,12 +1,10 @@
-from adocao import Adocao
-
 class Animal():
-    def __init__(self, chip: int, nome: str, raca: str, vacinas: list, adocao_atual: Adocao):
+    def __init__(self, chip: int, nome: str, raca: str, vacinas: list, disponivel: bool):
         self.__chip = chip
         self.__nome = nome
         self.__raca = raca
         self.__vacinas = vacinas
-        self.__adocao_atual = adocao_atual
+        self.__disponivel = disponivel
     
     @property
     def chip(self):
@@ -40,3 +38,11 @@ class Animal():
     @property
     def adocao_atual(self):
         return self.__adocao_atual
+
+    @property
+    def disponivel(self):
+        return self.__disponivel
+    
+    @disponivel.setter
+    def disponivel(self, disponivel):
+        self.__disponivel = disponivel

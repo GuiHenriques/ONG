@@ -1,5 +1,5 @@
 from telas.tela_pessoa import TelaPessoa
-from controladores.controlador_sistema import ControladorSistema
+import controladores.controlador_sistema as ControladorSistema
 
 class ControladorPessoa:
 

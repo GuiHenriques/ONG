@@ -1,17 +1,23 @@
 from telas.tela_sistema import TelaSistema
+from controladores.controlador_animal import ControladorAnimal
 from controladores.controlador_pessoa import ControladorPessoa
-from controlador_doacao import ControladorDoacao
-from controlador_adocao import ControladorAdocao
+from controladores.controlador_adocao import ControladorAdocao
+from controladores.controlador_doacao import ControladorDoacao
 
 
 class ControladorSistema():
     
     def __init__(self):
+        self.__controlador_animal = ControladorAnimal(self)
         self.__controlador_pessoa = ControladorPessoa(self)
-        self.__controlador_doacao = ControladorDoacao(self)
         self.__controlador_adocao = ControladorAdocao(self)
+        self.__controlador_doacao = ControladorDoacao(self)
         self.__tela_sistema = TelaSistema()
     
+    @property
+    def controlador_animal(self):
+        return self.__controlador_animal
+
     @property
     def controlador_pessoa(self):
         return self.__controlador_pessoa
@@ -28,18 +34,17 @@ class ControladorSistema():
     def inicializa_sistema(self):
         self.abre_tela()
     
-
-    def controle_pessoa(self):
-        ...
-    
     def controle_animal(self):
         self.__controlador_animal.abre_tela()
+
+    def controle_pessoa(self):
+        self.__controlador_pessoa.abre_tela()
         
     def controle_adocao(self):
         self.__controlador_adocao.abre_tela()
 
     def controle_doacao(self):
-        ...
+        self.__controlador_doacao.abre_tela()
 
     def encerra_sistema(self):
         exit(0)
@@ -63,7 +68,4 @@ class ControladorSistema():
 
         while True:
             opcao_escolhida = self.__tela_sistema.tela_opcoes()
-            funcao_escolhida = lista_opcoes[opcao_escolhida]
-            funcao_escolhida()
-            
-ControladorSistema().inicializa_sistema()
+            lista_opcoes[opcao_escolhida]()

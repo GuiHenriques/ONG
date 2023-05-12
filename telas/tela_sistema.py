@@ -1,7 +1,6 @@
 class TelaSistema():
 
     #essa função trata o caso de não digitar um valor valido
-    #note que está dentro de um while True. Só sai do loop quando digitado um valor correto
     def le_num_inteiro(self, mensagem=" ", ints_validos = None):
         while True:
             valor_lido = input(mensagem)
@@ -16,14 +15,12 @@ class TelaSistema():
                     print("Valores válidos: ", ints_validos)
 
     def tela_opcoes(self):
-        print("-------- PREENCHER ---------")
+        print("-------- SisONG ---------")
         print("Escolha sua opcao")
-        print("1 - Gerenciar animais")
-        print("2 - Gerenciar pessoas")
-        print("3 - Realizar adoção")
-        print("4 - Realizar doação")
+        print("1 - Gerenciar Animais")
+        print("2 - Gerenciar Pessoas")
+        print("3 - Realizar Adoção")
+        print("4 - Realizar Doação")
         print("0 - Finalizar Sistema")
         opcao = self.le_num_inteiro("Escolha a opcao:", [0,1,2,3,4])
         return opcao
-
-TelaSistema().tela_opcoes()
