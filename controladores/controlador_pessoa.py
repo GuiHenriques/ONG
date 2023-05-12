@@ -1,4 +1,5 @@
 from telas.tela_pessoa import TelaPessoa
+from entidades.adotante import Adotante
 
 class ControladorPessoa():
 
@@ -9,13 +10,18 @@ class ControladorPessoa():
         self.__controlador_sistema = controlador_sistema
 
     def incluir_adotante(self):
-        dados_pessoa = self.__tela_pessoa.pega_dados_adotante()
+        dados_adotante = self.__tela_pessoa.pega_dados_adotante()
+        adotante = Adotante(dados_adotante['nome'], dados_adotante['cpf'], dados_adotante['data_nascimento'],
+                            dados_adotante['endereco'], dados_adotante['tipo_hab'], dados_adotante['tam_hab'], dados_adotante['outros_animais'])
+        self.__adotantes.append(adotante)
 
     def altera_adotante(self):
         pass
 
     def lista_adotante(self):
-        pass
+        for adotante in self.__adotantes:
+            self.__tela_pessoa.mostra_adotante({'nome': adotante.nome, 'cpf': adotante.cpf, 'data_nascimento': adotante.data_nascimento,
+                                                'endereco': adotante.endereco,'tipo_hab': adotante.tipo_hab, 'tam_hab': adotante.tam_hab, 'outros_animais': adotante.outros_animais})
 
     def excluir_adotante(self):
         pass

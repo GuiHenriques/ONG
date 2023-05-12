@@ -1,3 +1,4 @@
+from datetime import date,datetime
 class TelaPessoa():
     #area para tratamento de dados
     def le_num_inteiro(self, mensagem=" ", ints_validos = None):
@@ -32,31 +33,28 @@ class TelaPessoa():
     def pega_dados_adotante(self):
         nome = input('Insira seu nome: ')
         cpf = input('Insira seu cpf: ')
-        dia = input('Insira o dia em que nasceu: ')
-        mes = input('Insira o mês em que nasceu: ')
-        ano = input('Insira o ano em que nasceu: ')
+        data_nascimento = input('Insira sua data de nascimento no formato DD/MM/AAAA: ')
         endereco = input('Insira o seu endereço: ')
-        data_nascimento = list()
-        data_nascimento.append(dia)
-        data_nascimento.append(mes)
-        data_nascimento.append(ano)
-        #duas opcoes: pegar input do dia, mes e ano e depois juntar tudo, OU usar um unico input no formato dd/mm/aaaa.
-        #beneficio de ser separado seria o tratamento de casos em que a pessoa n é maior de 18.
-        '''
-        from datetime import date, datetime
-
-        data = datetime.strptime('26/08/2018', '%d/%m/%Y').date()
-
-        print(data)
-
-        dataFormatada = data.strftime('%d/%m/%Y')
-
-        print(dataFormatada)
-        '''                      
-
-        return {"nome": nome, "cpf": cpf, "data_nascimento": data_nascimento, "endereco": endereco}
+        tipo_hab = input('Insira o tipo da sua habitacao: casa ou apartamento ')
+        tam_hab = input('Insira o tamanho da sua habitacao: p, m ou g ')
+        outros_animais = input('Possui outros animais? Responda com "sim" ou "nao" ')
+        data_f = datetime.strptime(data_nascimento, '%d/%m/%Y').date()
+        #o tratamento da idade caso seja menor de idade:
+        today = date.today()
+        age = today.year - data_f.year - ((today.month, today.day) < (data_f.month, data_f.day))
+        #if age < 18:
+            #raise alguma exception.Finalizar o programa ou pedir a data de novo?
+        return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco,"tipo_hab": tipo_hab, "tam_hab": tam_hab, "outros_animais": outros_animais}
         
-        
+    def mostra_adotante(self,dados_adotante):
+        print('Nome: ', dados_adotante['nome'])
+        print('Cpf : ', dados_adotante['cpf'])
+        print('Data de nascimento: ', dados_adotante['data_nascimento'])
+        print('Endereco: ', dados_adotante['endereco'])
+        print('Tipo de habitacao: ', dados_adotante['tipo_hab'])
+        print('Tamanho da habitacao: ', dados_adotante['tam_hab'])
+        print('Possui outros animais: ', dados_adotante['outros_animais'])
+        print("\n")
         
     
     def mostra_mensagem(self,msg):
