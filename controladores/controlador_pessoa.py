@@ -14,6 +14,7 @@ class ControladorPessoa():
         adotante = Adotante(dados_adotante['nome'], dados_adotante['cpf'], dados_adotante['data_nascimento'],
                             dados_adotante['endereco'], dados_adotante['tipo_hab'], dados_adotante['tam_hab'], dados_adotante['outros_animais'])
         self.__adotantes.append(adotante)
+        self.__tela_pessoa.mostra_mensagem('Adotante incluído com sucesso! ')
 
     def pega_pessoa_por_cpf(self, cpf: str):
         for adotante in self.__adotantes:
@@ -35,6 +36,7 @@ class ControladorPessoa():
             adotante.tipo_hab = novos_dados_adotante['tipo_hab']
             adotante.tam_hab = novos_dados_adotante['tam_hab']
             adotante.outros_animais = novos_dados_adotante['outros_animais']
+            self.__tela_pessoa.mostra_mensagem('Dados do adotante alterado!')
             self.lista_adotante()
 
 
@@ -45,7 +47,13 @@ class ControladorPessoa():
                                                 'endereco': adotante.endereco,'tipo_hab': adotante.tipo_hab, 'tam_hab': adotante.tam_hab, 'outros_animais': adotante.outros_animais})
 
     def excluir_adotante(self):
-        pass
+        self.lista_adotante()
+        cpf = self.__tela_pessoa.pega_cpf()
+        adotante = self.pega_pessoa_por_cpf(cpf)
+        if adotante != None:
+            self.__adotantes.remove(adotante)
+            self.__tela_pessoa.mostra_mensagem('Adotante removido!')
+            self.lista_adotante()
 
     def incluir_doador(self):
         pass
