@@ -15,6 +15,7 @@ class TelaSistema():
                     print("Valores válidos: ", ints_validos)
 
     def tela_opcoes(self):
+
         print("-------- SisONG ---------")
         print("Escolha sua opcao")
         print("1 - Gerenciar Animais")

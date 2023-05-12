@@ -4,7 +4,6 @@ from controladores.controlador_pessoa import ControladorPessoa
 from controladores.controlador_adocao import ControladorAdocao
 from controladores.controlador_doacao import ControladorDoacao
 
-
 class ControladorSistema():
     
     def __init__(self):
