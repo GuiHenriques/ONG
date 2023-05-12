@@ -1,6 +1,10 @@
 class Animal():
+    
+    numero_chip = 0
+
     def __init__(self, nome: str, raca: str, idade:int):
-        self.__chip = int
+        self.__chip = Animal.numero_chip
+        Animal.numero_chip += 1
         self.__nome = nome
         self.__raca = raca
         self.__idade = idade

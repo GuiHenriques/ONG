@@ -31,13 +31,22 @@ class TelaAnimal:
         idade = input("Idade: ")
         return {"nome": nome, "raca": raca, "idade": idade}
 
-    def mostra_cachorro(self, dados_cachorro):
-        print("Nome:", dados_cachorro["nome"])
-        print("Raça:", dados_cachorro["raca"])
-        print("Idade:", dados_cachorro["idade"])
-        print("Tamanho:", dados_cachorro["tamanho"])
+    def mostra_cachorro(self, cachorro):
+        print("Chip:", cachorro.chip)
+        print("Nome:", cachorro.nome)
+        print("Raça:", cachorro.raca)
+        print("Idade:", cachorro.idade)
+        print("Tamanho:", cachorro.tamanho)
+        print("\n")
         
-    def mostra_gato(self, dados_gato):
-        print("Nome:", dados_gato["nome"])
-        print("Raça:", dados_gato["raca"])
-        print("Idade:", dados_gato["idade"])
+    def mostra_gato(self, gato):
+        print("Chip:", gato.chip)
+        print("Nome:", gato.nome)
+        print("Raça:", gato.raca)
+        print("Idade:", gato.idade)
+        print("\n")
+
+    def seleciona_animal(self):
+        chip = int(input("Chip do animal que deseja selecionar: "))
+        return chip
+    
