@@ -22,5 +22,5 @@ class TelaSistema():
         print("3 - Realizar Adoção")
         print("4 - Realizar Doação")
         print("0 - Finalizar Sistema")
-        opcao = self.le_num_inteiro("Escolha a opcao:", [0,1,2,3,4])
+        opcao = self.le_num_inteiro("Escolha a opcao: ", [0,1,2,3,4])
         return opcao

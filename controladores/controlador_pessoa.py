@@ -1,9 +1,8 @@
 from telas.tela_pessoa import TelaPessoa
-import controladores.controlador_sistema as ControladorSistema
 
 class ControladorPessoa:
 
-    def __init__(self, controlador_sistema: ControladorSistema):
+    def __init__(self, controlador_sistema):
         self.__adotantes = list()
         self.__doadores = list()
         self.__tela_pessoa = TelaPessoa()
