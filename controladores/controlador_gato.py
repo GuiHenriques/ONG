@@ -36,7 +36,7 @@ class ControladorGato:
     
     def exclui_gato(self):
         self.lista_gatos()
-        chip = self.__tela_gato.seleciona_animal()
+        chip = self.__tela_gato.seleciona_gato()
         gato = self.pega_gato_por_chip(chip)
 
         if gato:

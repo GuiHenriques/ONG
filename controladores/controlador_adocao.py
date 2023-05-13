@@ -3,3 +3,6 @@ class ControladorAdocao():
         self.__adocoes = list()
         #self.__tela_adocao = TelaAdocao()
         self.__controlador_sistema = controlador_sistema
+
+
+

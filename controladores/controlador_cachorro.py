@@ -38,7 +38,7 @@ class ControladorCachorro:
     
     def exclui_cachorro(self):
         self.lista_cachorros()
-        chip = self.__tela_cachorro.seleciona_animal()
+        chip = self.__tela_cachorro.seleciona_cachorro()
         cachorro = self.pega_cachorro_por_chip(chip)
 
         if cachorro:

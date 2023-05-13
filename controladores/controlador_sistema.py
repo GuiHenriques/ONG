@@ -1,7 +1,7 @@
 from telas.tela_sistema import TelaSistema
 from controladores.controlador_cachorro import ControladorCachorro
 from controladores.controlador_gato import ControladorGato
-#from controladores.controlador_pessoa import ControladorPessoa
+from controladores.controlador_pessoa import ControladorPessoa
 from controladores.controlador_adocao import ControladorAdocao
 from controladores.controlador_doacao import ControladorDoacao
 
@@ -10,7 +10,7 @@ class ControladorSistema:
     def __init__(self):
         self.__controlador_cachorro = ControladorCachorro(self)
         self.__controlador_gato = ControladorGato(self)
-        #self.__controlador_pessoa = ControladorPessoa(self)
+        self.__controlador_pessoa = ControladorPessoa(self)
         self.__controlador_adocao = ControladorAdocao(self)
         self.__controlador_doacao = ControladorDoacao(self)
         self.__tela_sistema = TelaSistema()
