@@ -1,6 +1,6 @@
 class Animal():
     
-    numero_chip = 0
+    numero_chip = 1
 
     def __init__(self, nome: str, raca: str, idade:int):
         self.__chip = Animal.numero_chip

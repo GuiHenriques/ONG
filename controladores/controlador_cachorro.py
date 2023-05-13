@@ -1,6 +1,6 @@
+from entidades.vacina import Vacina
 from entidades.cachorro import Cachorro
 from telas.tela_cachorro import TelaCachorro
-
 
 class ControladorCachorro:
 
@@ -46,6 +46,19 @@ class ControladorCachorro:
             print("Cachorro excluído com sucesso")
         else:
             print("Cachorro não encontrado")
+    
+    def adicionar_vacina(self):
+        self.lista_cachorros()
+        chip = self.__tela_cachorro.seleciona_cachorro()
+        cachorro = self.pega_cachorro_por_chip(chip)
+
+        if cachorro:
+            dados_vacina = self.__tela_cachorro.pega_dados_vacina()
+            vacina = Vacina(dados_vacina["data"], cachorro, dados_vacina["tipo"])
+            cachorro.vacinas.append(vacina)
+            print("Vacina adicionada com sucesso")
+        else:
+            print("Cachorro não encontrado")
         
     def pega_cachorro_por_chip(self, chip):
         for cachorro in self.__cachorros:
@@ -61,6 +74,7 @@ class ControladorCachorro:
                         2: self.altera_cachorro,
                         3: self.lista_cachorros,
                         4: self.exclui_cachorro,
+                        5: self.adicionar_vacina,
                         0: self.retorna}
 
         while True:

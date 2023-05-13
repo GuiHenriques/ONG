@@ -1,4 +1,4 @@
-from animal import Animal
+from entidades.animal import Animal
 from datetime import date as Date
 
 
