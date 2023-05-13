@@ -83,9 +83,9 @@ class ControladorAnimal:
 
         if gato:
             self.__gatos.remove(gato)
-            print("Gato excluído com sucesso")
+            self.__tela_animal.mostra_mensagem('Gato excluído com sucesso! ')
         else:
-            print("Gato não encontrado")
+            self.__tela_animal.mostra_mensagem("Gato não encontrado! ")
     
     def pega_cachorro_por_chip(self, chip):
         for cachorro in self.__cachorros:

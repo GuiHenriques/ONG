@@ -62,4 +62,10 @@ class TelaAnimal():
     def seleciona_animal(self):
         chip = int(input("Chip do animal que deseja selecionar: "))
         return chip
+
+    def mostra_mensagem(self, msg):
+        print()
+        print(msg)
+        print('\n')
+
     
