@@ -32,9 +32,9 @@ class ControladorAnimal:
             cachorro.raca = novos_dados_cachorro["raca"]
             cachorro.idade = novos_dados_cachorro["idade"]
             cachorro.tamanho = novos_dados_cachorro["tamanho"]
-            print("Cachorro alterado com sucesso")
+            self.__tela_animal.mostra_mensagem("Cachorro alterado com sucesso! ")
         else:
-            print("Cachorro não encontrado")
+            self.__tela_animal.mostra_mensagem("Cachorro não encontrado! ")
     
     def altera_gato(self):
         self.lista_gatos()
@@ -46,21 +46,21 @@ class ControladorAnimal:
             gato.nome = novos_dados_gato["nome"]
             gato.raca = novos_dados_gato["raca"]
             gato.idade = novos_dados_gato["idade"]
-            print("Gato alterado com sucesso")
+            self.__tela_animal.mostra_mensagem('Gato alterado com sucesso! ')
         else:
-            print("Gato não encontrado")
+            self.__tela_animal.mostra_mensagem('Gato não encontrado! ')
 
     
     def lista_cachorros(self):
         if len(self.__cachorros) == 0:
-            print("Não há cachorros cadastrados")
+            self.__tela_animal.mostra_mensagem('Não há cachorros cadastrados! ')
         else:
             for cachorro in self.__cachorros:
                 self.__tela_animal.mostra_cachorro(cachorro)
     
     def lista_gatos(self):
         if len(self.__gatos) == 0:
-            print("Não há gatos cadastrados")
+            self.__tela_animal.mostra_mensagem('Nenhum gato cadastrado! ')
         else:
             for gato in self.__gatos:
                 self.__tela_animal.mostra_gato(gato)
@@ -72,9 +72,9 @@ class ControladorAnimal:
 
         if cachorro:
             self.__cachorros.remove(cachorro)
-            print("Cachorro excluído com sucesso")
+            self.__tela_animal.mostra_mensagem('Cachorro excluído com sucesso! ')
         else:
-            print("Cachorro não encontrado")
+            self.__tela_animal.mostra_mensagem('Cachorro não encontrado! ')
     
     def exclui_gato(self):
         self.lista_gatos()
