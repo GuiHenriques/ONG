@@ -1,4 +1,5 @@
 from entidades.gato import Gato
+from entidades.vacina import Vacina
 from telas.tela_gato import TelaGato
 
 class ControladorGato:
@@ -45,6 +46,19 @@ class ControladorGato:
         else:
             print("Gato não encontrado")
     
+    def adicionar_vacina(self):
+        self.lista_gatos()
+        chip = self.__tela_gato.seleciona_gato()
+        gato = self.pega_gato_por_chip(chip)
+
+        if gato:
+            dados_vacina = self.__tela_gato.pega_dados_vacina()
+            vacina = Vacina(dados_vacina["data"], gato, dados_vacina["tipo"])
+            gato.vacinas.append(vacina)
+            print("Vacina adicionada com sucesso")
+        else:
+            print("Gato não encontrado")
+    
     def pega_gato_por_chip(self, chip):
         for gato in self.__gatos:
             if gato.chip == chip:
@@ -59,6 +73,7 @@ class ControladorGato:
                         2: self.altera_gato,
                         3: self.lista_gatos,
                         4: self.exclui_gato,
+                        5: self.adicionar_vacina,
                         0: self.retorna}
 
         while True:
