@@ -18,10 +18,11 @@ class TelaSistema():
 
         print("-------- SisONG ---------")
         print("Escolha sua opcao")
-        print("1 - Gerenciar Animais")
-        print("2 - Gerenciar Pessoas")
-        print("3 - Realizar Adoção")
-        print("4 - Realizar Doação")
+        print("1 - Gerenciar Cachorros")
+        print("2 - Gerenciar Gatos")
+        print("3 - Gerenciar Pessoas")
+        print("4 - Realizar Adoção")
+        print("5 - Realizar Doação")
         print("0 - Finalizar Sistema")
         opcao = self.le_num_inteiro("Escolha a opcao: ", [0,1,2,3,4])
         return opcao
