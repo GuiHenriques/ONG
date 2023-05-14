@@ -13,6 +13,7 @@ class ControladorCachorro:
         dados_cachorro = self.__tela_cachorro.pega_dados_cachorro()
         cachorro = Cachorro(dados_cachorro["nome"], dados_cachorro["raca"], dados_cachorro["idade"], dados_cachorro["tamanho"])
         self.__cachorros.append(cachorro)
+        self.__tela_cachorro.mostra_mensagem("Cachorro cadastrado com sucesso")
     
     def altera_cachorro(self):
         self.lista_cachorros()
@@ -25,13 +26,13 @@ class ControladorCachorro:
             cachorro.raca = novos_dados_cachorro["raca"]
             cachorro.idade = novos_dados_cachorro["idade"]
             cachorro.tamanho = novos_dados_cachorro["tamanho"]
-            print("Cachorro alterado com sucesso")
+            self.__tela_cachorro.mostra_mensagem("Cachorro alterado com sucesso")
         else:
-            print("Cachorro não encontrado")
+            self.__tela_cachorro.mostra_mensagem("Cachorro não encontrado")
     
     def lista_cachorros(self):
         if len(self.__cachorros) == 0:
-            print("Não há cachorros cadastrados")
+            self.__tela_cachorro.mostra_mensagem("Não há cachorros cadastrados")
         else:
             for cachorro in self.__cachorros:
                 self.__tela_cachorro.mostra_cachorro(cachorro)
@@ -43,9 +44,9 @@ class ControladorCachorro:
 
         if cachorro:
             self.__cachorros.remove(cachorro)
-            print("Cachorro excluído com sucesso")
+            self.__tela_cachorro.mostra_mensagem("Cachorro excluído com sucesso")
         else:
-            print("Cachorro não encontrado")
+            self.__tela_cachorro.mostra_mensagem("Cachorro não encontrado")
     
     def adicionar_vacina(self):
         self.lista_cachorros()
@@ -56,9 +57,9 @@ class ControladorCachorro:
             dados_vacina = self.__tela_cachorro.pega_dados_vacina()
             vacina = Vacina(dados_vacina["data"], cachorro, dados_vacina["tipo"])
             cachorro.vacinas.append(vacina)
-            print("Vacina adicionada com sucesso")
+            self.__tela_cachorro.mostra_mensagem("Vacina adicionada com sucesso")
         else:
-            print("Cachorro não encontrado")
+            self.__tela_cachorro.mostra_mensagem("Cachorro não encontrado")
         
     def pega_cachorro_por_chip(self, chip):
         for cachorro in self.__cachorros:

@@ -1,5 +1,8 @@
-from datetime import datetime, date
-class TelaCachorro:
+from telas.abstract_tela import AbstractTela
+from datetime import datetime
+
+
+class TelaCachorro(AbstractTela):
     
     def tela_opcoes(self):
         print("-------- CACHORROS ----------")
@@ -10,7 +13,7 @@ class TelaCachorro:
         print("5 - Adicionar Vacina")
         print("0 - Retornar")
 
-        opcao = int(input("Escolha a opcao: "))
+        opcao = self.le_opcao("Escolha a opcao: ", [0,1,2,3,4,5])
         return opcao
     
     def pega_dados_cachorro(self):
@@ -41,6 +44,7 @@ class TelaCachorro:
         return {"tipo": tipo, "data": data_f}
     
     def mostra_cachorro(self, cachorro):
+        print("---------- CACHORRO ------------")
         print("Chip:", cachorro.chip)
         print("Nome:", cachorro.nome)
         print("Raça:", cachorro.raca)
@@ -50,7 +54,7 @@ class TelaCachorro:
         if len(cachorro.vacinas) == 0:
             print("Sem vacinas")
         for vacina in cachorro.vacinas:
-            print(vacina.tipo)
+            print(vacina.tipo, end=", ")
         print("\n")
     
     def seleciona_cachorro(self):
