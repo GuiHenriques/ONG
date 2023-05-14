@@ -22,7 +22,7 @@ class ControladorPessoa:
             dados_adotante["outros_animais"],
         )
         self.__adotantes.append(adotante)
-        self.__tela_pessoa.mostra_mensagem("Adotante incluído com sucesso! ")
+        self.__tela_pessoa.mostra_mensagem("Adotante incluído com sucesso!")
 
     def pega_pessoa_por_cpf(self, cpf: str):
         for adotante in self.__adotantes:
@@ -52,6 +52,8 @@ class ControladorPessoa:
             self.lista_adotante()
 
     def lista_adotantes(self):
+        if len(self.__adotantes) == 0:
+            self.__tela_pessoa.mostra_mensagem("Não há adotantes cadastrados!")
         for adotante in self.__adotantes:
             self.__tela_pessoa.mostra_adotante({
                     "nome": adotante.nome,
@@ -99,6 +101,8 @@ class ControladorPessoa:
             self.lista_doadores()
 
     def lista_doadores(self):
+        if len(self.__doadores) == 0:
+            self.__tela_pessoa.mostra_mensagem("Não há doadores cadastrados!")
         for doador in self.__doadores:
             self.__tela_pessoa.mostra_doador({
                     "nome": doador.nome,

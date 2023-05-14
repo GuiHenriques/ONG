@@ -1,7 +1,7 @@
 from datetime import datetime
+from telas.abstract_tela import AbstractTela
 
-
-class TelaAdocao:
+class TelaAdocao(AbstractTela):
 
     def tela_opcoes(self):
         print("-------- ADOCAO ----------")
@@ -11,7 +11,7 @@ class TelaAdocao:
         print("3 - Listar Adocoes")
         print("0 - Retornar")
 
-        opcao = int(input("Escolha a opcao: "))
+        opcao = self.le_opcao("Escolha a opcao: ", [0,1,2,3])
         return opcao
     
     def pega_dados_adocao(self):
@@ -23,9 +23,8 @@ class TelaAdocao:
         return {"data": data_f, "cpf": cpf, "chip": chip}
     
     def mostra_adocao(self, adocao):
+        print("---------- ADOCAO ------------")
         print("Adotante:", adocao.adotante.nome)
         print("Animal:", adocao.animal.nome)
         print("Data:", adocao.data)
     
-    def mostra_mensagem(self, msg):
-        print(msg)
