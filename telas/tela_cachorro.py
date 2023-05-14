@@ -1,4 +1,6 @@
-from datetime import datetime, date
+from datetime import datetime
+
+
 class TelaCachorro:
     
     def tela_opcoes(self):
@@ -41,6 +43,7 @@ class TelaCachorro:
         return {"tipo": tipo, "data": data_f}
     
     def mostra_cachorro(self, cachorro):
+        print("---------- CACHORRO ------------")
         print("Chip:", cachorro.chip)
         print("Nome:", cachorro.nome)
         print("Raça:", cachorro.raca)
@@ -50,7 +53,7 @@ class TelaCachorro:
         if len(cachorro.vacinas) == 0:
             print("Sem vacinas")
         for vacina in cachorro.vacinas:
-            print(vacina.tipo)
+            print(vacina.tipo, end=", ")
         print("\n")
     
     def seleciona_cachorro(self):

@@ -32,15 +32,16 @@ class TelaPessoa():
     
     def pega_dados_adotante(self):
         print('-----------------------')
-        nome = input('Insira seu nome: ')
-        cpf = input('Insira seu cpf: ')
-        data_nascimento = input('Insira sua data de nascimento no formato DD/MM/AAAA: ')
-        endereco = input('Insira o seu endereço: ')
-        tipo_hab = input('Insira o tipo da sua habitacao: casa ou apartamento ')
-        tam_hab = input('Insira o tamanho da sua habitacao: p, m ou g ')
-        outros_animais = input('Possui outros animais? Responda com "sim" ou "nao" ')
+        nome = input('Nome: ')
+        cpf = input('Cpf: ')
+        data_nascimento = input('Data de Nascimento (DD/MM/AAAA): ')
         data_f = datetime.strptime(data_nascimento, '%d/%m/%Y').date()
-        #o tratamento da idade caso seja menor de idade:
+        endereco = input('Endereço: ')
+        tipo_hab = input('Tipo de habitacao (Casa, Ap):')
+        tam_hab = input('Insira o tamanho da sua habitacao: p, m ou g ')
+        outros_animais = input('Possui outros animais (Sim, Nao): ')
+        
+        # tratamento da idade caso seja menor de idade:
         today = date.today()
         age = today.year - data_f.year - ((today.month, today.day) < (data_f.month, data_f.day))
         #if age < 18:
@@ -49,10 +50,10 @@ class TelaPessoa():
 
     def pega_dados_doador(self):
         print('------------------------')
-        nome = input('Insira seu nome: ')
-        cpf = input('Insira seu cpf: ')
-        data_nascimento = input('Insira sua data de nascimento no formato DD/MM/AAAA: ')
-        endereco = input('Insira o seu endereço: ')
+        nome = input('Nome: ')
+        cpf = input('Cpf: ')
+        data_nascimento = input('Data de Nascimento (DD/MM/AAAA): ')
+        endereco = input('Endereço: ')
         data_f = datetime.strptime(data_nascimento, '%d/%m/%Y').date()
         # o tratamento da idade caso seja menor de idade:
         today = date.today()
@@ -62,25 +63,25 @@ class TelaPessoa():
         return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco}
 
     def mostra_adotante(self, dados_adotante):
-        print('------------ADOTANTES------------')
-        print('Nome: ', dados_adotante['nome'])
-        print('Cpf : ', dados_adotante['cpf'])
-        print('Data de nascimento: ', dados_adotante['data_nascimento'])
-        print('Endereco: ', dados_adotante['endereco'])
-        print('Tipo de habitacao: ', dados_adotante['tipo_hab'])
-        print('Tamanho da habitacao: ', dados_adotante['tam_hab'])
-        print('Possui outros animais: ', dados_adotante['outros_animais'])
-        print("\n")
+        print('------------ ADOTANTE ------------')
+        print('Nome:', dados_adotante['nome'])
+        print('Cpf:', dados_adotante['cpf'])
+        print('Data de nascimento:', dados_adotante['data_nascimento'])
+        print('Endereco:', dados_adotante['endereco'])
+        print('Tipo de habitacao (Casa, Ap):', dados_adotante['tipo_hab'])
+        print('Tamanho da habitacao (P, M, G):', dados_adotante['tam_hab'])
+        print('Possui outros animais (Sim, Nao)', dados_adotante['outros_animais'])
+        print()
 
     def mostra_doador(self, dados_doador):
-        print('------------DOADORES------------')
-        print('Nome: ', dados_doador['nome'])
-        print('Cpf : ', dados_doador['cpf'])
-        print('Data de nascimento: ', dados_doador['data_nascimento'])
-        print('Endereco: ', dados_doador['endereco'])
-        print("\n")
+        print('------------DOADOR------------')
+        print('Nome:', dados_doador['nome'])
+        print('Cpf:', dados_doador['cpf'])
+        print('Data de nascimento:', dados_doador['data_nascimento'])
+        print('Endereco:', dados_doador['endereco'])
+        print()
 
-    def pega_cpf(self):
+    def seleciona_pessoa_por_cpf(self):
         cpf = input('Insira o cpf da pessoa: ')
         return cpf
     

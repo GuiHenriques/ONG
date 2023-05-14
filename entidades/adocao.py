@@ -1,13 +1,13 @@
-from adotante import Adotante
-from animal import Animal
+from entidades.adotante import Adotante
+from entidades.animal import Animal
 from datetime import date as Date
 
 class Adocao():
-    def __init__(self, data: Date, animal: Animal, adotante: Adotante, termo_responsa: bool):
+    def __init__(self, data: Date, animal: Animal, adotante: Adotante):
         self.__data = data
         self.__animal = animal
         self.__adotante = adotante
-        self.__termo_responsa = termo_responsa
+        self.__termo_responsa = False
         
     @property
     def data(self):

@@ -9,7 +9,7 @@ class Animal():
         self.__raca = raca
         self.__idade = idade
         self.__vacinas = []
-        self.__disponivel = bool
+        self.__disponivel = False
     
     @property
     def chip(self):
@@ -47,10 +47,9 @@ class Animal():
     def vacinas(self):
         return self.__vacinas
     
-    #fazer setter de vacinas?
-    @property
-    def adocao_atual(self):
-        return self.__adocao_atual
+    @vacinas.setter
+    def adocao_atual(self, vacinas):
+        self.__vacinas = vacinas
 
     @property
     def disponivel(self):
