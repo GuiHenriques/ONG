@@ -87,6 +87,7 @@ class TelaPessoa(AbstractTela):
     def seleciona_pessoa_por_cpf(self):
         cpf = input('Insira o cpf da pessoa: ')
         return cpf
-
-
-
+    
+    def seleciona_animal(self):
+        animal = input('Deseja selecionar gato ou cachorro?: ').lower()
+        return animal

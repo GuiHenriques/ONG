@@ -21,7 +21,12 @@ class TelaCachorro(AbstractTela):
         nome = input("Nome: ")
         raca = input("Raça: ")
         idade = input("Idade: ")
-        tamanho = input("Tamanho (P, M, G): ")
+        while True:
+            tamanho = input("Tamanho (P, M, G): ").upper()
+            if tamanho in ["P", "M", "G"]:
+                break
+            else:
+                self.mostra_mensagem("Tamanho inválido")
         return {"nome": nome, "raca": raca, "idade": idade, "tamanho": tamanho}
 
     def pega_dados_vacina(self):
@@ -30,6 +35,14 @@ class TelaCachorro(AbstractTela):
         print("2 - Leptospirose")
         print("3 - Hepatite Infecciosa")
         
+        vacinas_validas = ["Raiva", "Leptospirose", "Hepatite Infecciosa"]
+        while True:
+            tipo = input("Tipo: ").capitalize()
+            if tipo in vacinas_validas or tipo in ["1", "2", "3"]:
+                break
+            else:
+                self.mostra_mensagem("Tipo inválido")
+            
         tipo = input("Tipo: ").capitalize()
         if tipo.isnumeric():
             if tipo == "1":
@@ -58,5 +71,5 @@ class TelaCachorro(AbstractTela):
         print("\n")
     
     def seleciona_cachorro(self):
-        chip = int(input("Chip do cachorro que deseja selecionar: "))
+        chip = input("Chip do cachorro que deseja selecionar: ")
         return chip

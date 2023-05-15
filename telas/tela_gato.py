@@ -28,8 +28,15 @@ class TelaGato(AbstractTela):
         print("1 - Raiva")
         print("2 - Leptospirose")
         print("3 - Hepatite Infecciosa")
+
+        vacinas_validas = ["Raiva", "Leptospirose", "Hepatite Infecciosa"]
+        while True:
+            tipo = input("Tipo: ").capitalize()
+            if tipo in vacinas_validas or tipo in ["1", "2", "3"]:
+                break
+            else:
+                self.mostra_mensagem("Tipo inválido")
         
-        tipo = input("Tipo: ").capitalize()
         if tipo.isnumeric():
             if tipo == "1":
                 tipo = "Raiva"
@@ -43,6 +50,7 @@ class TelaGato(AbstractTela):
         return {"tipo": tipo, "data": data_f}
 
     def mostra_gato(self, gato):
+        print("---------- GATO ------------")
         print("Chip:", gato.chip)
         print("Nome:", gato.nome)
         print("Raça:", gato.raca)
@@ -55,6 +63,7 @@ class TelaGato(AbstractTela):
         print("\n")
 
     def seleciona_gato(self):
-        chip = int(input("Chip do gato que deseja selecionar: "))
+        chip = input("Chip do gato que deseja selecionar: ")
+        
         return chip
     
