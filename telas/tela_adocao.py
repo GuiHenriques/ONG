@@ -8,7 +8,7 @@ class TelaAdocao(AbstractTela):
         print("Escolha a opcao")
         print("1 - Adotar Cachorro")
         print("2 - Adotar Gato")
-        print("3 - Listar Adocoes")
+        print("3 - Listar Adocoes (Relatório)")
         print("0 - Retornar")
 
         opcao = self.le_opcao("Escolha a opcao: ", [0,1,2,3])
