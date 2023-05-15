@@ -31,8 +31,9 @@ class TelaPessoa(AbstractTela):
                 today = date.today()
                 age = today.year - data_f.year - ((today.month, today.day) < (data_f.month, data_f.day))
                 if age < 18:
-                    raise AgeError
-                break
+                    print('Menores de idade não podem adotar um animal.')
+                else:
+                    break
             except ValueError:
                     self.mostra_mensagem('Data inválida, insira novamente a data, no formato DD/MM/AAAA. ')
         endereco = input('Endereço: ')
@@ -80,6 +81,3 @@ class TelaPessoa(AbstractTela):
 
 
 
-class AgeError(Exception):
-    def __init__(self):
-        super().__init__('Apenas pessoas maiores de 18 podem adotar animais. ')
