@@ -8,10 +8,11 @@ class TelaAdocao(AbstractTela):
         print("Escolha a opcao")
         print("1 - Adotar Cachorro")
         print("2 - Adotar Gato")
-        print("3 - Listar Adocoes (Relatório)")
+        print("3 - Listar todas as Adoções")
+        print("4 - Listar Adocoes por Periodo")
         print("0 - Retornar")
 
-        opcao = self.le_opcao("Escolha a opcao: ", [0,1,2,3])
+        opcao = self.le_opcao("Escolha a opcao: ", [0,1,2,3,4])
         return opcao
     
     def pega_dados_adocao(self):
@@ -44,3 +45,13 @@ class TelaAdocao(AbstractTela):
             return True
         else:
             return False
+    
+    def pega_data(self, msg):
+        while True:
+            try:
+                data_nascimento = input(msg)
+                data_f = datetime.strptime(data_nascimento, '%d/%m/%Y').date()
+                return data_f
+            except ValueError:
+                self.mostra_mensagem('Data inválida, insira novamente a data, no formato DD/MM/AAAA. ')
+

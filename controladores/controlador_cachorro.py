@@ -57,7 +57,6 @@ class ControladorCachorro:
             self.__tela_cachorro.mostra_mensagem("Não há cachorros cadastrados")
             return None
         else:
-            print("tem Cachorros disponíveis: ")
             for cachorro in self.__cachorros:
                 if cachorro.disponivel:
                     self.__tela_cachorro.mostra_cachorro(cachorro)

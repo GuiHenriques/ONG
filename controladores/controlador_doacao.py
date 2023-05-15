@@ -24,9 +24,9 @@ class ControladorDoacao():
         if (doador and gato):
             doacao = Doacao(dados_doacao["data"], gato, doador, dados_doacao["motivo"])
             self.__doacoes.append(doacao)
-            self.__tela_adocao.mostra_mensagem("Adocao realizada com sucesso!")
+            self.__tela_doacao.mostra_mensagem("Adocao realizada com sucesso!")
         else:
-            self.__tela_adocao.mostra_mensagem("Dados invalidos")
+            self.__tela_doacao.mostra_mensagem("Dados invalidos")
     
     def incluir_doacao_cachorro(self):
         lista_doadores = self.__controlador_sistema.controlador_pessoa.lista_doadores()
@@ -59,6 +59,17 @@ class ControladorDoacao():
         for doacao in self.__doacoes:
             self.__tela_doacao.mostra_doacao(doacao)
     
+    def listar_doacoes_por_periodo(self):
+        if len(self.__doacoes) == 0:
+            self.__tela_doacao.mostra_mensagem("Nenhuma doacao cadastrada")
+        else:
+            data_inicio = self.__tela_doacao.pega_data('Data de inicio (DD/MM/AAAA): ')
+            data_fim = self.__tela_doacao.pega_data('Data de fim (DD/MM/AAAA): ')
+            for doacao in self.__doacoes:
+                if doacao.date >= data_inicio and doacao.date <= data_fim:
+                    self.__tela_doacao.mostra_doacao(doacao)
+
+    
     def retornar(self):
         self.__controlador_sistema.abre_tela()
     
@@ -67,6 +78,7 @@ class ControladorDoacao():
             1: self.incluir_doacao_cachorro,
             2: self.incluir_doacao_gato,
             3: self.listar_doacoes,
+            4: self.listar_doacoes_por_periodo,
             0: self.retornar
         }
 

@@ -81,6 +81,18 @@ class ControladorAdocao():
         for adocao in self.__adocoes:
             self.__tela_adocao.mostra_adocao(adocao)
     
+    def listar_adocoes_por_periodo(self):
+        if len(self.__adocoes) == 0:
+            self.__tela_adocao.mostra_mensagem("Nenhuma adocao cadastrada")
+        else:
+            data_inicial = self.__tela_adocao.pega_data("Data inicial (DD/MM/AAAA): ")
+            data_final = self.__tela_adocao.pega_data("Data final (DD/MM/AAAA): ")
+            for adocao in self.__adocoes:
+                if adocao.data >= data_inicial and adocao.data <= data_final:
+                    self.__tela_adocao.mostra_adocao(adocao)
+        
+
+    
     def retornar(self):
         self.__controlador_sistema.abre_tela()
     
@@ -89,6 +101,7 @@ class ControladorAdocao():
             1: self.incluir_adocao_cachorro,
             2: self.incluir_adocao_gato,
             3: self.listar_adocoes,
+            5: self.listar_adocoes_por_periodo,
             0: self.retornar
         }
 
