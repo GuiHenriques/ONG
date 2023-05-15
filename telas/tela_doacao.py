@@ -27,7 +27,12 @@ class TelaDoacao(AbstractTela):
             except ValueError:
                 self.mostra_mensagem('Data inválida, insira novamente a data, no formato DD/MM/AAAA. ')
         return {"data": data_f, "cpf": cpf, "chip": chip, "motivo": motivo}
-    
+
+    def mostra_doacao(self,doacao):
+        print("---------- DOAÇÕES ------------")
+        print("Doador:", doacao.doador.nome)
+        print("Animal:", doacao.animal.nome)
+        print("Data:", doacao.date)
 
     def seleciona_pessoa_por_cpf(self):
         cpf = input('Insira o cpf da pessoa: ')
