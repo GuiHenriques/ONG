@@ -30,6 +30,14 @@ class TelaCachorro(AbstractTela):
         print("2 - Leptospirose")
         print("3 - Hepatite Infecciosa")
         
+        vacinas_validas = ["Raiva", "Leptospirose", "Hepatite Infecciosa"]
+        while True:
+            tipo = input("Tipo: ").capitalize()
+            if tipo in vacinas_validas or tipo in ["1", "2", "3"]:
+                break
+            else:
+                self.mostra_mensagem("Tipo inválido")
+            
         tipo = input("Tipo: ").capitalize()
         if tipo.isnumeric():
             if tipo == "1":

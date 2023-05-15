@@ -1,14 +1,8 @@
-class Animal:
-
-    def sleep(self):
-        return "This animal is sleeping"
-
-class Rabbit(Animal):
-
-    def run(self):
-        print("This rabbit is running")
-        print(self.sleep())
-
-
-rab = Rabbit()
-rab.run()
+vacinas_validas = ["Raiva", "Leptospirose", "Hepatite Infecciosa"]
+while True:
+    tipo = input("Tipo: ").capitalize()
+    if tipo in vacinas_validas:
+        break
+    else:
+        print("Tipo inválido")
+print("Vacina adicionada com sucesso")
