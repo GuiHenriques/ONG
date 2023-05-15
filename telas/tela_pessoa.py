@@ -37,9 +37,28 @@ class TelaPessoa(AbstractTela):
             except ValueError:
                     self.mostra_mensagem('Data inválida, insira novamente a data, no formato DD/MM/AAAA. ')
         endereco = input('Endereço: ')
-        tipo_hab = input('Tipo de habitacao (Casa, Ap):')
-        tam_hab = input('Insira o tamanho da sua habitacao: p, m ou g ')
-        outros_animais = input('Possui outros animais? (Sim, Nao): ')
+        
+        while True:
+            tipo_hab = input('Tipo de habitacao (Casa, Ap):').capitalize()
+            if tipo_hab in ["Casa", "Ap"]:
+                break
+            else:
+                self.mostra_mensagem("Tipo de habitacao inválido")
+
+        while True:
+            tam_hab = input('Tamanho da habitacao (P, M, G): ').upper()
+            if tam_hab in ["P", "M", "G"]:
+                break
+            else:
+                self.mostra_mensagem("Tamanho inválido")
+        
+        while True:
+            outros_animais = input('Possui outros animais? (Sim, Nao): ').upper()[0]
+            if outros_animais in ["S", "N"]:
+                break
+            else:
+                self.mostra_mensagem("Opcao inválida")
+                
         return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco,"tipo_hab": tipo_hab, "tam_hab": tam_hab, "outros_animais": outros_animais}
 
     def pega_dados_doador(self):
