@@ -9,15 +9,12 @@ class ControladorAdocao():
         self.__controlador_sistema = controlador_sistema
 
     def incluir_adocao_gato(self):
-        lista_adotantes = self.__controlador_sistema.controlador_pessoa.lista_adotantes()
-        lista_gatos = self.__controlador_sistema.controlador_gato.lista_gatos()
+        self.__controlador_sistema.controlador_pessoa.lista_adotantes()
+        self.__controlador_sistema.controlador_gato.lista_gatos()
         dados_adocao = self.__tela_adocao.pega_dados_adocao()
 
         adotante = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados_adocao["cpf"])
-        print(adotante.nome)
         gato = self.__controlador_sistema.controlador_gato.pega_gato_por_chip(dados_adocao["chip"])
-        print(gato.nome)
-        self.__controlador_sistema.controlador_gato.mostra_gato(gato)
 
         if (adotante and gato):
             adocao = Adocao(dados_adocao["data"], gato, adotante)
