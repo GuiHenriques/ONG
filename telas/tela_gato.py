@@ -55,7 +55,7 @@ class TelaGato(AbstractTela):
             elif tipo == "3":
                 tipo = "Hepatite Infecciosa"
         
-        data = input("Data (DD/MM/AAAA): ")
+        data = input("Data da Vacinção (DD/MM/AAAA): ")
         data_f = datetime.strptime(data, '%d/%m/%Y').date()
         return {"tipo": tipo, "data": data_f}
 

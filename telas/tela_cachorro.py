@@ -67,8 +67,8 @@ class TelaCachorro(AbstractTela):
 
         while True:
             try:
-                data_nascimento = input('Data de Nascimento (DD/MM/AAAA): ')
-                data_f = datetime.strptime(data_nascimento, '%d/%m/%Y').date()
+                data_vacinacao = input('Data de Vacinação (DD/MM/AAAA): ')
+                data_f = datetime.strptime(data_vacinacao, '%d/%m/%Y').date()
                 break
             except ValueError:
                 self.mostra_mensagem('Data inválida, insira a data no formato DD/MM/AAAA. ')

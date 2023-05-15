@@ -78,6 +78,10 @@ class ControladorCachorro:
 
         if cachorro:
             dados_vacina = self.__tela_cachorro.pega_dados_vacina()
+            for vacina in cachorro.vacinas:
+                if vacina.tipo == dados_vacina["tipo"]:
+                    self.__tela_cachorro.mostra_mensagem("Vacina já aplicada")
+                    self.retorna()
             vacina = Vacina(dados_vacina["data"], cachorro, dados_vacina["tipo"])
             cachorro.vacinas.append(vacina)
             if len(cachorro.vacinas) == 3:

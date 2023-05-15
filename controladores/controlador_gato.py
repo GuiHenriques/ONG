@@ -71,6 +71,10 @@ class ControladorGato:
 
         if gato:
             dados_vacina = self.__tela_gato.pega_dados_vacina()
+            for vacina in gato.vacinas:
+                if vacina.tipo == dados_vacina["tipo"]:
+                    self.__tela_gato.mostra_mensagem("Vacina já cadastrada")
+                    self.retorna()
             vacina = Vacina(dados_vacina["data"], gato, dados_vacina["tipo"])
             gato.vacinas.append(vacina)
             if len(gato.vacinas) == 3:
