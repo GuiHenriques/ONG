@@ -39,7 +39,7 @@ class TelaPessoa(AbstractTela):
         endereco = input('Endereço: ')
         while True:
             try:
-                tipo_hab = input('Tipo de habitação (casa, apartamento):')
+                tipo_hab = input('Tipo de habitação (casa, apartamento):').lower()
                 if tipo_hab == 'casa' or tipo_hab == 'apartamento':
                     break
                 else:
