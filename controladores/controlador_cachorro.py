@@ -17,7 +17,11 @@ class ControladorCachorro:
     
     def altera_cachorro(self):
         self.lista_cachorros()
-        chip = self.__tela_cachorro.seleciona_cachorro()
+        try:
+            chip = int(self.__tela_cachorro.seleciona_cachorro())
+        except ValueError:
+            self.__tela_cachorro.mostra_mensagem("Chip Inválido")
+            
         cachorro = self.pega_cachorro_por_chip(chip)
 
         if cachorro:
@@ -39,7 +43,11 @@ class ControladorCachorro:
     
     def exclui_cachorro(self):
         self.lista_cachorros()
-        chip = self.__tela_cachorro.seleciona_cachorro()
+        try:
+            chip = int(self.__tela_cachorro.seleciona_cachorro())
+        except ValueError:
+            self.__tela_cachorro.mostra_mensagem("Chip Inválido")
+            
         cachorro = self.pega_cachorro_por_chip(chip)
 
         if cachorro:
@@ -50,7 +58,11 @@ class ControladorCachorro:
     
     def adicionar_vacina(self):
         self.lista_cachorros()
-        chip = self.__tela_cachorro.seleciona_cachorro()
+        try:
+            chip = int(self.__tela_cachorro.seleciona_cachorro())
+        except ValueError:
+            self.__tela_cachorro.mostra_mensagem("Chip Inválido")
+            
         cachorro = self.pega_cachorro_por_chip(chip)
 
         if cachorro:
