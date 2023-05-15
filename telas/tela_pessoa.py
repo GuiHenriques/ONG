@@ -24,18 +24,22 @@ class TelaPessoa(AbstractTela):
         print('----------DADOS ADOTANTE-------------')
         nome = input('Nome: ')
         cpf = input('Cpf: ')
-        data_nascimento = input('Data de Nascimento (DD/MM/AAAA): ')
-        data_f = datetime.strptime(data_nascimento, '%d/%m/%Y').date()
+        while True:
+            try:
+                data_nascimento = input('Data de Nascimento (DD/MM/AAAA): ')
+                data_f = datetime.strptime(data_nascimento, '%d/%m/%Y').date()
+                today = date.today()
+                age = today.year - data_f.year - ((today.month, today.day) < (data_f.month, data_f.day))
+                if age < 18:
+                    print('Menores de idade não podem adotar um animal.')
+                else:
+                    break
+            except ValueError:
+                    self.mostra_mensagem('Data inválida, insira novamente a data, no formato DD/MM/AAAA. ')
         endereco = input('Endereço: ')
         tipo_hab = input('Tipo de habitacao (Casa, Ap):')
         tam_hab = input('Insira o tamanho da sua habitacao: p, m ou g ')
-        outros_animais = input('Possui outros animais (Sim, Nao): ')
-        
-        # tratamento da idade caso seja menor de idade:
-        today = date.today()
-        age = today.year - data_f.year - ((today.month, today.day) < (data_f.month, data_f.day))
-        #if age < 18:
-            #raise alguma exception.Finalizar o programa ou pedir a data de novo?
+        outros_animais = input('Possui outros animais? (Sim, Nao): ')
         return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco,"tipo_hab": tipo_hab, "tam_hab": tam_hab, "outros_animais": outros_animais}
 
     def pega_dados_doador(self):
@@ -46,17 +50,11 @@ class TelaPessoa(AbstractTela):
             try:
                 data_nascimento = input('Data de Nascimento (DD/MM/AAAA): ')
                 data_f = datetime.strptime(data_nascimento, '%d/%m/%Y').date()
-                today = date.today()
-                age = today.year - data_f.year - ((today.month, today.day) < (data_f.month, data_f.day))
                 break
             except ValueError:
-                self.mostra_mensagem('Data inválida')
-        # o tratamento da idade caso seja menor de idade:
-        # if age < 18:
-        # raise alguma exception.Finalizar o programa ou pedir a data de novo?
+                self.mostra_mensagem('Data inválida, insira novamente a data, no formato DD/MM/AAAA. ')
         endereco = input('Endereço: ')
-        animal = input('Deseja doar gato ou cachorro?: ').lower()
-        return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco, "animal": animal}
+        return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco}
 
     def mostra_adotante(self, dados_adotante):
         print('------------ ADOTANTES ------------')
