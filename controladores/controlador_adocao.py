@@ -53,10 +53,7 @@ class ControladorAdocao():
         cachorro = self.__controlador_sistema.controlador_cachorro.pega_cachorro_por_chip(dados_adocao["chip"])
         adotante = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados_adocao["cpf"])
         
-        try:
-            if cachorro.tamanho() == 'G' and adotante.tipo_hab() == 'apartamento' and adotante.tam_hab() == 'P':
-                raise ValueError
-        except:
+        if cachorro.tamanho == 'G' and adotante.tipo_hab == 'apartamento' and adotante.tam_hab == 'P':
             self.__tela_adocao.mostra_mensagem('Não é possível adotar um cachorro grande se você mora em um apartamento pequeno.' )
             self.retornar()
 
