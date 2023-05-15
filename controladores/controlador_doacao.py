@@ -32,17 +32,22 @@ class ControladorDoacao():
         lista_doadores = self.__controlador_sistema.controlador_pessoa.lista_doadores()
         lista_cachorros = self.__controlador_sistema.controlador_cachorro.lista_cachorros()
 
-        if not lista_doadores or not lista_cachorros:
-            self.__tela_doacao.mostra_mensagem("Nao ha doadores ou cachorros cadastrados")
-            self.retornar()
+        if lista_doadores is None:
+            self.__tela_doacao.mostra_mensagem("Nao ha doadores cadastrados")
+            self.abre_tela()
+
+        if lista_cachorros is None:
+            self.__tela_doacao.mostra_mensagem("Nao ha cachorros cadastrados")
+            self.abre_tela()
+
 
         dados_doacao = self.__tela_doacao.pega_dados_doacao()
 
-        adotante = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados_doacao["cpf"])
+        doador = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados_doacao["cpf"])
         cachorro = self.__controlador_sistema.controlador_cachorro.pega_cachorro_por_chip(dados_doacao["chip"])
-        
-        if (adotante and cachorro):
-            doacao = Doacao(dados_doacao["data"], cachorro, adotante)
+        motivo = dados_doacao['motivo']
+        if (doador and cachorro):
+            doacao = Doacao(dados_doacao["data"], cachorro, doador, motivo)
             self.__doacoes.append(doacao)
             self.__tela_doacao.mostra_mensagem("Doacao realizada com sucesso!")
         else:

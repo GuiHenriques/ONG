@@ -50,6 +50,7 @@ class ControladorCachorro:
         else:
             for cachorro in self.__cachorros:
                 self.__tela_cachorro.mostra_cachorro(cachorro)
+        return True
     
     def lista_cachorros_disponiveis(self):
         if len(self.__cachorros) == 0:
