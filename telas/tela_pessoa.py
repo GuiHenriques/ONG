@@ -96,7 +96,7 @@ class TelaPessoa(AbstractTela):
         print('Cpf:', dados_adotante['cpf'])
         print('Data de nascimento:', dados_adotante['data_nascimento'])
         print('Endereco:', dados_adotante['endereco'])
-        print('Tipo de habitacao (Casa, Ap):', dados_adotante['tipo_hab'])
+        print('Tipo de habitacao (Casa, Apartamento):', dados_adotante['tipo_hab'])
         print('Tamanho da habitacao (P, M, G):', dados_adotante['tam_hab'])
         print('Possui outros animais (Sim, Nao)', dados_adotante['outros_animais'])
         print()

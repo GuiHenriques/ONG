@@ -5,7 +5,7 @@ from entidades.doador import Doador
 
 class ControladorPessoa:
     def __init__(self, controlador_sistema):
-        self.__adotantes = [Adotante("Adotante1", "123", "01/01/2000", "Rua 1", "P", "G", "Sim")]
+        self.__adotantes = [Adotante("Adotante1", "123", "01/01/2000", "Rua 1", "apartamento", "G", "Sim")]
         self.__doadores = [Doador("Doador1", "456", "02/02/2000", "Rua 2")]
         self.__tela_pessoa = TelaPessoa()
         self.__controlador_sistema = controlador_sistema
