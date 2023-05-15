@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f662e0a9-6431-4f79-8fad-95bf75ab1f8d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controladores/controlador_cachorro.py" beforeDir="false" afterPath="$PROJECT_DIR$/controladores/controlador_cachorro.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controladores/controlador_doacao.py" beforeDir="false" afterPath="$PROJECT_DIR$/controladores/controlador_doacao.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/telas/tela_doacao.py" beforeDir="false" afterPath="$PROJECT_DIR$/telas/tela_doacao.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
