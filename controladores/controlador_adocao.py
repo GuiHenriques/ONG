@@ -19,9 +19,11 @@ class ControladorAdocao():
         if len(gato.vacinas) < 3 or not gato.disponivel:
             self.__tela_adocao.mostra_mensagem("Gato não disponível para adoção")
             self.retornar()
+        termo_responsa = self.__tela_adocao.assinar_termo_responsa()
 
-        if (adotante and gato):
+        if (adotante and gato and termo_responsa):
             adocao = Adocao(dados_adocao["data"], gato, adotante)
+            adocao.termo_responsa = True
             self.__adocoes.append(adocao)
             gato.disponivel = False
             self.__tela_adocao.mostra_mensagem("Adocao realizada com sucesso!")
@@ -31,6 +33,7 @@ class ControladorAdocao():
     def incluir_adocao_cachorro(self):
         self.__controlador_sistema.controlador_pessoa.lista_adotantes()
         self.__controlador_sistema.controlador_cachorro.lista_cachorros_disponiveis()
+        
         while True:
             try:
                 dados_adocao = self.__tela_adocao.pega_dados_adocao()
@@ -40,19 +43,23 @@ class ControladorAdocao():
                     raise ValueError
                 break
             except:
-                print('Não é possível adotar um cachorro grande se você mora em um apartamento pequeno.' )
-
-
+                self.__tela_adocao.mostra_mensagem('Não é possível adotar um cachorro grande se você mora em um apartamento pequeno.' )
 
         adotante = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados_adocao["cpf"])
         cachorro = self.__controlador_sistema.controlador_cachorro.pega_cachorro_por_chip(dados_adocao["chip"])
+
+        if len(cachorro.vacinas) < 3 or not cachorro.disponivel:
+            self.__tela_adocao.mostra_mensagem("Gato não disponível para adoção")
+            self.retornar()
+        termo_responsa = self.__tela_adocao.assinar_termo_responsa()
 
         if not cachorro.disponivel:
             self.__tela_adocao.mostra_mensagem("Cachorro não disponível para adoção")
             self.retornar()
         
-        if (adotante and cachorro):
+        if (adotante and cachorro and termo_responsa):
             adocao = Adocao(dados_adocao["data"], cachorro, adotante)
+            adocao.termo_responsa = True
             self.__adocoes.append(adocao)
             cachorro.disponivel = False
             self.__tela_adocao.mostra_mensagem("Adocao realizada com sucesso!")

@@ -28,3 +28,14 @@ class TelaAdocao(AbstractTela):
         print("Animal:", adocao.animal.nome)
         print("Data:", adocao.data)
 
+    def assinar_termo_responsa(self):
+        print("-------- TERMO DE RESPONSABILIDADE ----------")
+        print("1 - Assinar")
+        print("2 - Não Assinar")
+        
+        opcao = self.le_opcao("Escolha a opcao: ", [1,2])
+        
+        if opcao == 1:
+            return True
+        else:
+            return False
