@@ -43,14 +43,15 @@ class TelaPessoa(AbstractTela):
         nome = input('Nome: ')
         cpf = input('Cpf: ')
         data_nascimento = input('Data de Nascimento (DD/MM/AAAA): ')
-        endereco = input('Endereço: ')
         data_f = datetime.strptime(data_nascimento, '%d/%m/%Y').date()
-        # o tratamento da idade caso seja menor de idade:
         today = date.today()
         age = today.year - data_f.year - ((today.month, today.day) < (data_f.month, data_f.day))
+        # o tratamento da idade caso seja menor de idade:
         # if age < 18:
         # raise alguma exception.Finalizar o programa ou pedir a data de novo?
-        return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco}
+        endereco = input('Endereço: ')
+        animal = input('Deseja doar gato ou cachorro?: ').lower()
+        return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco, "animal": animal}
 
     def mostra_adotante(self, dados_adotante):
         print('------------ ADOTANTES ------------')
@@ -75,3 +76,6 @@ class TelaPessoa(AbstractTela):
         cpf = input('Insira o cpf da pessoa: ')
         return cpf
     
+    def seleciona_animal(self):
+        animal = input('Deseja selecionar gato ou cachorro?: ').lower()
+        return animal

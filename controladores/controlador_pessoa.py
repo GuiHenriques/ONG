@@ -83,6 +83,7 @@ class ControladorPessoa:
             self.__tela_pessoa.mostra_mensagem("Adotante removido!")
             self.lista_adotante()
 
+
     def incluir_doador(self):
         dados_doador = self.__tela_pessoa.pega_dados_doador()
         doador = Doador(
@@ -93,6 +94,12 @@ class ControladorPessoa:
         )
         self.__doadores.append(doador)
         self.__tela_pessoa.mostra_mensagem("Doador incluído com sucesso! ")
+        if dados_doador["animal"] == "gato":
+            self.__controlador_sistema.controlador_gato.inclui_gato()
+        elif dados_doador["animal"] == "cachorro":
+            self.__controlador_sistema.controlador_cachorro.inclui_cachorro()
+        else:
+            self.__tela_pessoa.mostra_mensagem("Animal inválido!")
 
     def altera_doador(self):
         self.lista_doadores()
