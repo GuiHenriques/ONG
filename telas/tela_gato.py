@@ -20,7 +20,17 @@ class TelaGato(AbstractTela):
         print("-------- DADOS GATO ----------")
         nome = input("Nome: ")
         raca = input("Raça: ")
-        idade = input("Idade: ")
+        
+        while True:
+            try:
+                idade = input("Idade: ")
+                idade = int(idade)
+                if idade < 0:
+                    raise ValueError
+                break
+            except ValueError:
+                self.mostra_mensagem("Idade inválida")
+                
         return {"nome": nome, "raca": raca, "idade": idade}
 
     def pega_dados_vacina(self):
