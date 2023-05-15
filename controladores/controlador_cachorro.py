@@ -65,13 +65,16 @@ class ControladorCachorro:
             self.__tela_cachorro.mostra_mensagem("Cachorro não encontrado")
     
     def adicionar_vacina(self):
-        self.lista_cachorros()
-        try:
-            chip = int(self.__tela_cachorro.seleciona_cachorro())
-        except ValueError:
-            self.__tela_cachorro.mostra_mensagem("Chip Inválido")
-            
-        cachorro = self.pega_cachorro_por_chip(chip)
+        while True:
+            try:
+                self.lista_cachorros()
+                chip = int(self.__tela_cachorro.seleciona_cachorro())
+                cachorro = self.pega_cachorro_por_chip(chip)
+                if cachorro == None:
+                    raise ValueError
+                break
+            except ValueError:
+                self.__tela_cachorro.mostra_mensagem("Chip Inválido")
 
         if cachorro:
             dados_vacina = self.__tela_cachorro.pega_dados_vacina()

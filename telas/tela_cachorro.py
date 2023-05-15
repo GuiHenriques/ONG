@@ -47,10 +47,13 @@ class TelaCachorro(AbstractTela):
         
         vacinas_validas = ["Raiva", "Leptospirose", "Hepatite Infecciosa"]
         while True:
-            tipo = input("Tipo: ").capitalize()
-            if tipo in vacinas_validas or tipo in ["1", "2", "3"]:
-                break
-            else:
+            try:
+                tipo = input("Tipo: ").capitalize()
+                if tipo in vacinas_validas or tipo in ["1", "2", "3"]:
+                    break
+                else:
+                    raise ValueError
+            except ValueError:
                 self.mostra_mensagem("Tipo inválido")
             
         if tipo.isnumeric():
@@ -60,13 +63,19 @@ class TelaCachorro(AbstractTela):
                 tipo = "Leptospirose"
             elif tipo == "3":
                 tipo = "Hepatite Infecciosa"
-        
-        data = input("Data (DD/MM/AAAA): ")
-        data_f = datetime.strptime(data, '%d/%m/%Y').date()
+
+
+        while True:
+            try:
+                data_nascimento = input('Data de Nascimento (DD/MM/AAAA): ')
+                data_f = datetime.strptime(data_nascimento, '%d/%m/%Y').date()
+                break
+            except ValueError:
+                self.mostra_mensagem('Data inválida, insira a data no formato DD/MM/AAAA. ')
         return {"tipo": tipo, "data": data_f}
     
     def mostra_cachorro(self, cachorro):
-        print("---------- CACHORRO ------------")
+        print("---------- CACHORROS ------------")
         print("Chip:", cachorro.chip)
         print("Nome:", cachorro.nome)
         print("Raça:", cachorro.raca)
