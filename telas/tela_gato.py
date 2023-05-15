@@ -63,6 +63,7 @@ class TelaGato(AbstractTela):
         print("\n")
 
     def seleciona_gato(self):
-        chip = int(input("Chip do gato que deseja selecionar: "))
+        chip = input("Chip do gato que deseja selecionar: ")
+        
         return chip
     

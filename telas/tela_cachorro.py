@@ -66,5 +66,5 @@ class TelaCachorro(AbstractTela):
         print("\n")
     
     def seleciona_cachorro(self):
-        chip = int(input("Chip do cachorro que deseja selecionar: "))
+        chip = input("Chip do cachorro que deseja selecionar: ")
         return chip

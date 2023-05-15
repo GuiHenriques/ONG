@@ -17,7 +17,10 @@ class ControladorGato:
     
     def altera_gato(self):
         self.lista_gatos()
-        chip = self.__tela_gato.seleciona_gato()
+        try:
+            chip = int(self.__tela_gato.seleciona_gato())
+        except ValueError:
+            self.__tela_gato.mostra_mensagem("Chip Inválido")
         gato = self.pega_gato_por_chip(chip)
 
         if gato:
@@ -38,7 +41,10 @@ class ControladorGato:
     
     def exclui_gato(self):
         self.lista_gatos()
-        chip = self.__tela_gato.seleciona_gato()
+        try:
+            chip = int(self.__tela_gato.seleciona_gato())
+        except ValueError:
+            self.__tela_gato.mostra_mensagem("Chip Inválido")
         gato = self.pega_gato_por_chip(chip)
 
         if gato:
@@ -49,7 +55,10 @@ class ControladorGato:
     
     def adicionar_vacina(self):
         self.lista_gatos()
-        chip = self.__tela_gato.seleciona_gato()
+        try:
+            chip = int(self.__tela_gato.seleciona_gato())
+        except ValueError:
+            self.__tela_gato.mostra_mensagem("Chip Inválido")
         gato = self.pega_gato_por_chip(chip)
 
         if gato:
