@@ -63,6 +63,7 @@ class ControladorPessoa:
     def lista_adotantes(self):
         if len(self.__adotantes) == 0:
             self.__tela_pessoa.mostra_mensagem("Não há adotantes cadastrados!")
+            return None
 
         for adotante in self.__adotantes:
             self.__tela_pessoa.mostra_adotante({
@@ -74,6 +75,7 @@ class ControladorPessoa:
                     "tam_hab": adotante.tam_hab,
                     "outros_animais": adotante.outros_animais,
                 })
+        return True
 
     def excluir_adotante(self):
         self.lista_adotante()
@@ -120,6 +122,7 @@ class ControladorPessoa:
     def lista_doadores(self):
         if len(self.__doadores) == 0:
             self.__tela_pessoa.mostra_mensagem("Não há doadores cadastrados!")
+            return None
         for doador in self.__doadores:
             self.__tela_pessoa.mostra_doador({
                     "nome": doador.nome,
@@ -127,6 +130,7 @@ class ControladorPessoa:
                     "data_nascimento": doador.data_nascimento,
                     "endereco": doador.endereco,
                 })
+        return True
 
     def excluir_doador(self):
         self.lista_doadores()

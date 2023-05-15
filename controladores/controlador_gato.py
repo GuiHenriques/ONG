@@ -35,9 +35,11 @@ class ControladorGato:
     def lista_gatos(self):
         if len(self.__gatos) == 0:
             self.__tela_gato.mostra_mensagem("Não há gatos cadastrados")
+            return None
         else:
             for gato in self.__gatos:
                 self.__tela_gato.mostra_gato(gato)
+            return True
     
     def lista_gatos_disponiveis(self):
         if len(self.__gatos) == 0:
@@ -74,7 +76,7 @@ class ControladorGato:
             for vacina in gato.vacinas:
                 if vacina.tipo == dados_vacina["tipo"]:
                     self.__tela_gato.mostra_mensagem("Vacina já cadastrada")
-                    self.retorna()
+                    self.abre_tela()
             vacina = Vacina(dados_vacina["data"], gato, dados_vacina["tipo"])
             gato.vacinas.append(vacina)
             if len(gato.vacinas) == 3:

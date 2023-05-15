@@ -12,9 +12,12 @@ class ControladorAdocao():
         lista_adotantes = self.__controlador_sistema.controlador_pessoa.lista_adotantes()
         lista_gatos = self.__controlador_sistema.controlador_gato.lista_gatos_disponiveis()
 
-        if not lista_adotantes or not lista_gatos:
-            self.__tela_adocao.mostra_mensagem("Nao ha adotantes ou gatos cadastrados")
-            self.retornar()
+        if lista_adotantes == None:
+            self.__tela_adocao.mostra_mensagem("Nao ha adotantes cadastrados")
+            self.abre_tela()
+        elif lista_gatos == None:
+            self.__tela_adocao.mostra_mensagem("Nao ha gatos disponiveis")
+            self.abre_tela()
         
         dados_adocao = self.__tela_adocao.pega_dados_adocao()
 
@@ -39,21 +42,23 @@ class ControladorAdocao():
         lista_adotantes = self.__controlador_sistema.controlador_pessoa.lista_adotantes()
         lista_cachorros = self.__controlador_sistema.controlador_cachorro.lista_cachorros_disponiveis()
 
-        if not lista_adotantes or not lista_cachorros:
-            self.__tela_adocao.mostra_mensagem("Nao ha adotantes ou cachorros cadastrados")
-            self.retornar()
+        if not lista_adotantes:
+            self.__tela_adocao.mostra_mensagem("Nao ha adotantes cadastrados")
+            self.abre_tela()
+        if not lista_cachorros:
+            self.__tela_adocao.mostra_mensagem("Nao ha cachorros disponiveis")
+            self.abre_tela()
         
         dados_adocao = self.__tela_adocao.pega_dados_adocao()
         cachorro = self.__controlador_sistema.controlador_cachorro.pega_cachorro_por_chip(dados_adocao["chip"])
         adotante = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados_adocao["cpf"])
         
-        while True:
-            try:
-                if cachorro.tamanho() == 'G' and adotante.tipo_hab() == 'apartamento' and adotante.tam_hab() == 'P':
-                    raise ValueError
-                break
-            except:
-                self.__tela_adocao.mostra_mensagem('Não é possível adotar um cachorro grande se você mora em um apartamento pequeno.' )
+        try:
+            if cachorro.tamanho() == 'G' and adotante.tipo_hab() == 'apartamento' and adotante.tam_hab() == 'P':
+                raise ValueError
+        except:
+            self.__tela_adocao.mostra_mensagem('Não é possível adotar um cachorro grande se você mora em um apartamento pequeno.' )
+            self.retornar()
 
         if len(cachorro.vacinas) < 3 or not cachorro.disponivel:
             self.__tela_adocao.mostra_mensagem("Gato não disponível para adoção")
