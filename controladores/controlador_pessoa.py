@@ -95,9 +95,9 @@ class ControladorPessoa:
         )
         self.__doadores.append(doador)
         self.__tela_pessoa.mostra_mensagem("Doador incluído com sucesso! ")
-        if dados_doador["animal"] == "gato":
+        if dados_doador["animal"] == "G":
             self.__controlador_sistema.controlador_gato.inclui_gato()
-        elif dados_doador["animal"] == "cachorro":
+        elif dados_doador["animal"] == "C":
             self.__controlador_sistema.controlador_cachorro.inclui_cachorro()
         else:
             self.__tela_pessoa.mostra_mensagem("Animal inválido!")

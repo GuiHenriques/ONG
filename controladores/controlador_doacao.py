@@ -9,8 +9,13 @@ class ControladorDoacao():
         self.__controlador_sistema = controlador_sistema
 
     def incluir_doacao_gato(self):
-        self.__controlador_sistema.controlador_pessoa.lista_doadores()
-        self.__controlador_sistema.controlador_gato.lista_gatos()
+        lista_doadores = self.__controlador_sistema.controlador_pessoa.lista_doadores()
+        lista_gatos = self.__controlador_sistema.controlador_gato.lista_gatos()
+
+        if not lista_doadores or not lista_gatos:
+            self.__tela_doacao.mostra_mensagem("Nao ha doadores ou gatos cadastrados")
+            self.retornar()
+
         dados_doacao = self.__tela_doacao.pega_dados_doacao()
 
         doador = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados_doacao["cpf"])
@@ -24,8 +29,13 @@ class ControladorDoacao():
             self.__tela_adocao.mostra_mensagem("Dados invalidos")
     
     def incluir_doacao_cachorro(self):
-        self.__controlador_sistema.controlador_pessoa.lista_doadores()
-        self.__controlador_sistema.controlador_cachorro.lista_cachorros()
+        lista_doadores = self.__controlador_sistema.controlador_pessoa.lista_doadores()
+        lista_cachorros = self.__controlador_sistema.controlador_cachorro.lista_cachorros()
+
+        if not lista_doadores or not lista_cachorros:
+            self.__tela_doacao.mostra_mensagem("Nao ha doadores ou cachorros cadastrados")
+            self.retornar()
+
         dados_doacao = self.__tela_doacao.pega_dados_doacao()
 
         adotante = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados_doacao["cpf"])

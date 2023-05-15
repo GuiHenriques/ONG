@@ -53,7 +53,6 @@ class TelaCachorro(AbstractTela):
             else:
                 self.mostra_mensagem("Tipo inválido")
             
-        tipo = input("Tipo: ").capitalize()
         if tipo.isnumeric():
             if tipo == "1":
                 tipo = "Raiva"
