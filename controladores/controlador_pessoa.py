@@ -44,7 +44,6 @@ class ControladorPessoa:
         for doador in self.__doadores:
             if doador.cpf == cpf:
                 return doador
-        self.__tela_pessoa.mostra_mensagem('Cpf não encontrado! ')
         return None
 
     def altera_adotante(self):
