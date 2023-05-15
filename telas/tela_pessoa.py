@@ -35,10 +35,19 @@ class TelaPessoa(AbstractTela):
                 else:
                     break
             except ValueError:
-                    self.mostra_mensagem('Data inválida, insira novamente a data, no formato DD/MM/AAAA. ')
+                    self.mostra_mensagem('Data inválida, insira a data no formato DD/MM/AAAA. ')
         endereco = input('Endereço: ')
-        tipo_hab = input('Tipo de habitacao (Casa, Ap):')
-        tam_hab = input('Insira o tamanho da sua habitacao: p, m ou g ')
+        while True:
+            try:
+                tipo_hab = input('Tipo de habitação (casa, apartamento):')
+                if tipo_hab == 'casa' or tipo_hab == 'apartamento':
+                    break
+                else:
+                    raise ValueError
+            except ValueError:
+                self.mostra_mensagem('Habitação inválida, insira ou "casa" ou "apartamento" como resposta. ')
+
+        tam_hab = input('Insira o tamanho da sua habitacao(p, m ou g): ')
         outros_animais = input('Possui outros animais? (Sim, Nao): ')
         return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco,"tipo_hab": tipo_hab, "tam_hab": tam_hab, "outros_animais": outros_animais}
 
