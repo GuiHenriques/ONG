@@ -20,6 +20,7 @@ class ControladorPessoa:
 
     def incluir_adotante(self):
         dados_adotante = self.__tela_pessoa.pega_dados_adotante()
+
         adotante = Adotante(
             dados_adotante["nome"],
             dados_adotante["cpf"],
