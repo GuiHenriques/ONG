@@ -21,8 +21,8 @@ class ControladorPessoa:
     def incluir_adotante(self):
         dados_adotante = self.__tela_pessoa.pega_dados_adotante()
         # verificar se o cpf já existe
-        adotante = self.pega_pessoa_por_cpf(dados_adotante["cpf"])
-        if adotante is not None:
+        pessoa = self.pega_pessoa_por_cpf(dados_adotante["cpf"])
+        if pessoa is not None:
             self.__tela_pessoa.mostra_mensagem("CPF já cadastrado!")
             return None
         adotante = Adotante(
@@ -93,6 +93,11 @@ class ControladorPessoa:
 
     def incluir_doador(self):
         dados_doador = self.__tela_pessoa.pega_dados_doador()
+        # verificar se o cpf já existe
+        doador = self.pega_pessoa_por_cpf(doador["cpf"])
+        if doador is not None:
+            self.__tela_pessoa.mostra_mensagem("CPF já cadastrado!")
+            return None
         doador = Doador(
             dados_doador["nome"],
             dados_doador["cpf"],
