@@ -5,7 +5,7 @@ from telas.tela_cachorro import TelaCachorro
 class ControladorCachorro:
 
     def __init__(self, controlador_sistema):
-        self.__cachorros = []
+        self.__cachorros = [Cachorro("Dog1", "Pastor", 2, "G"), Cachorro("Dog2", "Poodle", 3, "P")]
         self.__tela_cachorro = TelaCachorro()
         self.__controlador_sistema = controlador_sistema
     
