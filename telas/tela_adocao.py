@@ -12,7 +12,7 @@ class TelaAdocao(AbstractTela):
         print("4 - Listar Adocoes por Periodo")
         print("0 - Retornar")
 
-        opcao = self.le_opcao("Escolha a opcao: ", [0,1,2,3,4])
+        opcao = self.le_opcao("Escolha a opcao: ", [0, 1, 2, 3, 4])
         return opcao
     
     def pega_dados_adocao(self):

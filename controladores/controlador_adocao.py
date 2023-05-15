@@ -101,7 +101,7 @@ class ControladorAdocao():
             1: self.incluir_adocao_cachorro,
             2: self.incluir_adocao_gato,
             3: self.listar_adocoes,
-            5: self.listar_adocoes_por_periodo,
+            4: self.listar_adocoes_por_periodo,
             0: self.retornar
         }
 
