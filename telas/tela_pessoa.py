@@ -47,8 +47,26 @@ class TelaPessoa(AbstractTela):
             except ValueError:
                 self.mostra_mensagem('Habitação inválida, insira ou "casa" ou "apartamento" como resposta. ')
 
-        tam_hab = input('Insira o tamanho da sua habitacao(p, m ou g): ')
-        outros_animais = input('Possui outros animais? (Sim, Nao): ')
+        while True:
+            try:
+                tam_hab = input('Tamanho da habitacao (P, M, G): ').upper()
+                if tam_hab in ['P', 'M', 'G']:
+                    break
+                else:
+                    raise ValueError
+            except ValueError:
+                self.mostra_mensagem('Tamanho inválido, insira P, M ou G como resposta. ')
+        
+        while True:
+            try:
+                outros_animais = input('Possui outros animais? (Sim, Nao): ').upper()[0]
+                if outros_animais in ['S', 'N']:
+                    break
+                else:
+                    raise ValueError
+            except ValueError:
+                self.mostra_mensagem('Resposta inválida, insira "Sim" ou "Nao" como resposta. ')
+        
         return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco,"tipo_hab": tipo_hab, "tam_hab": tam_hab, "outros_animais": outros_animais}
 
     def pega_dados_doador(self):
