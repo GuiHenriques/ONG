@@ -24,14 +24,8 @@ class ControladorDoacao():
             self.__tela_adocao.mostra_mensagem("Dados invalidos")
     
     def incluir_doacao_cachorro(self):
-        lista_doadores = self.__controlador_sistema.controlador_pessoa.lista_doadores()
-        lista_cachorros = self.__controlador_sistema.controlador_cachorro.lista_cachorros()
-        if lista_doadores == None:
-            self.__tela_doacao.mostra_mensagem('Não há doadores registrados no sistema! ')
-            self.retornar()
-        if lista_cachorros == None:
-            self.__tela_doacao.mostra_mensagem('Não há cachorros registrados no sistema! ')
-            self.retornar()
+        self.__controlador_sistema.controlador_pessoa.lista_doadores()
+        self.__controlador_sistema.controlador_cachorro.lista_cachorros()
         dados_doacao = self.__tela_doacao.pega_dados_doacao()
 
         adotante = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados_doacao["cpf"])
