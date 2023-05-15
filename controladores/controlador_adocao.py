@@ -76,6 +76,7 @@ class ControladorAdocao():
             0: self.retornar
         }
 
+
         while True:
             opcao_escolhida = self.__tela_adocao.tela_opcoes()
             lista_opcoes[opcao_escolhida]()
