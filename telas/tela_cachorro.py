@@ -20,7 +20,17 @@ class TelaCachorro(AbstractTela):
         print("-------- DADOS CACHORRO ----------")
         nome = input("Nome: ")
         raca = input("Raça: ")
-        idade = input("Idade: ")
+        
+        while True:
+            try:
+                idade = input("Idade: ")
+                idade = int(idade)
+                if idade < 0:
+                    raise ValueError
+                break
+            except ValueError:
+                self.mostra_mensagem("Idade inválida")
+
         while True:
             tamanho = input("Tamanho (P, M, G): ").upper()
             if tamanho in ["P", "M", "G"]:
