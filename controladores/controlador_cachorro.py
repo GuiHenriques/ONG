@@ -5,17 +5,6 @@ from telas.tela_cachorro import TelaCachorro
 class ControladorCachorro:
 
     def __init__(self, controlador_sistema):
-        self.__cachorros = [Cachorro("Dog1", "Pastor", 2, "G")]
-        self.__cachorros[0].vacinas.append(
-            Vacina("01/01/2020", self.__cachorros[0], "Raiva")
-            )
-        self.__cachorros[0].vacinas.append(
-            Vacina("01/01/2020", self.__cachorros[0], "Leptospirose")
-            )
-        self.__cachorros[0].vacinas.append(
-            Vacina("01/01/2020", self.__cachorros[0], "Hepatite Infecciosa")
-            )
-        self.__cachorros[0].disponivel = True
         self.__tela_cachorro = TelaCachorro()
         self.__controlador_sistema = controlador_sistema
     
