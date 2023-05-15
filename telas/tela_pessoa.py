@@ -81,7 +81,8 @@ class TelaPessoa(AbstractTela):
             except ValueError:
                 self.mostra_mensagem('Data inválida, insira novamente a data, no formato DD/MM/AAAA. ')
         endereco = input('Endereço: ')
-        return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco}
+        animal = input('Doar Gato ou Cachorro: ').lower()
+        return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco, "animal": animal}
 
     def mostra_adotante(self, dados_adotante):
         print('------------ ADOTANTES ------------')

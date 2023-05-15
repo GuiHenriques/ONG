@@ -9,8 +9,13 @@ class ControladorAdocao():
         self.__controlador_sistema = controlador_sistema
 
     def incluir_adocao_gato(self):
-        self.__controlador_sistema.controlador_pessoa.lista_adotantes()
-        self.__controlador_sistema.controlador_gato.lista_gatos_disponiveis()
+        lista_adotantes = self.__controlador_sistema.controlador_pessoa.lista_adotantes()
+        lista_gatos = self.__controlador_sistema.controlador_gato.lista_gatos_disponiveis()
+
+        if len(lista_adotantes) == 0 or len(lista_gatos) == 0:
+            self.__tela_adocao.mostra_mensagem("Nao ha adotantes ou gatos cadastrados")
+            self.retornar()
+        
         dados_adocao = self.__tela_adocao.pega_dados_adocao()
 
         adotante = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados_adocao["cpf"])
@@ -31,22 +36,24 @@ class ControladorAdocao():
             self.__tela_adocao.mostra_mensagem("Dados invalidos")
     
     def incluir_adocao_cachorro(self):
-        self.__controlador_sistema.controlador_pessoa.lista_adotantes()
-        self.__controlador_sistema.controlador_cachorro.lista_cachorros_disponiveis()
+        lista_adotantes = self.__controlador_sistema.controlador_pessoa.lista_adotantes()
+        lista_cachorros = self.__controlador_sistema.controlador_cachorro.lista_cachorros_disponiveis()
+
+        if len(lista_adotantes) == 0 or len(lista_cachorros) == 0:
+            self.__tela_adocao.mostra_mensagem("Nao ha adotantes ou cachorros cadastrados")
+            self.retornar()
+        
+        dados_adocao = self.__tela_adocao.pega_dados_adocao()
+        cachorro = self.__controlador_sistema.controlador_cachorro.pega_cachorro_por_chip(dados_adocao["chip"])
+        adotante = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados_adocao["cpf"])
         
         while True:
             try:
-                dados_adocao = self.__tela_adocao.pega_dados_adocao()
-                cachorro = self.__controlador_sistema.controlador_cachorro.pega_cachorro_por_chip(dados_adocao["chip"])
-                adotante = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados_adocao["cpf"])
                 if cachorro.tamanho() == 'G' and adotante.tipo_hab() == 'apartamento' and adotante.tam_hab() == 'P':
                     raise ValueError
                 break
             except:
                 self.__tela_adocao.mostra_mensagem('Não é possível adotar um cachorro grande se você mora em um apartamento pequeno.' )
-
-        adotante = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados_adocao["cpf"])
-        cachorro = self.__controlador_sistema.controlador_cachorro.pega_cachorro_por_chip(dados_adocao["chip"])
 
         if len(cachorro.vacinas) < 3 or not cachorro.disponivel:
             self.__tela_adocao.mostra_mensagem("Gato não disponível para adoção")
