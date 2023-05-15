@@ -42,10 +42,15 @@ class TelaPessoa(AbstractTela):
         print('----------DADOS DOADOR-------------')
         nome = input('Nome: ')
         cpf = input('Cpf: ')
-        data_nascimento = input('Data de Nascimento (DD/MM/AAAA): ')
-        data_f = datetime.strptime(data_nascimento, '%d/%m/%Y').date()
-        today = date.today()
-        age = today.year - data_f.year - ((today.month, today.day) < (data_f.month, data_f.day))
+        while True:
+            try:
+                data_nascimento = input('Data de Nascimento (DD/MM/AAAA): ')
+                data_f = datetime.strptime(data_nascimento, '%d/%m/%Y').date()
+                today = date.today()
+                age = today.year - data_f.year - ((today.month, today.day) < (data_f.month, data_f.day))
+                break
+            except ValueError:
+                self.mostra_mensagem('Data inválida')
         # o tratamento da idade caso seja menor de idade:
         # if age < 18:
         # raise alguma exception.Finalizar o programa ou pedir a data de novo?

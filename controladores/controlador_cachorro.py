@@ -41,6 +41,14 @@ class ControladorCachorro:
             for cachorro in self.__cachorros:
                 self.__tela_cachorro.mostra_cachorro(cachorro)
     
+    def lista_cachorros_disponiveis(self):
+        if len(self.__cachorros) == 0:
+            self.__tela_cachorro.mostra_mensagem("Não há cachorros cadastrados")
+        else:
+            for cachorro in self.__cachorros:
+                if cachorro.disponivel:
+                    self.__tela_cachorro.mostra_cachorro(cachorro)
+
     def exclui_cachorro(self):
         self.lista_cachorros()
         try:
@@ -69,6 +77,8 @@ class ControladorCachorro:
             dados_vacina = self.__tela_cachorro.pega_dados_vacina()
             vacina = Vacina(dados_vacina["data"], cachorro, dados_vacina["tipo"])
             cachorro.vacinas.append(vacina)
+            if len(cachorro.vacinas) == 3:
+                cachorro.disponivel = True
             self.__tela_cachorro.mostra_mensagem("Vacina adicionada com sucesso")
         else:
             self.__tela_cachorro.mostra_mensagem("Cachorro não encontrado")

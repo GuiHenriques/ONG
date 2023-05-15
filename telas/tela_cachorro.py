@@ -21,7 +21,12 @@ class TelaCachorro(AbstractTela):
         nome = input("Nome: ")
         raca = input("Raça: ")
         idade = input("Idade: ")
-        tamanho = input("Tamanho (P, M, G): ")
+        while True:
+            tamanho = input("Tamanho (P, M, G): ").upper()
+            if tamanho in ["P", "M", "G"]:
+                break
+            else:
+                self.mostra_mensagem("Tamanho inválido")
         return {"nome": nome, "raca": raca, "idade": idade, "tamanho": tamanho}
 
     def pega_dados_vacina(self):
