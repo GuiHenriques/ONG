@@ -53,7 +53,7 @@ class TelaPessoa(AbstractTela):
         return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco}
 
     def mostra_adotante(self, dados_adotante):
-        print('------------ ADOTANTE ------------')
+        print('------------ ADOTANTES ------------')
         print('Nome:', dados_adotante['nome'])
         print('Cpf:', dados_adotante['cpf'])
         print('Data de nascimento:', dados_adotante['data_nascimento'])
@@ -64,7 +64,7 @@ class TelaPessoa(AbstractTela):
         print()
 
     def mostra_doador(self, dados_doador):
-        print('------------DOADOR------------')
+        print('------------DOADORES------------')
         print('Nome:', dados_doador['nome'])
         print('Cpf:', dados_doador['cpf'])
         print('Data de nascimento:', dados_doador['data_nascimento'])

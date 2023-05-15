@@ -7,10 +7,10 @@ class ControladorAdocao():
         self.__adocoes = list()
         self.__tela_adocao = TelaAdocao()
         self.__controlador_sistema = controlador_sistema
-=======
+
     def incluir_adocao_gato(self):
-        self.__controlador_sistema.controlador_pessoa.lista_adotantes()
-        self.__controlador_sistema.controlador_gato.lista_gatos()
+        lista_adotantes = self.__controlador_sistema.controlador_pessoa.lista_adotantes()
+        lista_gatos = self.__controlador_sistema.controlador_gato.lista_gatos()
         dados_adocao = self.__tela_adocao.pega_dados_adocao()
 
         adotante = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados_adocao["cpf"])
@@ -27,8 +27,14 @@ class ControladorAdocao():
             self.__tela_adocao.mostra_mensagem("Dados invalidos")
     
     def incluir_adocao_cachorro(self):
-        self.__controlador_sistema.controlador_pessoa.lista_adotantes()
-        self.__controlador_sistema.controlador_cachorro.lista_cachorros()
+        lista_adotantes = self.__controlador_sistema.controlador_pessoa.lista_adotantes()
+        lista_cachorros = self.__controlador_sistema.controlador_cachorro.lista_cachorros()
+        if lista_adotantes == None:
+            self.__tela_adocao.mostra_mensagem('Não há adotantes registrados no sistema! ')
+            self.retornar()
+        if lista_cachorros == None:
+            self.__tela_adocao.mostra_mensagem('Não há cachorros registrados no sistema! ')
+            self.retornar()
         dados_adocao = self.__tela_adocao.pega_dados_adocao()
 
         adotante = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados_adocao["cpf"])

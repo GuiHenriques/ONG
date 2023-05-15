@@ -1,6 +1,6 @@
-from doador import Doador
+from entidades.doador import Doador
 from datetime import date as Date
-from animal import Animal
+from entidades.animal import Animal
 
 class Doacao():
     def __init__(self, date: Date, animal: Animal, doador: Doador, motivo: str):

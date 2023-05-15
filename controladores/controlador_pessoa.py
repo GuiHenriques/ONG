@@ -10,6 +10,14 @@ class ControladorPessoa:
         self.__tela_pessoa = TelaPessoa()
         self.__controlador_sistema = controlador_sistema
 
+    @property
+    def adotantes(self):
+        return self.__adotantes
+
+    @property
+    def doadores(self):
+        return self.__doadores
+
     def incluir_adotante(self):
         dados_adotante = self.__tela_pessoa.pega_dados_adotante()
         adotante = Adotante(
@@ -31,10 +39,10 @@ class ControladorPessoa:
         for doador in self.__doadores:
             if doador.cpf == cpf:
                 return doador
+        self.__tela_pessoa.mostra_mensagem('Cpf não encontrado! ')
         return None
 
     def altera_adotante(self):
-        self.lista_adotante()
         cpf_adotante = self.__tela_pessoa.seleciona_pessoa_por_cpf()
         adotante = self.pega_pessoa_por_cpf(cpf_adotante)  # serve para garantir que a pessoa esta na lista
 
@@ -54,6 +62,7 @@ class ControladorPessoa:
     def lista_adotantes(self):
         if len(self.__adotantes) == 0:
             self.__tela_pessoa.mostra_mensagem("Não há adotantes cadastrados!")
+
         for adotante in self.__adotantes:
             self.__tela_pessoa.mostra_adotante({
                     "nome": adotante.nome,

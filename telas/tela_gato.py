@@ -51,7 +51,7 @@ class TelaGato(AbstractTela):
         if len(gato.vacinas) == 0:
             print("Sem vacinas")
         for vacina in gato.vacinas:
-            print(vacina.tipo)
+            print(vacina.tipo, end=', ')
         print("\n")
 
     def seleciona_gato(self):
