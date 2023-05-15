@@ -12,7 +12,7 @@ class ControladorDoacao():
         lista_doadores = self.__controlador_sistema.controlador_pessoa.lista_doadores()
         lista_gatos = self.__controlador_sistema.controlador_gato.lista_gatos()
 
-        if len(lista_doadores) == 0 or len(lista_gatos) == 0:
+        if not lista_doadores or not lista_gatos:
             self.__tela_doacao.mostra_mensagem("Nao ha doadores ou gatos cadastrados")
             self.retornar()
 
@@ -29,10 +29,10 @@ class ControladorDoacao():
             self.__tela_adocao.mostra_mensagem("Dados invalidos")
     
     def incluir_doacao_cachorro(self):
-        lista_doadoers = self.__controlador_sistema.controlador_pessoa.lista_doadores()
+        lista_doadores = self.__controlador_sistema.controlador_pessoa.lista_doadores()
         lista_cachorros = self.__controlador_sistema.controlador_cachorro.lista_cachorros()
-        
-        if len(lista_doadoers) == 0 or len(lista_cachorros) == 0:
+
+        if not lista_doadores or not lista_cachorros:
             self.__tela_doacao.mostra_mensagem("Nao ha doadores ou cachorros cadastrados")
             self.retornar()
 

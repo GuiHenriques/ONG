@@ -12,7 +12,7 @@ class ControladorAdocao():
         lista_adotantes = self.__controlador_sistema.controlador_pessoa.lista_adotantes()
         lista_gatos = self.__controlador_sistema.controlador_gato.lista_gatos_disponiveis()
 
-        if len(lista_adotantes) == 0 or len(lista_gatos) == 0:
+        if not lista_adotantes or not lista_gatos:
             self.__tela_adocao.mostra_mensagem("Nao ha adotantes ou gatos cadastrados")
             self.retornar()
         
@@ -39,7 +39,7 @@ class ControladorAdocao():
         lista_adotantes = self.__controlador_sistema.controlador_pessoa.lista_adotantes()
         lista_cachorros = self.__controlador_sistema.controlador_cachorro.lista_cachorros_disponiveis()
 
-        if len(lista_adotantes) == 0 or len(lista_cachorros) == 0:
+        if not lista_adotantes or not lista_cachorros:
             self.__tela_adocao.mostra_mensagem("Nao ha adotantes ou cachorros cadastrados")
             self.retornar()
         
