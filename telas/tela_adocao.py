@@ -16,10 +16,15 @@ class TelaAdocao(AbstractTela):
     
     def pega_dados_adocao(self):
         print("-------- DADOS ADOCAO ----------")
-        data = input("Data da Adoção (DD/MM/AAAA): ")
-        data_f = datetime.strptime(data, '%d/%m/%Y').date()
         cpf = input("CPF do Adotante: ")
         chip = int(input("Chip do Animal: "))
+        while True:
+            try:
+                data_nascimento = input('Data da Adoção (DD/MM/AAAA): ')
+                data_f = datetime.strptime(data_nascimento, '%d/%m/%Y').date()
+                break
+            except ValueError:
+                self.mostra_mensagem('Data inválida, insira novamente a data, no formato DD/MM/AAAA. ')
         return {"data": data_f, "cpf": cpf, "chip": chip}
     
     def mostra_adocao(self, adocao):
