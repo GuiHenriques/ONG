@@ -17,7 +17,10 @@ class ControladorGato:
     
     def altera_gato(self):
         self.lista_gatos()
-        chip = self.__tela_gato.seleciona_gato()
+        try:
+            chip = int(self.__tela_gato.seleciona_gato())
+        except ValueError:
+            self.__tela_gato.mostra_mensagem("Chip Inválido")
         gato = self.pega_gato_por_chip(chip)
 
         if gato:
@@ -36,9 +39,20 @@ class ControladorGato:
             for gato in self.__gatos:
                 self.__tela_gato.mostra_gato(gato)
     
+    def lista_gatos_disponiveis(self):
+        if len(self.__gatos) == 0:
+            self.__tela_gato.mostra_mensagem("Não há gatos cadastrados")
+        else:
+            for gato in self.__gatos:
+                if gato.disponivel:
+                    self.__tela_gato.mostra_gato(gato)
+    
     def exclui_gato(self):
         self.lista_gatos()
-        chip = self.__tela_gato.seleciona_gato()
+        try:
+            chip = int(self.__tela_gato.seleciona_gato())
+        except ValueError:
+            self.__tela_gato.mostra_mensagem("Chip Inválido")
         gato = self.pega_gato_por_chip(chip)
 
         if gato:
@@ -49,13 +63,18 @@ class ControladorGato:
     
     def adicionar_vacina(self):
         self.lista_gatos()
-        chip = self.__tela_gato.seleciona_gato()
+        try:
+            chip = int(self.__tela_gato.seleciona_gato())
+        except ValueError:
+            self.__tela_gato.mostra_mensagem("Chip Inválido")
         gato = self.pega_gato_por_chip(chip)
 
         if gato:
             dados_vacina = self.__tela_gato.pega_dados_vacina()
             vacina = Vacina(dados_vacina["data"], gato, dados_vacina["tipo"])
             gato.vacinas.append(vacina)
+            if len(gato.vacinas) == 3:
+                gato.disponivel = True
             self.__tela_gato.mostra_mensagem("Vacina adicionada com sucesso")
         else:
             self.__tela_gato.mostra_mensagem("Gato não encontrado")
