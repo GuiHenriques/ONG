@@ -33,6 +33,7 @@ class ControladorAdocao():
     def incluir_adocao_cachorro(self):
         self.__controlador_sistema.controlador_pessoa.lista_adotantes()
         self.__controlador_sistema.controlador_cachorro.lista_cachorros_disponiveis()
+        
         while True:
             try:
                 dados_adocao = self.__tela_adocao.pega_dados_adocao()
@@ -42,9 +43,7 @@ class ControladorAdocao():
                     raise ValueError
                 break
             except:
-                print('Não é possível adotar um cachorro grande se você mora em um apartamento pequeno.' )
-
-
+                self.__tela_adocao.mostra_mensagem('Não é possível adotar um cachorro grande se você mora em um apartamento pequeno.' )
 
         adotante = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados_adocao["cpf"])
         cachorro = self.__controlador_sistema.controlador_cachorro.pega_cachorro_por_chip(dados_adocao["chip"])
