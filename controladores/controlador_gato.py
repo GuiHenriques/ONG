@@ -47,6 +47,7 @@ class ControladorGato:
             for gato in self.__gatos:
                 if gato.disponivel:
                     self.__tela_gato.mostra_gato(gato)
+            return True
     
     def exclui_gato(self):
         self.lista_gatos()
