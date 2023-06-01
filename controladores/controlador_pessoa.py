@@ -107,8 +107,6 @@ class ControladorPessoa:
             self.__controlador_sistema.controlador_gato.inclui_gato()
         elif dados_doador["animal"] == "C":
             self.__controlador_sistema.controlador_cachorro.inclui_cachorro()
-        else:
-            self.__tela_pessoa.mostra_mensagem("Animal inválido!")
 
     def altera_doador(self):
         self.lista_doadores()
