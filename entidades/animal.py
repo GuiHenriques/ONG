@@ -2,12 +2,11 @@ class Animal():
     
     numero_chip = 1
 
-    def __init__(self, nome: str, raca: str, idade:int):
+    def __init__(self, nome: str, raca: str):
         self.__chip = Animal.numero_chip
         Animal.numero_chip += 1
         self.__nome = nome
         self.__raca = raca
-        self.__idade = idade
         self.__vacinas = []
         self.__disponivel = False
     
@@ -34,14 +33,6 @@ class Animal():
     @raca.setter
     def raca(self, raca):
         self.__raca = raca
-    
-    @property
-    def idade(self):
-        return self.__idade
-    
-    @idade.setter
-    def idade(self, idade):
-        self.__idade = idade
         
     @property
     def vacinas(self):

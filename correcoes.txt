@@ -1,0 +1,12 @@
+* ao tentar adotar gatos, disse não haver gatos disponíveis mesmo depois de ter cadastrado um gato. Acredito que aqui esteja um pouco confuso, tem a opção de cadastrar animais separada da doação, mas ao cadastrar não é possível adotá-los.
+* ao cadastrar um doador com um gato já vinculado, totalmente vacinado, ainda assim diz não ter gatos para adoção.
+* ao tentar finalmente cadastrar uma doação, com gato e doador prontinhos, indica dados invalidos sem especificar o que está errado.
+* não consegui testar nenhum registro de doação e nem adoção, mesmo corrigindo as exceções não tratadas e erros obvios no código; alunos mostraram em aula que funcionou para cachorro. Tem algum erro em gato. Arrumar para T2
+* Ao criar um doador, vc entra com o animal a ser doado, mas isso não é uma doação. Precisa criar a doação separada.
+* nos relatórios, Senti falta da listagem de animais disponíveis
+* Não gerar UML automaticamente
+* Não tem agregação e composição
+* Violação ao MVC ao passar entidades para a tela. Ver TelaAdocao, método mostra_adoção. O mesmo acontece em várias outras telas.
+* animal poderia ser abstrato também
+* sem tratamento de data na vacina dos gatos
+* tratamentos nas telas, mas não nos controladores (apenas com if-else)

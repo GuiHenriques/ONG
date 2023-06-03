@@ -9,7 +9,7 @@ class AbstractTela:
                     raise ValueError 
                 return valor_int
             except ValueError: 
-                print("Valor incorreto!")
+                print("Valor inválido")
                 if ints_validos:
                     print("Valores válidos: ", ints_validos)    
 

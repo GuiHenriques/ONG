@@ -1,0 +1,175 @@
+from telas.tela_animal import TelaAnimal
+from entidades.cachorro import Cachorro
+from entidades.gato import Gato
+from entidades.vacina import Vacina
+
+class ControladorAnimal():
+
+    def __init__(self, controlador_sistema):
+        self.__controlador_sistema = controlador_sistema
+        self.__tela_animal = TelaAnimal()
+        self.__animais = []
+        self.__tipo = None
+    
+    @property
+    def tela_animal(self):
+        return self.__tela_animal
+    
+    @property
+    def animais(self):
+        return self.__animais
+    
+    @property
+    def tipo(self):
+        return self.__tipo
+    
+    @tipo.setter
+    def tipo(self, tipo):
+        self.__tipo = tipo
+    
+    def retornar(self):
+        self.__controlador_sistema.abre_tela()
+
+    def inclui_animal(self):
+        dados_animal = self.tela_animal.pega_dados_animal(self.tipo)
+
+        if self.tipo == "Cachorro":
+            animal = Cachorro(dados_animal["nome"], dados_animal["raca"], dados_animal["tamanho"])
+        else:
+            animal = Gato(dados_animal["nome"], dados_animal["raca"])
+        
+        self.animais.append(animal)
+        self.tela_animal.mostra_mensagem(f"{self.tipo} incluído com sucesso")
+
+    def altera_animal(self):
+        self.lista_animais()
+        chip = self.pega_chip()
+        animal = self.pega_animal_por_chip(chip)
+
+        if not animal:
+            self.tela_animal.mostra_mensagem("Animal não encontrado")
+            return
+        
+        dados_animal = self.tela_animal.pega_dados_animal(self.tipo)
+
+        animal.nome = dados_animal["nome"]
+        animal.raca = dados_animal["raca"]
+        if self.tipo == "Cachorro":
+            animal.tamanho = dados_animal["tamanho"]
+
+        self.tela_animal.mostra_mensagem(f"{self.tipo} alterado com sucesso")
+
+    def lista_animais(self):
+        if len(self.animais) == 0:
+            self.tela_animal.mostra_mensagem("Nenhum animal cadastrado")
+            return
+        
+        for animal in self.animais:    
+            dados_animal = {
+                "chip": animal.chip,
+                "nome": animal.nome,
+                "raca": animal.raca,
+                }
+
+            if isinstance(animal, Cachorro):
+                dados_animal["tamanho"] = animal.tamanho
+            
+            self.tela_animal.mostra_animal(dados_animal)
+
+    
+    def lista_animais_disponiveis(self):
+        if len(self.animais) == 0:
+            self.tela_animal.mostra_mensagem("Nenhum animal cadastrado")
+            return
+        
+        for animal in self.animais:
+            if animal.disponivel:
+                dados_animal = {
+                "chip": animal.chip,
+                "nome": animal.nome,
+                "raca": animal.raca,
+                }
+
+            if isinstance(animal, Cachorro):
+                dados_animal["tamanho"] = animal.tamanho
+            
+            self.tela_animal.mostra_animal(animal)
+        
+    
+    def exclui_animal(self):
+        self.lista_animais()
+        chip = self.pega_chip()
+        animal = self.pega_animal_por_chip(chip)
+
+        if animal:
+            self.animais.remove(animal)
+            self.tela_animal.mostra_mensagem(f"{self.tipo} excluído com sucesso")
+        else:
+            self.tela_animal.mostra_mensagem("Animal não encontrado")
+
+    
+    def adicionar_vacina(self):
+        self.lista_animais()
+        chip = self.pega_chip()
+        animal = self.pega_animal_por_chip(chip)
+        
+        if not animal:
+            self.tela_animal.mostra_mensagem("Animal não encontrado")
+            return
+        
+        dados_vacina = self.tela_animal.pega_dados_vacina()
+        self.aplicar_vacina(animal, dados_vacina)
+
+    
+    def aplicar_vacina(self, animal, dados_vacina):
+        if dados_vacina["tipo"] == "Todas":
+            tipos = ["Raiva", "Lepitospirose", "Hepatite Infecciosa"]
+            for tipo in tipos:
+                vacina = Vacina(tipo, dados_vacina["data"])
+                animal.vacinas.append(vacina)
+            
+            self.tela_animal.mostra_mensagem("Vacinas aplicadas com sucesso")
+            animal.disponivel = True
+
+        else:
+            for vacina in animal.vacinas:
+                if vacina.tipo == dados_vacina["tipo"]:
+                    self.tela_animal.mostra_mensagem(f"Vacina de {vacina.tipo} já foi aplicada")
+                    return
+                
+            vacina = Vacina(dados_vacina["tipo"], dados_vacina["data"])
+            animal.vacinas.append(vacina)
+            self.tela_animal.mostra_mensagem("Vacina aplicada com sucesso")
+
+
+    def pega_chip(self):
+        try:
+            chip = int(self.tela_animal.seleciona_animal())
+        except ValueError:
+            self.tela_animal.mostra_mensagem("Chip Inválido")
+        return chip
+    
+    def pega_animal_por_chip(self, chip):
+        for animal in self.animais:
+            if animal.chip == chip:
+                return animal
+        return None
+    
+    def tipo_animal(self):
+        self.tipo = self.tela_animal.seleciona_tipo_animal()
+        self.abre_tela()
+
+    def abre_tela(self):
+        lista_opcoes = {
+            1: self.inclui_animal,
+            2: self.altera_animal,
+            3: self.lista_animais,
+            4: self.lista_animais_disponiveis,
+            5: self.exclui_animal,
+            6: self.adicionar_vacina,
+            0: self.retornar
+        }
+
+        while True:
+            opcao_escolhida = self.tela_animal.tela_opcoes(self.tipo)
+            lista_opcoes[opcao_escolhida]()
