@@ -7,6 +7,8 @@ class ControladorPessoa:
     def __init__(self, controlador_sistema):
         self.__tela_pessoa = TelaPessoa()
         self.__controlador_sistema = controlador_sistema
+        self.__adotantes = []
+        self.__doadores = []
 
     @property
     def adotantes(self):

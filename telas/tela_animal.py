@@ -1,8 +1,8 @@
-from telas.abstract_tela import AbstactTela
+from telas.abstract_tela import AbstractTela
 from datetime import datetime
 
     
-class TelaAnimal(AbstactTela):
+class TelaAnimal(AbstractTela):
 
     def tela_opcoes(self, animal):
         print(f"-------- {animal} --------")
@@ -11,9 +11,10 @@ class TelaAnimal(AbstactTela):
         print(f"3 - Listar {animal}s")
         print(f"4 - Listar {animal}s disponíveis")
         print(f"5 - Excluir {animal}")
+        print("6 - Adicionar Vacina")
         print(f"0 - Retornar")
 
-        opcao = self.le_opcao("Escolha a opção: ", [1, 2, 3, 4, 5, 0])
+        opcao = self.le_opcao("Escolha a opção: ", [1, 2, 3, 4, 5, 6, 0])
         return opcao
     
     def pega_dados_animal(self, animal):
@@ -58,15 +59,22 @@ class TelaAnimal(AbstactTela):
         print("Selecione o tipo de animal")
         print("1 - Cachorro")
         print("2 - Gato")
-        tipo = self._le_numero_inteiro("Escolha a opção: ", [1, 2])
+        tipo = self.le_opcao("Escolha a opção: ", [1, 2])
         animal = "Cachorro" if tipo == 1 else "Gato"
         return animal
     
     def mostra_animal(self, dados_animal):
         print("-------- Animal --------")
+        print(f"Chip: {dados_animal['chip']}")
         print(f"Nome: {dados_animal['nome']}")
         print(f"Raça: {dados_animal['raca']}")
-        
         if "tamanho" in dados_animal:
             print(f"Tamanho: {dados_animal['tamanho']}")
+        print(f"Vacinas: ", end="")
+        if len(dados_animal['vacinas']) == 0:
+            print(" Nenhuma")
+        for vacina in dados_animal['vacinas']:
+            print(vacina.tipo, end=", ")
+        print()
+        
     
