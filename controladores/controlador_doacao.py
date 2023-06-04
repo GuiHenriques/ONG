@@ -1,4 +1,3 @@
-from entidades.gato import Cachorro
 from entidades.doacao import Doacao
 from telas.tela_doacao import TelaDoacao
 
