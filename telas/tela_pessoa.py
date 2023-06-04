@@ -95,5 +95,16 @@ class TelaPessoa(AbstractTela):
         return cpf
     
     def seleciona_animal(self):
-        animal = input('Deseja selecionar gato ou cachorro?: ').lower()
+        print("Selecione o tipo de animal")
+        print("1 - Cachorro")
+        print("2 - Gato")
+        
+        tipo = self.le_opcao("Escolha a opção: ", [1, 2])
+        
+        match tipo:
+            case 1:
+                animal = "Cachorro"
+            case 2:
+                animal = "Gato"
+
         return animal

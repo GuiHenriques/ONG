@@ -17,9 +17,6 @@ class TelaDoacao(AbstractTela):
 
     def pega_dados_doacao(self):
         print("-------- DADOS DOACAO ----------")
-        cpf = input("CPF do Doador: ")
-        chip = int(input("Chip do Animal: "))
-        motivo = input("Motivo da Doação: ")
         while True:
             try:
                 data_nascimento = input('Data da doacao (DD/MM/AAAA): ')
@@ -27,10 +24,12 @@ class TelaDoacao(AbstractTela):
                 break
             except ValueError:
                 self.mostra_mensagem('Data inválida, insira novamente a data, no formato DD/MM/AAAA. ')
-        return {"data": data_f, "cpf": cpf, "chip": chip, "motivo": motivo}
+        motivo = input("Motivo da Doação: ")
+        return {"data": data_f, "motivo": motivo}
 
     def mostra_doacao(self,doacao):
         print("---------- DOAÇÕES ------------")
+        print("Data:", )
         print("Doador:", doacao.doador.nome)
         print("Animal:", doacao.animal.nome)
         print("Data:", doacao.date)

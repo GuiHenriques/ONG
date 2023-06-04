@@ -118,6 +118,9 @@ class ControladorAnimal():
     
     def aplicar_vacina(self, animal, dados_vacina):
         if dados_vacina["tipo"] == "Todas":
+            if len(animal.vacinas) > 0:
+                self.tela_animal.mostra_mensagem("Animal já possui alguma vacina")
+                return
             tipos = ["Raiva", "Lepitospirose", "Hepatite Infecciosa"]
             for tipo in tipos:
                 vacina = Vacina(dados_vacina["data"], animal, tipo)
@@ -132,7 +135,7 @@ class ControladorAnimal():
                     self.tela_animal.mostra_mensagem(f"Vacina de {vacina.tipo} já foi aplicada")
                     return
                 
-            vacina = Vacina(dados_vacina["tipo"], dados_vacina["data"])
+            vacina = Vacina(dados_vacina["data"], animal, dados_vacina["tipo"])
             animal.vacinas.append(vacina)
             self.tela_animal.mostra_mensagem("Vacina aplicada com sucesso")
 

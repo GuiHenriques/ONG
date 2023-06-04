@@ -18,7 +18,6 @@ class ControladorPessoa:
     def pessoas(self):
         return self.__pessoas
 
-
     def incluir_pessoa(self):
         dados_pessoa = self.tela_pessoa.pega_dados_pessoa(self.tipo)
 
@@ -44,6 +43,10 @@ class ControladorPessoa:
 
         self.pessoas.append(pessoa)
         self.tela_pessoa.mostra_mensagem(f"{self.tipo} incluído com sucesso!")
+        animal = self.tela_pessoa.seleciona_animal()
+        self.__controlador_sistema.controlador_animal.tipo = animal
+        animal = self.__controlador_sistema.controlador_animal.inclui_animal()
+        self.__controlador_sistema.controlador_doacao.inclui_doacao(animal, pessoa)
 
     
 
