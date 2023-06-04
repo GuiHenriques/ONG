@@ -27,8 +27,6 @@ class ControladorAnimal():
     def tipo(self, tipo):
         self.__tipo = tipo
     
-    def retornar(self):
-        self.__controlador_sistema.abre_tela()
 
     def inclui_animal(self):
         dados_animal = self.tela_animal.pega_dados_animal(self.tipo)
@@ -60,19 +58,6 @@ class ControladorAnimal():
         self.tela_animal.mostra_mensagem(f"{self.tipo} alterado com sucesso")
 
     def lista_animais(self):
-        if len(self.animais) == 0:
-            self.tela_animal.mostra_mensagem("Nenhum animal cadastrado")
-            return
-        
-        for animal in self.animais:    
-            dados_animal = {"chip": animal.chip,"nome": animal.nome, "raca": animal.raca, "vacinas": animal.vacinas}
-
-            if isinstance(animal, Cachorro):
-                dados_animal["tamanho"] = animal.tamanho
-            
-            self.tela_animal.mostra_animal(dados_animal)
-    
-    def lista_animal(self):
         condicao = lambda animal: isinstance(animal, Cachorro) if self.tipo == "Cachorro" else isinstance(animal, Gato)
         
         if len([animal for animal in self.animais if condicao(animal)]) == 0:
@@ -84,11 +69,9 @@ class ControladorAnimal():
             
             if self.tipo == "Cachorro" and isinstance(animal, Cachorro):
                     dados_animal["tamanho"] = animal.tamanho
-                    self.tela_animal.mostra_animal(dados_animal)
-            elif self.tipo == "Gato" and isinstance(animal, Gato):
-                self.tela_animal.mostra_animal(dados_animal)
-
     
+            self.tela_animal.mostra_animal(dados_animal)
+
     def lista_animais_disponiveis(self):
         condicao = lambda animal: isinstance(animal, Cachorro) and animal.disponivel if self.tipo == "Cachorro" else isinstance(animal, Gato) and animal.disponivel
         if len([animal for animal in self.animais if condicao(animal)]) == 0:
@@ -170,12 +153,16 @@ class ControladorAnimal():
     def tipo_animal(self):
         self.tipo = self.tela_animal.seleciona_tipo_animal()
         self.abre_tela()
+    
+    def retornar(self):
+        self.__controlador_sistema.abre_tela()
+
 
     def abre_tela(self):
         lista_opcoes = {
             1: self.inclui_animal,
             2: self.altera_animal,
-            3: self.lista_animal,
+            3: self.lista_animais,
             4: self.lista_animais_disponiveis,
             5: self.exclui_animal,
             6: self.adicionar_vacina,

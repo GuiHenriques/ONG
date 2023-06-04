@@ -4,26 +4,23 @@ from datetime import date,datetime
 
 class TelaPessoa(AbstractTela):
         
-    def tela_opcoes(self):
-        print("-------- Pessoa ----------")
+    def tela_opcoes(self, tipo):
+        print(f"-------- {tipo} ----------")
         print("Escolha a opcao")
-        print("1 - Incluir Adotante")
-        print("2 - Alterar Adotante")
-        print("3 - Listar Adotantes")
-        print("4 - Excluir Adotante")
-        print("5 - Incluir Doador")
-        print("6 - Alterar Doador")
-        print("7 - Listar Doadores")
-        print("8 - Excluir Doador")
+        print(f"1 - Incluir {tipo}")
+        print(f"2 - Alterar {tipo}")
+        print(f"3 - Listar {tipo}s") if tipo == 'Adotante' else print(f"3 - Listar {tipo}es")
+        print(f"4 - Excluir {tipo}")
         print("0 - Retornar")
     
-        opcao = self.le_opcao("Escolha uma opcao: ", [0,1,2,3,4,5,6,7,8])
+        opcao = self.le_opcao("Escolha uma opcao: ", [0,1,2,3,4])
         return opcao
+
     
-    def pega_dados_adotante(self):
+    def pega_dados_pessoa(self, tipo):
         print('----------DADOS ADOTANTE-------------')
         nome = input('Nome: ')
-        cpf = input('Cpf: ')
+        cpf = input('CPF: ')
         while True:
             try:
                 data_nascimento = input('Data de Nascimento (DD/MM/AAAA): ')
@@ -37,78 +34,62 @@ class TelaPessoa(AbstractTela):
             except ValueError:
                     self.mostra_mensagem('Data inválida, insira a data no formato DD/MM/AAAA. ')
         endereco = input('Endereço: ')
-        while True:
-            try:
-                tipo_hab = input('Tipo de habitação (casa, apartamento):').lower()
-                if tipo_hab == 'casa' or tipo_hab == 'apartamento':
-                    break
-                else:
-                    raise ValueError
-            except ValueError:
-                self.mostra_mensagem('Habitação inválida, insira ou "casa" ou "apartamento" como resposta. ')
+        if tipo == 'Adotante':
+            while True:
+                try:
+                    tipo_hab = input('Tipo de habitação (casa, apartamento):').lower()
+                    if tipo_hab == 'casa' or tipo_hab == 'apartamento':
+                        break
+                    else:
+                        raise ValueError
+                except ValueError:
+                    self.mostra_mensagem('Habitação inválida, insira ou "casa" ou "apartamento" como resposta. ')
 
-        while True:
-            try:
-                tam_hab = input('Tamanho da habitacao (P, M, G): ').upper()
-                if tam_hab in ['P', 'M', 'G']:
-                    break
-                else:
-                    raise ValueError
-            except ValueError:
-                self.mostra_mensagem('Tamanho inválido, insira P, M ou G como resposta. ')
+            while True:
+                try:
+                    tam_hab = input('Tamanho da habitacao (P, M, G): ').upper()
+                    if tam_hab in ['P', 'M', 'G']:
+                        break
+                    else:
+                        raise ValueError
+                except ValueError:
+                    self.mostra_mensagem('Tamanho inválido, insira P, M ou G como resposta. ')
+            
+            while True:
+                try:
+                    outros_animais = input('Possui outros animais? (Sim, Nao): ').upper()[0]
+                    if outros_animais in ['S', 'N']:
+                        break
+                    else:
+                        raise ValueError
+                except ValueError:
+                    self.mostra_mensagem('Resposta inválida, insira "Sim" ou "Nao" como resposta. ')
+            return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco,"tipo_hab": tipo_hab, "tam_hab": tam_hab, "outros_animais": outros_animais}
         
-        while True:
-            try:
-                outros_animais = input('Possui outros animais? (Sim, Nao): ').upper()[0]
-                if outros_animais in ['S', 'N']:
-                    break
-                else:
-                    raise ValueError
-            except ValueError:
-                self.mostra_mensagem('Resposta inválida, insira "Sim" ou "Nao" como resposta. ')
-        
-        return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco,"tipo_hab": tipo_hab, "tam_hab": tam_hab, "outros_animais": outros_animais}
+        return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco}
 
-    def pega_dados_doador(self):
-        print('----------DADOS DOADOR-------------')
-        nome = input('Nome: ')
-        cpf = input('Cpf: ')
-        while True:
-            try:
-                data_nascimento = input('Data de Nascimento (DD/MM/AAAA): ')
-                data_f = datetime.strptime(data_nascimento, '%d/%m/%Y').date()
-                break
-            except ValueError:
-                self.mostra_mensagem('Data inválida, insira novamente a data, no formato DD/MM/AAAA. ')
-        endereco = input('Endereço: ')
-        
-        while True:
-            animal = input('Doar Gato ou Cachorro (G, C): ').upper()[0]
-            if animal in ['G', 'C']:
-                break
-            else:
-                self.mostra_mensagem('Resposta inválida, insira G ou C como resposta. ')
-        return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco, "animal": animal}
 
-    def mostra_adotante(self, dados_adotante):
-        print('------------ ADOTANTES ------------')
-        print('Nome:', dados_adotante['nome'])
-        print('Cpf:', dados_adotante['cpf'])
-        print('Data de nascimento:', dados_adotante['data_nascimento'])
-        print('Endereco:', dados_adotante['endereco'])
-        print('Tipo de habitacao:', dados_adotante['tipo_hab'])
-        print('Tamanho da habitacao:', dados_adotante['tam_hab'])
-        print('Possui outros animais:', dados_adotante['outros_animais'])
+    def mostra_pessoa(self, dados_pessoa):
+        print('------------ Pessoa ------------')
+        print('Nome:', dados_pessoa['nome'])
+        print('Cpf:', dados_pessoa['cpf'])
+        print('Data de nascimento:', dados_pessoa['data_nascimento'])
+        print('Endereco:', dados_pessoa['endereco'])
+        if 'tipo_hab' in dados_pessoa:
+            print('Tipo de habitacao:', dados_pessoa['tipo_hab'])
+            print('Tamanho da habitacao:', dados_pessoa['tam_hab'])
+            print('Possui outros animais:', dados_pessoa['outros_animais'])
         print()
 
-    def mostra_doador(self, dados_doador):
-        print('------------DOADORES------------')
-        print('Nome:', dados_doador['nome'])
-        print('Cpf:', dados_doador['cpf'])
-        print('Data de nascimento:', dados_doador['data_nascimento'])
-        print('Endereco:', dados_doador['endereco'])
-        print()
+    def seleciona_tipo_pessoa(self):
+        print("-------- Pessoa ----------")
+        print("1 - Adotante")
+        print("2 - Doador")
 
+        tipo = self.le_opcao("Escolha a opção: ", [1, 2])
+        animal = "Adotante" if tipo == 1 else "Doador"
+        return animal
+    
     def seleciona_pessoa_por_cpf(self):
         cpf = input('Insira o cpf da pessoa: ')
         return cpf
