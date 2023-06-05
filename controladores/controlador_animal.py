@@ -19,14 +19,6 @@ class ControladorAnimal():
     def animais(self):
         return self.__animais
     
-    @property
-    def tipo(self):
-        return self.__tipo
-    
-    @tipo.setter
-    def tipo(self, tipo):
-        self.__tipo = tipo
-    
 
     def inclui_animal(self):
         dados_animal = self.tela_animal.pega_dados_animal(self.tipo)
@@ -38,6 +30,7 @@ class ControladorAnimal():
         
         self.animais.append(animal)
         self.tela_animal.mostra_mensagem(f"{self.tipo} incluído com sucesso")
+        return animal
 
     def altera_animal(self):
         self.lista_animais()

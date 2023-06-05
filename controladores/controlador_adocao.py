@@ -10,6 +10,7 @@ class ControladorAdocao():
 
     def incluir_adocao_gato(self):
         ...
+    
     def incluir_adocao_cachorro(self):
         ...
 

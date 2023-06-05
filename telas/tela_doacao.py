@@ -4,19 +4,18 @@ from telas.abstract_tela import AbstractTela
 class TelaDoacao(AbstractTela):
 
     def tela_opcoes(self):
-        print("-------- DOACAO ----------")
+        print("-------- Doação ----------")
         print("Escolha a opcao")
-        print("1 - Doar Cachorro")
-        print("2 - Doar Gato")
-        print("3 - Listar todas as Doações")
-        print("4 - Listar Doações por Periodo")
+        print("1 - Doar Animal")
+        print("2 - Listar todas as Doações")
+        print("3 - Listar Doações por Periodo")
         print("0 - Retornar")
 
         opcao = self.le_opcao("Escolha a opcao: ", [0, 1, 2, 3, 4])
         return opcao
 
     def pega_dados_doacao(self):
-        print("-------- DADOS DOACAO ----------")
+        print("-------- Dados Doação ----------")
         while True:
             try:
                 data_nascimento = input('Data da doacao (DD/MM/AAAA): ')
@@ -27,23 +26,16 @@ class TelaDoacao(AbstractTela):
         motivo = input("Motivo da Doação: ")
         return {"data": data_f, "motivo": motivo}
 
-    def mostra_doacao(self,doacao):
-        print("---------- DOAÇÕES ------------")
-        print("Data:", )
-        print("Doador:", doacao.doador.nome)
-        print("Animal:", doacao.animal.nome)
-        print("Data:", doacao.date)
+    def mostra_doacao(self, dados_doacao):
+        print("---------- Doação ------------")
+        print("Data:", dados_doacao["data"])
+        print("Doador:", dados_doacao["doador"])
+        print("Animal:", dados_doacao["animal"])
+        print("Motivo:", dados_doacao["motivo"])
 
     def seleciona_pessoa_por_cpf(self):
         cpf = input('Insira o cpf da pessoa: ')
         return cpf
-
-    def mostra_doacao(self, doacao):
-        print("---------- DOACAO ------------")
-        print("Doador:", doacao.doador.nome)
-        print("Animal:", doacao.animal.nome)
-        print("Data:", doacao.date)
-        print("Motivo:", doacao.motivo)
 
     def pega_data(self, msg):
         while True:

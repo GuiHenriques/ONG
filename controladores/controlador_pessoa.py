@@ -18,7 +18,7 @@ class ControladorPessoa:
     def pessoas(self):
         return self.__pessoas
 
-    def incluir_pessoa(self):
+    def inclui_pessoa(self):
         dados_pessoa = self.tela_pessoa.pega_dados_pessoa(self.tipo)
 
         if self.tipo == "Adotante":
@@ -43,10 +43,12 @@ class ControladorPessoa:
 
         self.pessoas.append(pessoa)
         self.tela_pessoa.mostra_mensagem(f"{self.tipo} incluído com sucesso!")
-        animal = self.tela_pessoa.seleciona_animal()
-        self.__controlador_sistema.controlador_animal.tipo = animal
-        animal = self.__controlador_sistema.controlador_animal.inclui_animal()
-        self.__controlador_sistema.controlador_doacao.inclui_doacao(animal, pessoa)
+        
+        if self.tipo == "Doador":
+            tipo_animal = self.tela_pessoa.seleciona_animal()
+            self.__controlador_sistema.controlador_animal.tipo = tipo_animal
+            animal = self.__controlador_sistema.controlador_animal.inclui_animal()
+            self.__controlador_sistema.controlador_doacao.inclui_doacao_direta(animal, pessoa)
 
     
 
@@ -96,7 +98,7 @@ class ControladorPessoa:
         
             self.tela_pessoa.mostra_pessoa(dados_pessoa)
 
-    def excluir_pessoa(self):
+    def exclui_pessoa(self):
         if not self.lista_pessoas():
             return
         cpf = self.tela_pessoa.seleciona_pessoa_por_cpf()
@@ -124,10 +126,10 @@ class ControladorPessoa:
 
     def abre_tela(self):
         lista_opcoes = {
-            1: self.incluir_pessoa,
+            1: self.inclui_pessoa,
             2: self.altera_pessoa,
             3: self.lista_pessoas,
-            4: self.excluir_pessoa,
+            4: self.exclui_pessoa,
             0: self.retornar,
         }
 

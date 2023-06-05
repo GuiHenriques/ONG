@@ -18,7 +18,7 @@ class TelaPessoa(AbstractTela):
 
     
     def pega_dados_pessoa(self, tipo):
-        print('----------DADOS ADOTANTE-------------')
+        print(f'----------Dados {tipo}-------------')
         nome = input('Nome: ')
         cpf = input('CPF: ')
         while True:
