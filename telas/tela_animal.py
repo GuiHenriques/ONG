@@ -56,9 +56,15 @@ class TelaAnimal(AbstractTela):
         elif tipo == 4:
             tipo = "Todas"
 
-        data = input("Data (DD/MM/AAAA): ")
-        
-        return {"tipo": tipo, "data": data}
+        while True:
+            try:
+                data = input("Data (DD/MM/AAAA): ")
+                data_f = datetime.strptime(data, '%d/%m/%Y').date()
+                break
+            except ValueError:
+                self.mostra_mensagem('Data inválida, insira a data no formato DD/MM/AAAA. ')
+
+        return {"tipo": tipo, "data": data_f}
     
     def seleciona_animal(self):
         chip = input("Chip do animal: ")
