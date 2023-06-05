@@ -2,20 +2,20 @@ from entidades.doador import Doador
 from datetime import date as Date
 from entidades.animal import Animal
 
-class Doacao():
-    def __init__(self, date: Date, animal: Animal, doador: Doador, motivo: str):
-        self.__date = date
+class Doacao:
+    def __init__(self, data: Date, animal: Animal, doador: Doador, motivo: str):
+        self.__data = data
         self.__animal = animal
         self.__doador = doador
         self.__motivo = motivo
         
     @property
-    def date(self):
-        return self.__date
+    def data(self):
+        return self.__data
     
-    @date.setter
-    def date(self, date):
-        self.__date = date
+    @data.setter
+    def data(self, data):
+        self.__data = data
     
     @property
     def animal(self):

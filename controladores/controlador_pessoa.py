@@ -5,162 +5,133 @@ from entidades.doador import Doador
 
 class ControladorPessoa:
     def __init__(self, controlador_sistema):
-        self.__tela_pessoa = TelaPessoa()
         self.__controlador_sistema = controlador_sistema
+        self.__tela_pessoa = TelaPessoa()
+        self.__pessoas = []
+        self.__tipo = None
+    
+    @property
+    def tela_pessoa(self):
+        return self.__tela_pessoa
 
     @property
-    def adotantes(self):
-        return self.__adotantes
+    def pessoas(self):
+        return self.__pessoas
 
-    @property
-    def doadores(self):
-        return self.__doadores
+    def inclui_pessoa(self):
+        dados_pessoa = self.tela_pessoa.pega_dados_pessoa(self.tipo)
 
-    def incluir_adotante(self):
-        dados_adotante = self.__tela_pessoa.pega_dados_adotante()
-        # verificar se o cpf já existe
-        pessoa = self.pega_pessoa_por_cpf(dados_adotante["cpf"])
-        if pessoa is not None:
-            self.__tela_pessoa.mostra_mensagem("CPF já cadastrado!")
+        if self.tipo == "Adotante":
+            pessoa = Adotante(
+                dados_pessoa["nome"],
+                dados_pessoa["cpf"],
+                dados_pessoa["data_nascimento"],
+                dados_pessoa["endereco"],
+                dados_pessoa["tipo_hab"],
+                dados_pessoa["tam_hab"],
+                dados_pessoa["outros_animais"],
+            )
+        else:
+            pessoa = Doador(
+                dados_pessoa["nome"],
+                dados_pessoa["cpf"],
+                dados_pessoa["data_nascimento"],
+                dados_pessoa["endereco"],
+            )
+        
+        # CPF repetido
+
+        self.pessoas.append(pessoa)
+        self.tela_pessoa.mostra_mensagem(f"{self.tipo} incluído com sucesso!")
+        
+        if self.tipo == "Doador":
+            tipo_animal = self.tela_pessoa.seleciona_animal()
+            self.__controlador_sistema.controlador_animal.tipo = tipo_animal
+            animal = self.__controlador_sistema.controlador_animal.inclui_animal()
+            self.__controlador_sistema.controlador_doacao.inclui_doacao_direta(animal, pessoa)
+
+    
+
+    def altera_pessoa(self):
+        if not self.lista_pessoas():
+            return
+        cpf = self.tela_pessoa.seleciona_pessoa_por_cpf()
+        pessoa = self.pega_pessoa_por_cpf(cpf)
+
+        if pessoa:
+            novos_dados_pessoa = self.tela_pessoa.pega_dados_pessoa(self.tipo)
+            pessoa.nome = novos_dados_pessoa["nome"]
+            pessoa.cpf = novos_dados_pessoa["cpf"]
+            pessoa.data_nascimento = novos_dados_pessoa["data_nascimento"]
+            pessoa.endereco = novos_dados_pessoa["endereco"]
+            
+            if self.tipo == "Adotante":
+                pessoa.tipo_hab = novos_dados_pessoa["tipo_hab"]
+                pessoa.tam_hab = novos_dados_pessoa["tam_hab"]
+                pessoa.outros_animais = novos_dados_pessoa["outros_animais"]
+            
+            self.tela_pessoa.mostra_mensagem(f"Dados do {self.tipo} alterado!")
+        
+        else:
+            self.tela_pessoa.mostra_mensagem("CPF não cadastrado!")
+            
+
+    def lista_pessoas(self):
+        condicao = lambda pessoa: isinstance(pessoa, Adotante) if self.tipo == "Adotante" else isinstance(pessoa, Doador)
+        
+        if len([pessoa for pessoa in self.pessoas if condicao(pessoa)]) == 0:
+            self.tela_pessoa.mostra_mensagem(f"Não tem {self.tipo} cadastrado!")
             return None
-        adotante = Adotante(
-            dados_adotante["nome"],
-            dados_adotante["cpf"],
-            dados_adotante["data_nascimento"],
-            dados_adotante["endereco"],
-            dados_adotante["tipo_hab"],
-            dados_adotante["tam_hab"],
-            dados_adotante["outros_animais"],
-        )
-        self.__adotantes.append(adotante)
-        self.__tela_pessoa.mostra_mensagem("Adotante incluído com sucesso!")
+
+        for pessoa in self.pessoas:
+            dados_pessoa = {
+                "nome": pessoa.nome, 
+                "cpf": pessoa.cpf,
+                "data_nascimento": pessoa.data_nascimento,
+                "endereco": pessoa.endereco,
+            }
+            
+            if self.tipo == "Adotante" and isinstance(pessoa, Adotante):
+                dados_pessoa["tipo_hab"] = pessoa.tipo_hab
+                dados_pessoa["tam_hab"] = pessoa.tam_hab
+                dados_pessoa["outros_animais"] = pessoa.outros_animais
+        
+            self.tela_pessoa.mostra_pessoa(dados_pessoa)
+
+    def exclui_pessoa(self):
+        if not self.lista_pessoas():
+            return
+        cpf = self.tela_pessoa.seleciona_pessoa_por_cpf()
+        pessoa = self.pega_pessoa_por_cpf(cpf)
+        
+        if pessoa:
+            self.pessoas.remove(pessoa)
+            self.tela_pessoa.mostra_mensagem(f"{self.tipo} removido!")
+        else:
+            self.tela_pessoa.mostra_mensagem("CPF não cadastrado!")
+
 
     def pega_pessoa_por_cpf(self, cpf: str):
-        for adotante in self.__adotantes:
-            if adotante.cpf == cpf:
-                return adotante
-        for doador in self.__doadores:
-            if doador.cpf == cpf:
-                return doador
+        for pessoa in self.pessoas:
+            if pessoa.cpf == cpf:
+                return pessoa
         return None
-
-    def altera_adotante(self):
-        cpf_adotante = self.__tela_pessoa.seleciona_pessoa_por_cpf()
-        adotante = self.pega_pessoa_por_cpf(cpf_adotante)  # serve para garantir que a pessoa esta na lista
-
-        if adotante != None:
-            # if cpf(is not None):
-            novos_dados_adotante = self.__tela_pessoa.pega_dados_adotante()
-            adotante.nome = novos_dados_adotante["nome"]
-            adotante.cpf = novos_dados_adotante["cpf"]
-            adotante.data_nascimento = novos_dados_adotante["data_nascimento"]
-            adotante.endereco = novos_dados_adotante["endereco"]
-            adotante.tipo_hab = novos_dados_adotante["tipo_hab"]
-            adotante.tam_hab = novos_dados_adotante["tam_hab"]
-            adotante.outros_animais = novos_dados_adotante["outros_animais"]
-            self.__tela_pessoa.mostra_mensagem("Dados do adotante alterado!")
-            self.lista_adotante()
-
-    def lista_adotantes(self):
-        if len(self.__adotantes) == 0:
-            self.__tela_pessoa.mostra_mensagem("Não há adotantes cadastrados!")
-            return None
-
-        for adotante in self.__adotantes:
-            self.__tela_pessoa.mostra_adotante({
-                    "nome": adotante.nome,
-                    "cpf": adotante.cpf,
-                    "data_nascimento": adotante.data_nascimento,
-                    "endereco": adotante.endereco,
-                    "tipo_hab": adotante.tipo_hab,
-                    "tam_hab": adotante.tam_hab,
-                    "outros_animais": adotante.outros_animais,
-                })
-        return True
-
-    def excluir_adotante(self):
-        self.lista_adotante()
-        cpf = self.__tela_pessoa.pega_cpf()
-        adotante = self.pega_pessoa_por_cpf(cpf)
-        if adotante != None:
-            self.__adotantes.remove(adotante)
-            self.__tela_pessoa.mostra_mensagem("Adotante removido!")
-            self.lista_adotante()
-
-
-    def incluir_doador(self):
-        dados_doador = self.__tela_pessoa.pega_dados_doador()
-        # verificar se o cpf já existe
-        doador = self.pega_pessoa_por_cpf(doador["cpf"])
-        if doador is not None:
-            self.__tela_pessoa.mostra_mensagem("CPF já cadastrado!")
-            return None
-        doador = Doador(
-            dados_doador["nome"],
-            dados_doador["cpf"],
-            dados_doador["data_nascimento"],
-            dados_doador["endereco"],
-        )
-        self.__doadores.append(doador)
-        self.__tela_pessoa.mostra_mensagem("Doador incluído com sucesso! ")
-        if dados_doador["animal"] == "G":
-            self.__controlador_sistema.controlador_gato.inclui_gato()
-        elif dados_doador["animal"] == "C":
-            self.__controlador_sistema.controlador_cachorro.inclui_cachorro()
-
-    def altera_doador(self):
-        self.lista_doadores()
-        cpf_doador = self.__tela_pessoa.pega_cpf()
-        doador = self.pega_pessoa_por_cpf(cpf_doador)  # serve para garantir que a pessoa esta na lista
-
-        if doador != None:
-            # if cpf(is not None):
-            novos_dados_doador = self.__tela_pessoa.pega_dados_doador()
-            doador.nome = novos_dados_doador["nome"]
-            doador.cpf = novos_dados_doador["cpf"]
-            doador.data_nascimento = novos_dados_doador["data_nascimento"]
-            doador.endereco = novos_dados_doador["endereco"]
-            self.__tela_pessoa.mostra_mensagem("Dados do doador alterado!")
-            self.lista_doadores()
-
-    def lista_doadores(self):
-        if len(self.__doadores) == 0:
-            self.__tela_pessoa.mostra_mensagem("Não há doadores cadastrados!")
-            return None
-        for doador in self.__doadores:
-            self.__tela_pessoa.mostra_doador({
-                    "nome": doador.nome,
-                    "cpf": doador.cpf,
-                    "data_nascimento": doador.data_nascimento,
-                    "endereco": doador.endereco,
-                })
-        return True
-
-    def excluir_doador(self):
-        self.lista_doadores()
-        cpf = self.__tela_pessoa.pega_cpf()
-        doador = self.pega_pessoa_por_cpf(cpf)
-        if doador != None:
-            self.__doadores.remove(doador)
-            self.__tela_pessoa.mostra_mensagem("Doador removido!")
-            self.lista_doadores()
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
 
+    def tipo_pessoa(self):
+        self.tipo = self.tela_pessoa.seleciona_tipo_pessoa()
+        self.abre_tela()
+
     def abre_tela(self):
         lista_opcoes = {
-            1: self.incluir_adotante,
-            2: self.altera_adotante,
-            3: self.lista_adotantes,
-            4: self.excluir_adotante,
-            5: self.incluir_doador,
-            6: self.altera_doador,
-            7: self.lista_doadores,
-            8: self.excluir_doador,
+            1: self.inclui_pessoa,
+            2: self.altera_pessoa,
+            3: self.lista_pessoas,
+            4: self.exclui_pessoa,
             0: self.retornar,
         }
 
-        continua = True
-        while continua:
-            lista_opcoes[self.__tela_pessoa.tela_opcoes()]()
+        while True:
+            lista_opcoes[self.tela_pessoa.tela_opcoes(self.tipo)]()
