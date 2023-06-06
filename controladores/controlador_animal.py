@@ -37,8 +37,8 @@ class ControladorAnimal():
         chip = self.pega_chip()
         animal = self.pega_animal_por_chip(chip)
 
+
         if not animal:
-            self.tela_animal.mostra_mensagem("Animal não encontrado")
             return
         
         dados_animal = self.tela_animal.pega_dados_animal(self.tipo)
@@ -62,14 +62,18 @@ class ControladorAnimal():
             
             if self.tipo == "Cachorro" and isinstance(animal, Cachorro):
                     dados_animal["tamanho"] = animal.tamanho
+                    self.tela_animal.mostra_animal(dados_animal)
+            
+            elif self.tipo == "Gato" and isinstance(animal, Gato):
+                    self.tela_animal.mostra_animal(dados_animal)
+        return True
     
-            self.tela_animal.mostra_animal(dados_animal)
 
     def lista_animais_disponiveis(self):
         condicao = lambda animal: isinstance(animal, Cachorro) and animal.disponivel if self.tipo == "Cachorro" else isinstance(animal, Gato) and animal.disponivel
         if len([animal for animal in self.animais if condicao(animal)]) == 0:
             self.tela_animal.mostra_mensagem(f"Nenhum {self.tipo} disponível")
-            return
+            return None
         
         for animal in self.animais:
             if animal.disponivel:
@@ -82,6 +86,7 @@ class ControladorAnimal():
                 elif isinstance(animal, Cachorro) and self.tipo == "Cachorro":
                     dados_animal["tamanho"] = animal.tamanho
                     self.tela_animal.mostra_animal(dados_animal)
+        return True
         
     
     def exclui_animal(self):
@@ -89,11 +94,10 @@ class ControladorAnimal():
         chip = self.pega_chip()
         animal = self.pega_animal_por_chip(chip)
 
+
         if animal:
             self.animais.remove(animal)
             self.tela_animal.mostra_mensagem(f"{self.tipo} excluído com sucesso")
-        else:
-            self.tela_animal.mostra_mensagem("Animal não encontrado")
 
     
     def adicionar_vacina(self):
@@ -102,7 +106,6 @@ class ControladorAnimal():
         animal = self.pega_animal_por_chip(chip)
         
         if not animal:
-            self.tela_animal.mostra_mensagem("Animal não encontrado")
             return
         
         dados_vacina = self.tela_animal.pega_dados_vacina()
@@ -112,7 +115,7 @@ class ControladorAnimal():
     def aplicar_vacina(self, animal, dados_vacina):
         if dados_vacina["tipo"] == "Todas":
             if len(animal.vacinas) > 0:
-                self.tela_animal.mostra_mensagem("Animal já possui alguma vacina")
+                self.tela_animal.mostra_mensagem("Animal já possui alguma vacina, insira as outras separadamente")
                 return
             tipos = ["Raiva", "Lepitospirose", "Hepatite Infecciosa"]
             for tipo in tipos:
@@ -134,16 +137,18 @@ class ControladorAnimal():
 
 
     def pega_chip(self):
-        try:
-            chip = int(self.tela_animal.seleciona_animal())
-        except ValueError:
-            self.tela_animal.mostra_mensagem("Chip Inválido")
-        return chip
+        while True:    
+            try:
+                chip = int(self.tela_animal.seleciona_animal())
+                return chip
+            except ValueError:
+                self.tela_animal.mostra_mensagem("Chip Inválido")
     
     def pega_animal_por_chip(self, chip):
         for animal in self.animais:
             if animal.chip == chip:
                 return animal
+        self.tela_animal.mostra_mensagem("Animal não encontrado")
         return None
     
     def tipo_animal(self):

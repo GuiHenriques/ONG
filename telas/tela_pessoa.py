@@ -20,7 +20,7 @@ class TelaPessoa(AbstractTela):
     def pega_dados_pessoa(self, tipo):
         print(f'----------Dados {tipo}-------------')
         nome = input('Nome: ')
-        cpf = input('CPF: ')
+        cpf = self.pega_cpf()
         while True:
             try:
                 data_nascimento = input('Data de Nascimento (DD/MM/AAAA): ')
@@ -90,21 +90,13 @@ class TelaPessoa(AbstractTela):
         animal = "Adotante" if tipo == 1 else "Doador"
         return animal
     
-    def seleciona_pessoa_por_cpf(self):
-        cpf = input('Insira o cpf da pessoa: ')
+    def pega_cpf(self):
+        while True:
+            try:
+                cpf = input('CPF: ')
+                if not cpf.isnumeric():
+                    raise ValueError
+                break
+            except ValueError:
+                self.mostra_mensagem('CPF inválido, insira apenas números. ')
         return cpf
-    
-    def seleciona_animal(self):
-        print("Selecione o tipo de animal")
-        print("1 - Cachorro")
-        print("2 - Gato")
-        
-        tipo = self.le_opcao("Escolha a opção: ", [1, 2])
-        
-        match tipo:
-            case 1:
-                animal = "Cachorro"
-            case 2:
-                animal = "Gato"
-
-        return animal
