@@ -37,7 +37,7 @@ class TelaAnimal(AbstractTela):
 
         tipo = self.le_opcao("Escolha a opção: ", [1, 2, 3, 4])
 
-        '''match tipo:
+        match tipo:
             case 1:
                 tipo = "Raiva"
             case 2:
@@ -45,16 +45,7 @@ class TelaAnimal(AbstractTela):
             case 3:
                 tipo = "Hepatite Infecciosa"
             case 4:
-                tipo = "Todas"'''
-
-        if tipo == 1:
-            tipo = "Raiva"
-        elif tipo == 2:
-            tipo = "Lepitospirose"
-        elif tipo == 3:
-            tipo = "Hepatite Infecciosa"
-        elif tipo == 4:
-            tipo = "Todas"
+                tipo = "Todas"
 
         while True:
             try:

@@ -19,8 +19,11 @@ class ControladorPessoa:
         return self.__pessoas
 
     def inclui_pessoa(self):
-        dados_pessoa = self.tela_pessoa.pega_dados_pessoa(self.tipo)
-
+        dados_pessoa = self.tela_pessoa.pega_dados_pessoa(self.tipo,self.__pessoas)
+        for pessoa in self.pessoas:
+            if dados_pessoa['cpf'] == pessoa.cpf:
+                self.__tela_pessoa.mostra_mensagem('Cpf repetido! ')
+                self.__tela_pessoa.pega_dados_pessoa(self.tipo)
         if self.tipo == "Adotante":
             pessoa = Adotante(
                 dados_pessoa["nome"],

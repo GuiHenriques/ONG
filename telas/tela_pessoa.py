@@ -17,10 +17,20 @@ class TelaPessoa(AbstractTela):
         return opcao
 
     
-    def pega_dados_pessoa(self, tipo):
+    def pega_dados_pessoa(self, tipo, pessoas):
         print(f'----------Dados {tipo}-------------')
         nome = input('Nome: ')
-        cpf = input('CPF: ')
+        while True:
+            cpf = input('CPF: ')
+            for pessoa in pessoas:
+                if cpf == pessoa.cpf:
+                    self.mostra_mensagem('Cpf repetido!')
+                    break
+            else:
+                break
+
+
+
         while True:
             try:
                 data_nascimento = input('Data de Nascimento (DD/MM/AAAA): ')
