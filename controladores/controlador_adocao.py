@@ -42,9 +42,7 @@ class ControladorAdocao():
 
 
     def verifica_adocao(self):
-        print("Verificando adocao")
         # verifica lista de adotantes vazia
-        self.__controlador_sistema.controlador_pessoa.tipo = "Adotante"
         print(f"Lista de {self.__controlador_sistema.controlador_pessoa.tipo}s:")
         if not self.__controlador_sistema.controlador_pessoa.lista_pessoas():
             return None
