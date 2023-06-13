@@ -5,7 +5,6 @@ class TelaDoacao(AbstractTela):
 
     def tela_opcoes(self):
         print("-------- Doação ----------")
-        print("Escolha a opcao")
         print("1 - Doar Animal")
         print("2 - Listar todas as Doações")
         print("3 - Listar Doações por Periodo")
