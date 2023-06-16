@@ -8,7 +8,7 @@ class ControladorAnimal():
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela_animal = TelaAnimal()
-        self.__animais = []
+        self.__animais = [Cachorro("Rex", "Vira-lata", "G"), Gato("Mingau", "Persa")]
         self.__tipo = None
     
     @property
@@ -19,6 +19,13 @@ class ControladorAnimal():
     def animais(self):
         return self.__animais
     
+    @property
+    def tipo(self):
+        return self.__tipo
+    
+    @tipo.setter
+    def tipo(self, tipo):
+        self.__tipo = tipo
 
     def inclui_animal(self):
         dados_animal = self.tela_animal.pega_dados_animal(self.tipo)
@@ -67,7 +74,6 @@ class ControladorAnimal():
             elif self.tipo == "Gato" and isinstance(animal, Gato):
                     self.tela_animal.mostra_animal(dados_animal)
         return True
-    
 
     def lista_animais_disponiveis(self):
         condicao = lambda animal: isinstance(animal, Cachorro) and animal.disponivel if self.tipo == "Cachorro" else isinstance(animal, Gato) and animal.disponivel
@@ -87,7 +93,6 @@ class ControladorAnimal():
                     dados_animal["tamanho"] = animal.tamanho
                     self.tela_animal.mostra_animal(dados_animal)
         return True
-        
     
     def exclui_animal(self):
         self.lista_animais()
@@ -98,7 +103,6 @@ class ControladorAnimal():
         if animal:
             self.animais.remove(animal)
             self.tela_animal.mostra_mensagem(f"{self.tipo} excluído com sucesso")
-
     
     def adicionar_vacina(self):
         self.lista_animais()
@@ -110,8 +114,7 @@ class ControladorAnimal():
         
         dados_vacina = self.tela_animal.pega_dados_vacina()
         self.aplicar_vacina(animal, dados_vacina)
-
-    
+  
     def aplicar_vacina(self, animal, dados_vacina):
         if dados_vacina["tipo"] == "Todas":
             if len(animal.vacinas) > 0:
@@ -135,7 +138,6 @@ class ControladorAnimal():
             animal.vacinas.append(vacina)
             self.tela_animal.mostra_mensagem("Vacina aplicada com sucesso")
 
-
     def pega_chip(self):
         while True:    
             try:
@@ -157,7 +159,6 @@ class ControladorAnimal():
     
     def retornar(self):
         self.__controlador_sistema.abre_tela()
-
 
     def abre_tela(self):
         lista_opcoes = {

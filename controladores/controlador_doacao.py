@@ -60,8 +60,7 @@ class ControladorDoacao():
         
         if n_doacoes == 0:
             self.tela_doacao.mostra_mensagem("Nenhuma doacao cadastrada no periodo")
-
-    
+  
     def retornar(self):
         self.__controlador_sistema.abre_tela()
     
