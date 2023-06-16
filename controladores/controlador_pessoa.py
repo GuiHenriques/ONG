@@ -134,6 +134,7 @@ class ControladorPessoa:
 
     def tipo_pessoa(self):
         self.tipo = self.tela_pessoa.seleciona_tipo_pessoa()
+        if not self.tipo: self.retornar()
         self.abre_tela()
 
     def abre_tela(self):

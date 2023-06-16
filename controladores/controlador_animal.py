@@ -155,6 +155,7 @@ class ControladorAnimal():
     
     def tipo_animal(self):
         self.tipo = self.tela_animal.seleciona_tipo_animal()
+        if not self.tipo: self.retornar()
         self.abre_tela()
     
     def retornar(self):

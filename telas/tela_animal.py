@@ -68,8 +68,11 @@ class TelaAnimal(AbstractTela):
         print("Selecione o tipo de animal")
         print("1 - Cachorro")
         print("2 - Gato")
+        print("0 - Retornar")
         
-        tipo = self.le_opcao("Escolha a opção: ", [1, 2])
+        tipo = self.le_opcao("Escolha a opção: ", [0, 1, 2])
+        if tipo == 0: return None
+        
         animal = "Cachorro" if tipo == 1 else "Gato"
         return animal
     
