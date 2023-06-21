@@ -1,3 +1,4 @@
+import PySimpleGUI as sg
 from telas.abstract_tela import AbstractTela
 from datetime import datetime
 
