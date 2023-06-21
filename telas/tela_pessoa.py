@@ -1,10 +1,13 @@
 from telas.abstract_tela import AbstractTela
 from datetime import date, datetime
-
+import PySimpleGUI as sg
 
 class TelaPessoa(AbstractTela):
+    def __init__(self):
+        self.__window = None
+        self.seleciona_tipo_pessoa()
 
-    def tela_opcoes(self, tipo):
+    '''def tela_opcoes(self, tipo):
         print(f"-------- {tipo} ----------")
         print("Escolha a opcao")
         print(f"1 - Incluir {tipo}")
@@ -14,7 +17,23 @@ class TelaPessoa(AbstractTela):
         print("0 - Retornar")
 
         opcao = self.le_opcao("Escolha uma opcao: ", [0, 1, 2, 3, 4])
+        return opcao'''
+
+    def tela_opcoes(self):
+    #metodo para pegar se quer adotante ou doador
+
+        self.seleciona_tipo_pessoa()
+        button, values = self.__window.Read()
+        opcao = 0
+        if values['1']:
+            opcao = 'adotante'
+        if values['2']:
+            opcao = 'doador'
+        if values ['0'] or button in (None, 'Cancelar'):
+            opcao = 0
+        self.close()
         return opcao
+    #teoricamente eh para reto
 
     def pega_dados_pessoa(self, tipo):
         print(f'----------Dados {tipo}-------------')
@@ -80,7 +99,7 @@ class TelaPessoa(AbstractTela):
             print('Possui outros animais:', dados_pessoa['outros_animais'])
         print()
 
-    def seleciona_tipo_pessoa(self):
+    '''def seleciona_tipo_pessoa(self):
         print("-------- Pessoa ----------")
         print("1 - Adotante")
         print("2 - Doador")
@@ -90,7 +109,21 @@ class TelaPessoa(AbstractTela):
         if tipo == 0: return None
 
         animal = "Adotante" if tipo == 1 else "Doador"
-        return animal
+        return animal'''
+
+    def seleciona_tipo_pessoa(self):
+        #equivalente ao tela_opcoes nos outros controladores, porem
+        #eh desse jeito pois eh a tela intermediaria
+        sg.ChangeLookAndFeel('DarkBlue4')
+        layout = [
+            [sg.Text('-------- Adotante ou Doador ----------', font=("Arial", 25))],
+            [sg.Text('Escolha sua opção', font=("Arial", 15))],
+            [sg.Radio('Adotante', "RD1", key='1')],
+            [sg.Radio('Doador', "RD1", key='2')],
+            [sg.Radio('Retornar', "RD1", key='0')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Pessoas').Layout(layout)
 
     def pega_cpf(self):
         while True:
@@ -102,3 +135,6 @@ class TelaPessoa(AbstractTela):
             except ValueError:
                 self.mostra_mensagem('CPF inválido, insira apenas números. ')
         return cpf
+
+    def close(self):
+        self.__window.Close()

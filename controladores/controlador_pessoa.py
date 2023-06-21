@@ -140,6 +140,9 @@ class ControladorPessoa:
         if not self.tipo: self.retornar()
         self.abre_tela()
 
+    def escolhe_pessoa(self):
+        self.tela_pessoa.tela_opcoes()
+
     def abre_tela(self):
         lista_opcoes = {
             1: self.inclui_pessoa,

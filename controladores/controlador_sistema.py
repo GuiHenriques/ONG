@@ -36,7 +36,7 @@ class ControladorSistema:
         self.__controlador_animal.tipo_animal()
 
     def controle_pessoa(self):
-        self.__controlador_pessoa.tipo_pessoa()
+        self.__controlador_pessoa.escolhe_pessoa()
 
     def controle_adocao(self):
         self.__controlador_adocao.abre_tela()
