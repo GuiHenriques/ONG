@@ -32,6 +32,7 @@ class ControladorAdocao():
         # verifica se o animal tem as 3 vacinas
 
         if not self.tela_adocao.assinar_termo_responsa():
+            self.tela_adocao.mostra_mensagem("Termo de responsabilidade não assinado")
             return
 
         adocao = Adocao(data, animal, adotante)
@@ -60,6 +61,11 @@ class ControladorAdocao():
         animal = self.__controlador_sistema.controlador_animal.pega_animal_por_chip(dados["chip"])
         if not animal:
             return None
+        if not animal.disponivel:
+            self.tela_adocao.mostra_mensagem("Animal não disponível para adoção")
+            return None
+        
+
         
         # verifica pessoa invalida
         pessoa = self.__controlador_sistema.controlador_pessoa.pega_pessoa_por_cpf(dados["cpf"])

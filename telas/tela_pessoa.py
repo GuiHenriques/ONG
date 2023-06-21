@@ -85,8 +85,11 @@ class TelaPessoa(AbstractTela):
         print("-------- Pessoa ----------")
         print("1 - Adotante")
         print("2 - Doador")
+        print("0 - Retornar")
 
         tipo = self.le_opcao("Escolha a opção: ", [1, 2])
+        if tipo == 0: return None
+        
         animal = "Adotante" if tipo == 1 else "Doador"
         return animal
     

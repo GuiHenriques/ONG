@@ -1,7 +1,11 @@
-class Animal():
+from abc import ABC, abstractmethod
+
+
+class Animal(ABC):
     
     numero_chip = 1
 
+    @abstractmethod
     def __init__(self, nome: str, raca: str):
         self.__chip = Animal.numero_chip
         Animal.numero_chip += 1
