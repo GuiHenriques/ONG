@@ -1,9 +1,9 @@
 from telas.abstract_tela import AbstractTela
-from datetime import date,datetime
+from datetime import date, datetime
 
 
 class TelaPessoa(AbstractTela):
-        
+
     def tela_opcoes(self, tipo):
         print(f"-------- {tipo} ----------")
         print("Escolha a opcao")
@@ -12,25 +12,14 @@ class TelaPessoa(AbstractTela):
         print(f"3 - Listar {tipo}s") if tipo == 'Adotante' else print(f"3 - Listar {tipo}es")
         print(f"4 - Excluir {tipo}")
         print("0 - Retornar")
-    
-        opcao = self.le_opcao("Escolha uma opcao: ", [0,1,2,3,4])
+
+        opcao = self.le_opcao("Escolha uma opcao: ", [0, 1, 2, 3, 4])
         return opcao
 
-    
-    def pega_dados_pessoa(self, tipo, pessoas):
+    def pega_dados_pessoa(self, tipo):
         print(f'----------Dados {tipo}-------------')
         nome = input('Nome: ')
-        while True:
-            cpf = input('CPF: ')
-            for pessoa in pessoas:
-                if cpf == pessoa.cpf:
-                    self.mostra_mensagem('Cpf repetido!')
-                    break
-            else:
-                break
-
-
-
+        cpf = self.pega_cpf()
         while True:
             try:
                 data_nascimento = input('Data de Nascimento (DD/MM/AAAA): ')
@@ -42,7 +31,7 @@ class TelaPessoa(AbstractTela):
                 else:
                     break
             except ValueError:
-                    self.mostra_mensagem('Data inválida, insira a data no formato DD/MM/AAAA. ')
+                self.mostra_mensagem('Data inválida, insira a data no formato DD/MM/AAAA. ')
         endereco = input('Endereço: ')
         if tipo == 'Adotante':
             while True:
@@ -64,7 +53,7 @@ class TelaPessoa(AbstractTela):
                         raise ValueError
                 except ValueError:
                     self.mostra_mensagem('Tamanho inválido, insira P, M ou G como resposta. ')
-            
+
             while True:
                 try:
                     outros_animais = input('Possui outros animais? (Sim, Nao): ').upper()[0]
@@ -74,10 +63,10 @@ class TelaPessoa(AbstractTela):
                         raise ValueError
                 except ValueError:
                     self.mostra_mensagem('Resposta inválida, insira "Sim" ou "Nao" como resposta. ')
-            return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco,"tipo_hab": tipo_hab, "tam_hab": tam_hab, "outros_animais": outros_animais}
-        
-        return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco}
+            return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco, "tipo_hab": tipo_hab,
+                    "tam_hab": tam_hab, "outros_animais": outros_animais}
 
+        return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco}
 
     def mostra_pessoa(self, dados_pessoa):
         print('------------ Pessoa ------------')
@@ -95,26 +84,21 @@ class TelaPessoa(AbstractTela):
         print("-------- Pessoa ----------")
         print("1 - Adotante")
         print("2 - Doador")
+        print("0 - Retornar")
 
-        tipo = self.le_opcao("Escolha a opção: ", [1, 2])
+        tipo = self.le_opcao("Escolha a opção: ", [0, 1, 2])
+        if tipo == 0: return None
+
         animal = "Adotante" if tipo == 1 else "Doador"
         return animal
-    
-    def seleciona_pessoa_por_cpf(self):
-        cpf = input('Insira o cpf da pessoa: ')
-        return cpf
-    
-    def seleciona_animal(self):
-        print("Selecione o tipo de animal")
-        print("1 - Cachorro")
-        print("2 - Gato")
-        
-        tipo = self.le_opcao("Escolha a opção: ", [1, 2])
-        
-        match tipo:
-            case 1:
-                animal = "Cachorro"
-            case 2:
-                animal = "Gato"
 
-        return animal
+    def pega_cpf(self):
+        while True:
+            try:
+                cpf = input('CPF: ')
+                if not cpf.isnumeric():
+                    raise ValueError
+                break
+            except ValueError:
+                self.mostra_mensagem('CPF inválido, insira apenas números. ')
+        return cpf

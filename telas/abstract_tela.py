@@ -1,3 +1,6 @@
+import PySimpleGUI as sg
+
+
 class AbstractTela:
 
     def le_opcao(self, mensagem="", ints_validos: list = None):
@@ -13,7 +16,13 @@ class AbstractTela:
                 if ints_validos:
                     print("Valores válidos: ", ints_validos)    
 
+    def define_layout_button(self, elementos):
+        layout = [
+            [sg.Button(elemento, size=(20,1), pad=(10), key=elemento.lower())] for elemento in elementos
+        ]
+        layout.append([sg.Button("Sair", size=(20,1), pad=(10), button_color='red', key="sair")])
+        return layout
+
     def mostra_mensagem(self, msg):
         print(msg)
-        print()
     
