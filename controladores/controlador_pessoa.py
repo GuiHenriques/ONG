@@ -136,12 +136,9 @@ class ControladorPessoa:
         self.__controlador_sistema.abre_tela()
 
     def tipo_pessoa(self):
-        self.tipo = self.tela_pessoa.seleciona_tipo_pessoa()
+        self.tipo = self.tela_pessoa.tela_opcoes_pessoa() #retorna Adotante ou Doador
         if not self.tipo: self.retornar()
-        self.abre_tela()
-
-    def escolhe_pessoa(self):
-        self.tela_pessoa.tela_opcoes()
+        #self.abre_tela()
 
     def abre_tela(self):
         lista_opcoes = {

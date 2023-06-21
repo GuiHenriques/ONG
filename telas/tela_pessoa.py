@@ -19,21 +19,20 @@ class TelaPessoa(AbstractTela):
         opcao = self.le_opcao("Escolha uma opcao: ", [0, 1, 2, 3, 4])
         return opcao'''
 
-    def tela_opcoes(self):
+    def tela_opcoes_pessoa(self):
     #metodo para pegar se quer adotante ou doador
 
         self.seleciona_tipo_pessoa()
         button, values = self.__window.Read()
         opcao = 0
         if values['1']:
-            opcao = 'adotante'
+            opcao = 'Adotante'
         if values['2']:
-            opcao = 'doador'
+            opcao = 'Doador'
         if values ['0'] or button in (None, 'Cancelar'):
             opcao = 0
         self.close()
         return opcao
-    #teoricamente eh para reto
 
     def pega_dados_pessoa(self, tipo):
         print(f'----------Dados {tipo}-------------')
