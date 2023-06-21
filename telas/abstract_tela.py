@@ -20,6 +20,7 @@ class AbstractTela:
         layout = [
             [sg.Button(elemento, size=(20,1), pad=(10), key=elemento.lower())] for elemento in elementos
         ]
+        layout.append([sg.Button("Sair", size=(20,1), pad=(10), button_color='red', key="sair")])
         return layout
 
     def mostra_mensagem(self, msg):

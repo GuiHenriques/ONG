@@ -5,13 +5,7 @@ class TelaSistema(AbstractTela):
 
     def tela_opcoes(self):
 
-        layout = [
-            [sg.Button("Animais", size=(20,1), pad=(10), key="animais")],
-            [sg.Button("Pessoas", size=(20,1), pad=(10), key="pessoas")],
-            [sg.Button("Adoção", size=(20,1), pad=(10), key="adocao")],
-            [sg.Button("Doação", size=(20,1), pad=(10), key="doacao")],
-            [sg.Button("Finalizar Sistema", button_color='red', size=(20,1), pad=(10), key="sair")],
-        ]
+        layout = self.define_layout_button(["Animais", "Pessoas", "Adocao", "Doacao"])
 
         window = sg.Window("Data Entry Form", layout, size=(500, 300))
 
