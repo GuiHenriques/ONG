@@ -18,9 +18,9 @@ class AbstractTela:
 
     def define_layout_button(self, elementos):
         layout = [
-            [sg.Button(elemento, size=(20,1), pad=(10), key=elemento.lower())] for elemento in elementos
+            [sg.Button(elemento, size=(20,1), pad=(10), key=key+1)] for key, elemento in enumerate(elementos)
         ]
-        layout.append([sg.Button("Sair", size=(20,1), pad=(10), button_color='red', key="sair")])
+        layout.append([sg.Button("Sair", size=(20,1), pad=(10), button_color='red', key=0)])
         return layout
 
     def mostra_mensagem(self, msg):

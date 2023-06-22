@@ -29,7 +29,6 @@ class ControladorAnimal():
 
     def inclui_animal(self):
         dados_animal = self.tela_animal.pega_dados_animal(self.tipo)
-
         if self.tipo == "Cachorro":
             animal = Cachorro(dados_animal["nome"], dados_animal["raca"], dados_animal["tamanho"])
         else:
@@ -174,4 +173,5 @@ class ControladorAnimal():
 
         while True:
             opcao_escolhida = self.tela_animal.tela_opcoes(self.tipo)
+            print('return', opcao_escolhida)
             lista_opcoes[opcao_escolhida]()
