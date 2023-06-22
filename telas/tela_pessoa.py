@@ -20,6 +20,23 @@ class TelaPessoa(AbstractTela):
         return opcao'''
 
     def tela_opcoes_pessoa(self):
+        self.init_components(self.tipo)
+        button, values = self.__window.Read()
+        opcao = 0
+        if values['1']:
+            opcao = 1
+        if values['2']:
+            opcao = 2
+        if values['3']:
+            opcao = 3
+        if values['4']:
+            opcao = 4
+        if values['0'] or button in (None, 'Cancelar'):
+            opcao = 0
+        self.close()
+        return opcao
+
+    def tela_escolhe_pessoa(self):
     #metodo para pegar se quer adotante ou doador
 
         self.seleciona_tipo_pessoa()
@@ -30,7 +47,8 @@ class TelaPessoa(AbstractTela):
         if values['2']:
             opcao = 'Doador'
         if values ['0'] or button in (None, 'Cancelar'):
-            opcao = 0
+            opcao = None
+
         self.close()
         return opcao
 
@@ -123,6 +141,19 @@ class TelaPessoa(AbstractTela):
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Pessoas').Layout(layout)
+
+    def init_components(self, tipo):
+        layout = [
+            [sg.Text(f'-------- {tipo} --------', font = ('Arial', 26))],
+            [sg.Radio(f'Incluir {tipo}', "RD1", key='1')],
+            [sg.Radio(f'Alterar {tipo}', "RD1", key='2')],
+            [sg.Radio(f'Listar {tipo}s', "RD1", key='3')],
+            [sg.Radio(f'Excluir {tipo}', "RD1", key='4')],
+            [sg.Radio('Retornar', "RD1", key='0')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window(f'Gerenciando {tipo}').Layout(layout)
+
 
     def pega_cpf(self):
         while True:
