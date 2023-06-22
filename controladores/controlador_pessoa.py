@@ -136,9 +136,14 @@ class ControladorPessoa:
         self.__controlador_sistema.abre_tela()
 
     def tipo_pessoa(self):
-        self.tipo = self.tela_pessoa.tela_opcoes_pessoa() #retorna Adotante ou Doador
-        if not self.tipo: self.retornar()
-        #self.abre_tela()
+        #leva pra tela intermediaria, escolhe entre adotante e doador
+        self.tipo = self.tela_pessoa.tela_escolhe_pessoa() #retorna Adotante ou Doador
+        if self.tipo is None: self.retornar()
+        print(self.tipo)
+        #se eu n conseguir, fazer dois abre tela separados
+        self.abre_tela()
+
+
 
     def abre_tela(self):
         lista_opcoes = {
@@ -149,5 +154,6 @@ class ControladorPessoa:
             0: self.retornar,
         }
 
+
         while True:
-            lista_opcoes[self.tela_pessoa.tela_opcoes(self.tipo)]()
+            lista_opcoes[self.tela_pessoa.tela_opcoes_pessoa(self.tipo)]()
