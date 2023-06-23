@@ -6,7 +6,7 @@ class Animal(ABC):
     numero_chip = 1
 
     @abstractmethod
-    def __init__(self, nome: str, raca: str):
+    def __init__(self, nome: str, raca: str, idade: int):
         self.__chip = Animal.numero_chip
         Animal.numero_chip += 1
         self.__nome = nome
@@ -37,7 +37,15 @@ class Animal(ABC):
     @raca.setter
     def raca(self, raca):
         self.__raca = raca
-        
+    
+    @property
+    def idade(self):
+        return self.__idade
+    
+    @idade.setter
+    def idade(self, idade):
+        self.__idade = idade
+
     @property
     def vacinas(self):
         return self.__vacinas
