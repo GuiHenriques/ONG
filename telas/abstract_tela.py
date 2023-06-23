@@ -23,6 +23,6 @@ class AbstractTela:
         layout.append([sg.Button("Sair", size=(20,1), pad=(10), button_color='red', key=0)])
         return layout
 
-    def mostra_mensagem(self, msg):
-        print(msg)
+    def mostra_mensagem(self, titulo: str, mensagem: str):
+        sg.Popup(mensagem, title=titulo)
     

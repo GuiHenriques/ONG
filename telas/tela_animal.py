@@ -30,22 +30,37 @@ class TelaAnimal(AbstractTela):
     
         button, values = self.open()
 
-        if button == sg.WINDOW_CLOSED or button == "sair":
+        if button == sg.WINDOW_CLOSED:
             self.close()
             return 0
 
     def pega_dados_animal(self, animal):
-        print(f"-------- Dados {animal} --------")
-        nome = input("Nome: ")
-        raca = input("Raça: ")
+        size = 10
+
+        layout = [
+            [sg.Text("Nome: ", pad=size, size=size), sg.InputText("", key="nome")],
+            [sg.Text("Raça: ", pad=size, size=size), sg.InputText("", key="raca")],
+            [sg.Text("Idade: ", pad=size, size=size) ,sg.Slider(range=(1, 20), default_value=1, orientation='h', size=(35,20), key="idade")],
+        ]
 
         if animal == "Cachorro":
-            # layout.append(dropdown_tamanho)
-            # tamanho = input("Tamanho: ")
+            tamanhos = ["Pequeno", "Médio", "Grande"]
+            layout.append([sg.Text("Tamanho: ", pad=size, size=size), sg.DropDown(tamanhos, default_value=tamanhos[1], size=size, key="tamanho")])
             
-            return {"nome": nome, "raca": raca, "tamanho": tamanho}
+        layout.append([sg.Button("Confirmar", pad=size), sg.Button("Cancelar")])
 
-        return {"nome": nome, "raca": raca}
+        self.__window = sg.Window(f"Dados {animal}", layout, size=(500, 300))
+
+        button, values = self.open()
+
+        if button == sg.WINDOW_CLOSED or button == "Cancelar":
+            self.close()
+            return None
+        
+        if button == "Confirmar":
+            self.close()
+            print(values)
+            return values
 
     def pega_dados_vacina(self):
         print("-------- Dados Vacina --------")
@@ -118,6 +133,3 @@ class TelaAnimal(AbstractTela):
     
     def close(self):
         self.__window.Close()
-
-    def show_message(self, titulo: str, mensagem: str):
-        sg.Popup(titulo, mensagem)
