@@ -11,6 +11,7 @@ class Animal(ABC):
         Animal.numero_chip += 1
         self.__nome = nome
         self.__raca = raca
+        self.__idade = idade
         self.__vacinas = []
         self.__disponivel = False
     

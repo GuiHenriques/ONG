@@ -20,8 +20,11 @@ class AbstractTela:
         layout = [
             [sg.Button(elemento, size=(20,1), pad=(10), key=key+1)] for key, elemento in enumerate(elementos)
         ]
-        layout.append([sg.Button("Sair", size=(20,1), pad=(10), button_color='red', key=0)])
+        layout.append([sg.Button("Sair", size=(20,1), pad=(10))])
         return layout
+    
+    def define_layout_radio(self, elementos):
+        ...
 
     def mostra_mensagem(self, titulo: str, mensagem: str):
         sg.Popup(mensagem, title=titulo)
