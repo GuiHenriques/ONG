@@ -1,3 +1,4 @@
+import PySimpleGUI as sg
 from telas.abstract_tela import AbstractTela
 from datetime import datetime
 
@@ -37,7 +38,7 @@ class TelaAnimal(AbstractTela):
 
         tipo = self.le_opcao("Escolha a opção: ", [1, 2, 3, 4])
 
-        '''match tipo:
+        match tipo:
             case 1:
                 tipo = "Raiva"
             case 2:
@@ -45,20 +46,17 @@ class TelaAnimal(AbstractTela):
             case 3:
                 tipo = "Hepatite Infecciosa"
             case 4:
-                tipo = "Todas"'''
+                tipo = "Todas"
 
-        if tipo == 1:
-            tipo = "Raiva"
-        elif tipo == 2:
-            tipo = "Lepitospirose"
-        elif tipo == 3:
-            tipo = "Hepatite Infecciosa"
-        elif tipo == 4:
-            tipo = "Todas"
+        while True:
+            try:
+                data = input("Data (DD/MM/AAAA): ")
+                data_f = datetime.strptime(data, '%d/%m/%Y').date()
+                break
+            except ValueError:
+                self.mostra_mensagem('Data inválida, insira a data no formato DD/MM/AAAA. ')
 
-        data = input("Data (DD/MM/AAAA): ")
-        
-        return {"tipo": tipo, "data": data}
+        return {"tipo": tipo, "data": data_f}
     
     def seleciona_animal(self):
         chip = input("Chip do animal: ")

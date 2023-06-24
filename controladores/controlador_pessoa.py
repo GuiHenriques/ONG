@@ -7,7 +7,7 @@ class ControladorPessoa:
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela_pessoa = TelaPessoa()
-        self.__pessoas = [Adotante("João", "123", "01/01/2000", "Rua 1", "Casa", "Grande", "Sim"), Doador("Maria", "456", "02/02/2000", "Rua 2")]
+        self.__pessoas = []
         self.__tipo = None
 
     @property
@@ -28,7 +28,10 @@ class ControladorPessoa:
 
     def inclui_pessoa(self):
         dados_pessoa = self.tela_pessoa.pega_dados_pessoa(self.tipo)
-
+        for pessoa in self.pessoas:
+            if dados_pessoa['cpf'] == pessoa.cpf:
+                self.__tela_pessoa.mostra_mensagem('Cpf repetido! ')
+                dados_pessoa = self.tela_pessoa.pega_dados_pessoa(self.tipo)
         if self.tipo == "Adotante":
             pessoa = Adotante(
                 dados_pessoa["nome"],
@@ -83,6 +86,7 @@ class ControladorPessoa:
             self.tela_pessoa.mostra_mensagem(f"Dados do {self.tipo} alterado!")
 
     def lista_pessoas(self):
+        '''
         condicao = (
             lambda pessoa: isinstance(pessoa, Adotante)
             if self.tipo == "Adotante"
@@ -91,7 +95,10 @@ class ControladorPessoa:
 
         if len([pessoa for pessoa in self.pessoas if condicao(pessoa)]) == 0:
             self.tela_pessoa.mostra_mensagem(f"Nenhum {self.tipo} cadastrado")
-            return None
+            return None'''
+        for pessoa in self.pessoas:
+
+            self.tela_pessoa.mostra_mensagem(f"Nenhum {self.tipo} cadastrado!")
 
         for pessoa in self.pessoas:
             dados_pessoa = {
@@ -133,9 +140,14 @@ class ControladorPessoa:
         self.__controlador_sistema.abre_tela()
 
     def tipo_pessoa(self):
-        self.tipo = self.tela_pessoa.seleciona_tipo_pessoa()
-        if not self.tipo: self.retornar()
+        #leva pra tela intermediaria, escolhe entre adotante e doador
+        self.tipo = self.tela_pessoa.tela_escolhe_pessoa() #retorna Adotante ou Doador
+        if self.tipo is None: self.retornar()
+        print(self.tipo)
+        #se eu n conseguir, fazer dois abre tela separados
         self.abre_tela()
+
+
 
     def abre_tela(self):
         lista_opcoes = {
@@ -146,5 +158,7 @@ class ControladorPessoa:
             0: self.retornar,
         }
 
+
         while True:
-            lista_opcoes[self.tela_pessoa.tela_opcoes(self.tipo)]()
+            opcao = self.tela_pessoa.tela_opcoes_pessoa(self.tipo)
+            lista_opcoes[opcao]()
