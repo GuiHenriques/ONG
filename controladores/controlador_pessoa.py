@@ -27,11 +27,11 @@ class ControladorPessoa:
         return self.__pessoas
 
     def inclui_pessoa(self):
-        dados_pessoa = self.tela_pessoa.pega_dados_pessoa(self.tipo,self.__pessoas)
+        dados_pessoa = self.tela_pessoa.pega_dados_pessoa(self.tipo)
         for pessoa in self.pessoas:
             if dados_pessoa['cpf'] == pessoa.cpf:
                 self.__tela_pessoa.mostra_mensagem('Cpf repetido! ')
-                self.__tela_pessoa.pega_dados_pessoa(self.tipo)
+                dados_pessoa = self.tela_pessoa.pega_dados_pessoa(self.tipo)
         if self.tipo == "Adotante":
             pessoa = Adotante(
                 dados_pessoa["nome"],
@@ -86,6 +86,7 @@ class ControladorPessoa:
             self.tela_pessoa.mostra_mensagem(f"Dados do {self.tipo} alterado!")
 
     def lista_pessoas(self):
+        '''
         condicao = (
             lambda pessoa: isinstance(pessoa, Adotante)
             if self.tipo == "Adotante"
@@ -94,7 +95,9 @@ class ControladorPessoa:
 
         if len([pessoa for pessoa in self.pessoas if condicao(pessoa)]) == 0:
             self.tela_pessoa.mostra_mensagem(f"Nenhum {self.tipo} cadastrado")
-            return None
+            return None'''
+        if self.pessoas is None:
+            self.tela_pessoa.mostra_mensagem(f"Nenhum {self.tipo} cadastrado")
 
         for pessoa in self.pessoas:
             dados_pessoa = {
@@ -156,4 +159,5 @@ class ControladorPessoa:
 
 
         while True:
-            lista_opcoes[self.tela_pessoa.tela_opcoes_pessoa(self.tipo)]()
+            opcao = self.tela_pessoa.tela_opcoes_pessoa(self.tipo)
+            lista_opcoes[opcao]()
