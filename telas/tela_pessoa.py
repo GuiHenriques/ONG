@@ -161,6 +161,7 @@ class TelaPessoa(AbstractTela):
     def mostra_pessoa(self,dados_pessoa):
         string_todos_pessoa = str
         for dado in dados_pessoa:
+            '''
             string_todos_pessoa = string_todos_pessoa + "Nome: " + dado["nome"] + '\n'
             string_todos_pessoa = string_todos_pessoa + "Cpf: " + dado["cpf"] + '\n'
             string_todos_pessoa = string_todos_pessoa + "Data de nascimento: " + dado["data"] + '\n'
@@ -169,9 +170,10 @@ class TelaPessoa(AbstractTela):
                 string_todos_pessoa = string_todos_pessoa + "Tipo de habitação: " + dado["tipo_hab"] + '\n'
                 string_todos_pessoa = string_todos_pessoa + "Tamanho da habitação: " + dado["tam_hab"] + '\n'
                 string_todos_pessoa = string_todos_pessoa + "Possui outros animais: " + dado["outros_animais"] + '\n'
-        sg.Popup('-------- LISTA DE AMIGOS ----------', string_todos_pessoa)'''
+        sg.Popup('-------- LISTA DE AMIGOS ----------', string_todos_pessoa)
+        '''
 
-    '''def seleciona_tipo_pessoa(self):
+    def seleciona_tipo_pessoa(self):
         print("-------- Pessoa ----------")
         print("1 - Adotante")
         print("2 - Doador")
@@ -181,7 +183,7 @@ class TelaPessoa(AbstractTela):
         if tipo == 0: return None
 
         animal = "Adotante" if tipo == 1 else "Doador"
-        return animal'''
+        return animal
 
     def seleciona_tipo_pessoa(self):
         #equivalente ao tela_opcoes nos outros controladores, porem

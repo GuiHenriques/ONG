@@ -7,7 +7,7 @@ class ControladorPessoa:
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela_pessoa = TelaPessoa()
-        self.__pessoas = [Adotante("João", "123", "01/01/2000", "Rua 1", "Casa", "Grande", "Sim"), Doador("Maria", "456", "02/02/2000", "Rua 2")]
+        self.__pessoas = []
         self.__tipo = None
 
     @property
@@ -96,8 +96,9 @@ class ControladorPessoa:
         if len([pessoa for pessoa in self.pessoas if condicao(pessoa)]) == 0:
             self.tela_pessoa.mostra_mensagem(f"Nenhum {self.tipo} cadastrado")
             return None'''
-        if self.pessoas is None:
-            self.tela_pessoa.mostra_mensagem(f"Nenhum {self.tipo} cadastrado")
+        for pessoa in self.pessoas:
+
+            self.tela_pessoa.mostra_mensagem(f"Nenhum {self.tipo} cadastrado!")
 
         for pessoa in self.pessoas:
             dados_pessoa = {
