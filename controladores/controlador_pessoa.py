@@ -27,43 +27,61 @@ class ControladorPessoa:
         return self.__pessoas
 
     def inclui_pessoa(self):
-        dados_pessoa = self.tela_pessoa.pega_dados_pessoa(self.tipo)
-        for pessoa in self.pessoas:
-            if dados_pessoa['cpf'] == pessoa.cpf:
-                self.__tela_pessoa.mostra_mensagem('Cpf repetido! ')
+        while True:
+            try:
                 dados_pessoa = self.tela_pessoa.pega_dados_pessoa(self.tipo)
-        if self.tipo == "Adotante":
-            pessoa = Adotante(
-                dados_pessoa["nome"],
-                dados_pessoa["cpf"],
-                dados_pessoa["data_nascimento"],
-                dados_pessoa["endereco"],
-                dados_pessoa["tipo_hab"],
-                dados_pessoa["tam_hab"],
-                dados_pessoa["outros_animais"],
-            )
-        else:
-            pessoa = Doador(
-                dados_pessoa["nome"],
-                dados_pessoa["cpf"],
-                dados_pessoa["data_nascimento"],
-                dados_pessoa["endereco"],
-            )
+                print(dados_pessoa)
+                print(self.tipo)
+                #tratando aqui
+                for valor in dados_pessoa.values():
+                    if valor == '':
+                        raise KeyError
 
-        # CPF repetido
+                for pessoa in self.pessoas:
+                    if dados_pessoa['cpf'] == pessoa.cpf:
+                        self.__tela_pessoa.mostra_mensagem('Cpf repetido! ')
+                        break
+                if self.tipo == "Adotante":
+                    if dados_pessoa['tipo_hab'] != 'Casa' and dados_pessoa['tipo_hab'] != 'Apartamento':
+                        raise KeyError
+                    if dados_pessoa['tam_hab'] != 'Pequeno' and dados_pessoa['tam_hab'] != 'Grande' and dados_pessoa['tam_hab'] != 'Médio':
+                        raise KeyError
+                    pessoa = Adotante(
+                        dados_pessoa["nome"],
+                        dados_pessoa["cpf"],
+                        dados_pessoa["data_nascimento"],
+                        dados_pessoa["endereco"],
+                        dados_pessoa["tipo_hab"],
+                        dados_pessoa["tam_hab"],
+                        dados_pessoa["outros_animais"]
+                    )
 
-        self.pessoas.append(pessoa)
-        self.tela_pessoa.mostra_mensagem(f"{self.tipo} incluído com sucesso!")
+                else:
+                    pessoa = Doador(
+                        dados_pessoa["nome"],
+                        dados_pessoa["cpf"],
+                        dados_pessoa["data_nascimento"],
+                        dados_pessoa["endereco"]
+                    )
 
-        if self.tipo == "Doador":
-            tipo_animal = (
-                self.__controlador_sistema.controlador_animal.tela_animal.seleciona_tipo_animal()
-            )
-            self.__controlador_sistema.controlador_animal.tipo = tipo_animal
-            animal = self.__controlador_sistema.controlador_animal.inclui_animal()
-            self.__controlador_sistema.controlador_doacao.inclui_doacao_direta(
-                animal, pessoa
-            )
+                # CPF repetido
+
+                self.pessoas.append(pessoa)
+                self.tela_pessoa.mostra_mensagem(f"{self.tipo} incluído com sucesso!")
+                break
+            except KeyError:
+                self.tela_pessoa.mostra_mensagem('Dados inválidos, por favor tente novamente!')
+                break
+
+            if self.tipo == "Doador":
+                tipo_animal = (
+                    self.__controlador_sistema.controlador_animal.tela_animal.seleciona_tipo_animal()
+                )
+                self.__controlador_sistema.controlador_animal.tipo = tipo_animal
+                animal = self.__controlador_sistema.controlador_animal.inclui_animal()
+                self.__controlador_sistema.controlador_doacao.inclui_doacao_direta(
+                    animal, pessoa
+                )
 
     def altera_pessoa(self):
         if not self.lista_pessoas():
@@ -86,8 +104,12 @@ class ControladorPessoa:
             self.tela_pessoa.mostra_mensagem(f"Dados do {self.tipo} alterado!")
 
     def lista_pessoas(self):
-        '''
-        condicao = (
+        print(self.pessoas)
+        for pessoa in self.pessoas:
+            print(pessoa['nome'])
+            print(pessoa['cpf'])
+
+        '''condicao = (
             lambda pessoa: isinstance(pessoa, Adotante)
             if self.tipo == "Adotante"
             else isinstance(pessoa, Doador)
@@ -95,7 +117,7 @@ class ControladorPessoa:
 
         if len([pessoa for pessoa in self.pessoas if condicao(pessoa)]) == 0:
             self.tela_pessoa.mostra_mensagem(f"Nenhum {self.tipo} cadastrado")
-            return None'''
+            return None
         for pessoa in self.pessoas:
 
             self.tela_pessoa.mostra_mensagem(f"Nenhum {self.tipo} cadastrado!")
@@ -117,7 +139,7 @@ class ControladorPessoa:
             elif self.tipo == "Doador" and isinstance(pessoa, Doador):
                 self.tela_pessoa.mostra_pessoa(dados_pessoa)
 
-        return True
+        return True'''
 
     def exclui_pessoa(self):
         if not self.lista_pessoas():
@@ -143,7 +165,6 @@ class ControladorPessoa:
         #leva pra tela intermediaria, escolhe entre adotante e doador
         self.tipo = self.tela_pessoa.tela_escolhe_pessoa() #retorna Adotante ou Doador
         if self.tipo is None: self.retornar()
-        print(self.tipo)
         #se eu n conseguir, fazer dois abre tela separados
         self.abre_tela()
 

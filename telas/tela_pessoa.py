@@ -108,15 +108,13 @@ class TelaPessoa(AbstractTela):
         if tipo == 'Adotante':
             layout = [
             [sg.Text(f'-------- Dados {tipo} --------', font =('Arial', 25))],
-            [sg.Text('Nome:', size=(15, 1)), sg.InputText('', key='nome')],
+            [sg.Text('Nome:', size=(15, 1)), sg.InputText(default_text='', key='nome')],
             [sg.Text('CPF:', size=(15, 1)), sg.InputText('', key='cpf')],
-            #pra data acho que ficaria mais bonito usar spin, mas da mt trabalho rsrs
             #[sg.Spin(values=('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15'),initial_value='selecione o dia',key = 'sp_spin1')],
             [sg.Text('Dia:',size=(15,1)),sg.Slider(range=(1,31), orientation='v',size =(10,10),key='dia'),
             sg.Text('Mês:', size=(15, 1)), sg.Slider(range=(1, 12), orientation='v',size =(10,10), key='mes'),
-            #[sg.popup_get_date(title = 'Data de nascimento')],
             sg.Text('Ano:', size=(15, 1)), sg.Slider(range=(1920, 2005), orientation='v',size =(10,10), key='ano')],
-            [sg.Text('Endereço:',size = (15,1)), sg.InputText('',key='endereco')],
+            [sg.Text('Endereço:',size = (15,1)), sg.InputText(default_text='',key='endereco')],
             [sg.Text('Tipo de habitação:', size=(16, 1)),sg.Combo(('Casa','Apartamento'), key='cb_tipo_hab')],
             [sg.Text('Tamanho da habitação:',size = (16,1)),sg.Combo(('Pequeno','Médio','Grande'),key = 'cb_tam_hab')],
             [sg.Text('Possui outros animais:', size=(16, 1)),sg.Combo(('Sim','Não'), key='cb_outros_animais')],
@@ -134,7 +132,7 @@ class TelaPessoa(AbstractTela):
             tam_hab = values['cb_tam_hab']
             outros_animais = values['cb_outros_animais']
             self.close()
-            return {'nome': nome, 'cpf':cpf,'data_nascimento':data,'endereco': endereco,'tipo_hab':tipo_hab,'tam_hab':tam_hab,'outros_animais':outros_animais}
+            return {'nome': nome, 'cpf': cpf,'data_nascimento':data,'endereco': endereco,'tipo_hab':tipo_hab,'tam_hab':tam_hab,'outros_animais':outros_animais}
         if tipo == 'Doador':
             layout = [
                 [sg.Text(f'-------- Dados {tipo} --------', font=('Arial', 25))],
@@ -149,6 +147,7 @@ class TelaPessoa(AbstractTela):
                 [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
             ]
 
+
             self.__window = sg.Window(f'Gerenciando {tipo}').Layout(layout)
             button, values = self.__window.Read()
             uniao_data = str(int(values['dia'])) + '/' + str(int(values['mes'])) + '/' + str(int(values['ano']))
@@ -157,7 +156,7 @@ class TelaPessoa(AbstractTela):
             cpf = values['cpf']
             endereco = values['endereco']
             self.close()
-            return {'nome': nome, cpf: 'cpf','data':data,'endereco': endereco}
+            return {'nome': nome, 'cpf': cpf,'data' : data, 'endereco': endereco}
     def mostra_pessoa(self,dados_pessoa):
         string_todos_pessoa = str
         for dado in dados_pessoa:
@@ -172,18 +171,6 @@ class TelaPessoa(AbstractTela):
                 string_todos_pessoa = string_todos_pessoa + "Possui outros animais: " + dado["outros_animais"] + '\n'
         sg.Popup('-------- LISTA DE AMIGOS ----------', string_todos_pessoa)
         '''
-
-    def seleciona_tipo_pessoa(self):
-        print("-------- Pessoa ----------")
-        print("1 - Adotante")
-        print("2 - Doador")
-        print("0 - Retornar")
-
-        tipo = self.le_opcao("Escolha a opção: ", [0, 1, 2])
-        if tipo == 0: return None
-
-        animal = "Adotante" if tipo == 1 else "Doador"
-        return animal
 
     def seleciona_tipo_pessoa(self):
         #equivalente ao tela_opcoes nos outros controladores, porem
