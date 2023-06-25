@@ -3,29 +3,29 @@ from telas.abstract_tela import AbstractTela
 
 class TelaSistema(AbstractTela):
 
+    def __init__(self):
+        self.__window = None
+    
     def tela_opcoes(self):
-
         layout = self.define_layout_button(["Animais", "Pessoas", "Adocao", "Doacao"])
+        self.__window = sg.Window("Sistema ONG", layout, size=(500, 300))
 
-        window = sg.Window("Data Entry Form", layout, size=(500, 300))
+        button, values = self.open()
 
-        while True:
-            event, values = window.read()
+        if button == sg.WINDOW_CLOSED or button == 'Sair':
+            self.close()
+            return  0
+        
+        if button:
+            self.close()
+            return button
+        else:
+            self.close()
+            return 0
 
-            if event == sg.WINDOW_CLOSED or event == "sair":
-                window.close()
-                return  0
-            
-            if event:
-                window.close()
-                
-                match event:
-                    case "animais":
-                        return 1
-                    case "pessoas":
-                        return 2
-                    case "adocao":
-                        return 3
-                    case "doacao":
-                        return 4
-                    
+    def open(self):
+        button, values = self.__window.Read()
+        return button, values
+    
+    def close(self):
+        self.__window.Close()
