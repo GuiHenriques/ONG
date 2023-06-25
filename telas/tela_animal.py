@@ -38,7 +38,7 @@ class TelaAnimal(AbstractTela):
         if animal == "Cachorro":
             tamanhos = ["Pequeno", "Médio", "Grande"]
             layout.append([sg.Text("Tamanho: ", pad=size, size=size),
-                           sg.DropDown(tamanhos, default_value=tamanhos[1], size=size, key="tamanho"),])
+                           sg.Combo(tamanhos, default_value=tamanhos[1], size=size, key="tamanho"),])
 
         layout.append([sg.Button("Confirmar", pad=size), sg.Button("Cancelar")])
 
@@ -124,13 +124,13 @@ class TelaAnimal(AbstractTela):
         return "Cachorro" if button == 1 else "Gato"
 
     def mostra_animal(self, dados_animal):
-        width = [4, 11, 11, 4, 8, 11] if len(dados_animal[0]) == 6 else [5, 12, 13, 6, 13]
+        width = [4, 11, 11, 4, 8, 18] if len(dados_animal[0]) == 6 else [5, 12, 13, 6, 13]
         layout = [
             [sg.Table(values=dados_animal[1:], headings=dados_animal[0], num_rows=max(len(dados_animal), 8), row_height=25, justification='center', auto_size_columns=False, col_widths=width)],
             [sg.Txt("", size=20), sg.Button("Ok", size=(10,1), pad=(10))]
         ]
 
-        self.__window = sg.Window("Lista de Animais", layout, size=(500, 300))
+        self.__window = sg.Window("Lista de Animais", layout, size=(600, 300))
 
         button, values = self.open()
 
