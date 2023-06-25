@@ -1,22 +1,13 @@
 import PySimpleGUI as sg
+import tkinter as tk
 
-data = [
-    ['John', 25, 'john@example.com'],
-    ['Jane', 32, 'jane@example.com'],
-    ['Mark', 45, 'mark@example.com'],
-]
+root = tk.Tk()
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
 
-layout = [
-    [sg.Table(values=data, headings=['Name', 'Age', 'Email'], key='-TABLE-')],
-    [sg.Button('OK')]
-]
+window_width = 200
+window_height = 150
 
-window = sg.Window('Table Popup Example', layout)
-
-while True:
-    event, values = window.read()
-
-    if event == sg.WINDOW_CLOSED or event == 'OK':
-        break
-
-window.close()
+window_x = (screen_width - window_width) // 2
+window_y = (screen_height - window_height) // 2
+print(window_x, window_y)

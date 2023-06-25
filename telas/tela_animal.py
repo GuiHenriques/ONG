@@ -7,8 +7,7 @@ class TelaAnimal(AbstractTela):
     def __init__(self):
         self.__window = None
 
-    def init_opcoes(self, animal):
-        key = 1
+    def tela_opcoes(self, animal):
         layout = [
             [sg.Button(f"Incluir {animal}", size=(22,1), pad=(25,20), key=1), sg.Button(f"Listar {animal}s disponíveis", size=(22,1), pad=(25,20), key=4)],
             [sg.Button(f"Alterar {animal}", size=(22,1), pad=(25,20), key=2), sg.Button(f"Adicionar Vacina", size=(22,1), pad=(25,20), key=6)],
@@ -17,17 +16,13 @@ class TelaAnimal(AbstractTela):
         ]
         self.__window = sg.Window(f"{animal}s", layout, size=(500, 300))
 
-    def tela_opcoes(self, animal):
-        self.init_opcoes(animal)
-
         button, values = self.open()
+        self.close()
 
         if button == sg.WINDOW_CLOSED or button == "Voltar":
-            self.close()
             return 0
         
         if button:
-            self.close()
             return button
 
     def pega_dados_animal(self, animal):
@@ -49,43 +44,70 @@ class TelaAnimal(AbstractTela):
 
         self.__window = sg.Window(f"Dados {animal}", layout, size=(500, 300))
 
-        button, values = self.open()
+        while True:
+            button, values = self.open()
+            
+            if button == sg.WINDOW_CLOSED or button == "Cancelar":
+                return None
+            
+            if self.valores_vazios(values):
+                if button == "Confirmar":
+                    self.close()    
+                    return values
 
-        if button == sg.WINDOW_CLOSED or button == "Cancelar":
-            self.close()
+    def pega_dados_vacina(self):
+        elementos = ["Raiva", "Lepitospirose", "Hepatite Infecciosa", "Todas as Vacinas"]
+        layout = [
+            [sg.Radio("Raiva", "RD1", key=1)],
+            [sg.Radio("Lepitospirose", "RD1", key=2)],
+            [sg.Radio("Hepatite Infecciosa", "RD1", key=3)],
+            [sg.Radio("Todas as Vacinas", "RD1", key=4)],
+            [sg.Text("Data de Aplicação da Vacina:", pad=(10, 10))],
+            [sg.Input(key="data", size=(20,1)), sg.CalendarButton("Selecionar Data", close_when_date_chosen=True,  target='data', location=(860, 465), no_titlebar=False, format="%d/%m/%Y")],
+            [sg.Button("Confirmar", size=(10,1), pad=(10)), sg.Button("Sair", size=(10,1), pad=(10))]
+        ]
+
+        self.__window = sg.Window("Vacinas", layout, size=(500, 300))
+        
+        while True:
+            button, values = self.open()
+
+            if button == sg.WINDOW_CLOSED or button == "Sair":
+                self.close()
+                return None
+            
+            if self.valor_vazio_radio([values[x] for x in range(1, 5)]) and self.valor_vazio(values["data"]):
+                self.close()
+                break
+        
+        if values[4]:
+            tipo = "Todas"
+        elif values[3]:
+            tipo = "Hepatite Infecciosa"
+        elif values[2]:
+            tipo = "Lepitospirose"
+        elif values[1]:
+            tipo = "Raiva"
+
+        return {"tipo": tipo, "data": values["data"]}
+
+    def seleciona_animal(self):
+        layout = [
+            [sg.Text("Chip do Animal: ")],
+            [sg.Spin([i for i in range(1, 100)], initial_value=1, key="chip", size=(6))],
+            [sg.Button("Confirmar", size=(10,1), pad=(2, 10))]
+        ]
+
+        self.__window = sg.Window("Selecionar Animal", layout, size=(200,150))
+
+        button, values = self.open()
+        self.close()
+
+        if button == sg.WINDOW_CLOSED:
             return None
 
         if button == "Confirmar":
-            self.close()
-            print(values)
-            return values
-
-    def pega_dados_vacina(self):
-        print("-------- Dados Vacina --------")
-        print("1 - Raiva")
-        print("2 - Lepitospirose")
-        print("3 - Hepatite Infecciosa")
-        print("4 - Todas as Vacinas")
-
-        tipo = self.le_opcao("Escolha a opção: ", [1, 2, 3, 4])
-
-        match tipo:
-            case 1:
-                tipo = "Raiva"
-            case 2:
-                tipo = "Lepitospirose"
-            case 3:
-                tipo = "Hepatite Infecciosa"
-            case 4:
-                tipo = "Todas"
-
-        data = input("Data (DD/MM/AAAA): ")
-
-        return {"tipo": tipo, "data": data}
-
-    def seleciona_animal(self):
-        chip = input("Chip do animal: ")
-        return chip
+            return values["chip"]
 
     def seleciona_tipo_animal(self):
         layout = self.define_layout_button(["Cachorro", "Gato"])
@@ -94,7 +116,7 @@ class TelaAnimal(AbstractTela):
 
         button, values = self.open()
 
-        if button == sg.WINDOW_CLOSED or button == 0:
+        if button == sg.WINDOW_CLOSED or button == "Sair":
             self.close()
             return None
 

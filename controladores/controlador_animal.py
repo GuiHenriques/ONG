@@ -56,6 +56,8 @@ class ControladorAnimal:
             return
 
         dados_animal = self.tela_animal.pega_dados_animal(self.tipo)
+        if not dados_animal:
+            return
 
         animal.nome = dados_animal["nome"]
         animal.raca = dados_animal["raca"]
@@ -151,6 +153,10 @@ class ControladorAnimal:
             return
 
         dados_vacina = self.tela_animal.pega_dados_vacina()
+        
+        if not dados_vacina:
+            return
+        
         self.aplicar_vacina(animal, dados_vacina)
 
     def aplicar_vacina(self, animal, dados_vacina):
@@ -218,5 +224,4 @@ class ControladorAnimal:
 
         while True:
             opcao_escolhida = self.tela_animal.tela_opcoes(self.tipo)
-            print("return", opcao_escolhida)
             lista_opcoes[opcao_escolhida]()
