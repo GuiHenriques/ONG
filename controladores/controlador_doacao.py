@@ -20,7 +20,7 @@ class ControladorDoacao():
         dados_doacao = self.tela_doacao.pega_dados_doacao()
         doacao = Doacao(dados_doacao["data"], animal, pessoa, dados_doacao["motivo"])
         self.doacoes.append(doacao)
-        self.tela_doacao.mostra_mensagem("Doação realizada com sucesso!")
+        self.tela_doacao.mostra_mensagem("Sucesso", "Doação realizada com sucesso!")
     
     def incluir_doacao(self):
         self.__controlador_sistema.controlador_pessoa.tipo = "Doador"
@@ -28,7 +28,7 @@ class ControladorDoacao():
     
     def listar_doacoes(self):
         if len(self.doacoes) == 0:
-            self.tela_doacao.mostra_mensagem("Nenhuma doacao cadastrada")
+            self.tela_doacao.mostra_mensagem("Erro", "Nenhuma doacao cadastrada")
             return None
 
         for doacao in self.doacoes:
@@ -41,7 +41,7 @@ class ControladorDoacao():
     
     def listar_doacoes_por_periodo(self):
         if len(self.__doacoes) == 0:
-            self.tela_doacao.mostra_mensagem("Nenhuma doacao cadastrada")
+            self.tela_doacao.mostra_mensagem("Erro", "Nenhuma doacao cadastrada")
             return None
         
         n_doacoes = 0
@@ -59,7 +59,7 @@ class ControladorDoacao():
                 n_doacoes += 1
         
         if n_doacoes == 0:
-            self.tela_doacao.mostra_mensagem("Nenhuma doacao cadastrada no periodo")
+            self.tela_doacao.mostra_mensagem("Erro", "Nenhuma doacao cadastrada no periodo")
   
     def retornar(self):
         self.__controlador_sistema.abre_tela()

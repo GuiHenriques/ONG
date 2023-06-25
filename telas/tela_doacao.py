@@ -45,3 +45,9 @@ class TelaDoacao(AbstractTela):
             except ValueError:
                 self.mostra_mensagem('Data inválida, insira novamente a data, no formato DD/MM/AAAA. ')
 
+    def open(self):
+        button, values = self.__window.Read()
+        return button, values
+    
+    def close(self):
+        self.__window.Close()

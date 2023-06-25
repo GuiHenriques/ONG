@@ -32,7 +32,7 @@ class TelaAnimal(AbstractTela):
             [sg.Text("Nome: ", pad=size, size=size), sg.InputText("", key="nome")],
             [sg.Text("Raça: ", pad=size, size=size), sg.InputText("", key="raca")],
             [sg.Text("Idade: ", pad=size, size=size),
-             sg.Slider(range=(1, 20),default_value=1,orientation="h",size=(35, 20),key="idade",)],
+            sg.Slider(range=(1, 20),default_value=1,orientation="h",size=(35, 20),key="idade",)],
         ]
 
         if animal == "Cachorro":
