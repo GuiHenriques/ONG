@@ -7,18 +7,6 @@ class TelaPessoa(AbstractTela):
         self.__window = None
         self.seleciona_tipo_pessoa()
 
-    '''def tela_opcoes(self, tipo):
-        print(f"-------- {tipo} ----------")
-        print("Escolha a opcao")
-        print(f"1 - Incluir {tipo}")
-        print(f"2 - Alterar {tipo}")
-        print(f"3 - Listar {tipo}s") if tipo == 'Adotante' else print(f"3 - Listar {tipo}es")
-        print(f"4 - Excluir {tipo}")
-        print("0 - Retornar")
-
-        opcao = self.le_opcao("Escolha uma opcao: ", [0, 1, 2, 3, 4])
-        return opcao'''
-
     def tela_opcoes_pessoa(self, tipo):
         self.init_components(tipo)
         button, values = self.__window.Read()
@@ -52,58 +40,6 @@ class TelaPessoa(AbstractTela):
         self.close()
         return opcao
 
-    '''def pega_dados_pessoa(self, tipo):
-        print(f'----------Dados {tipo}-------------')
-        nome = input('Nome: ')
-        cpf = self.pega_cpf()
-        while True:
-            try:
-                data_nascimento = input('Data de Nascimento (DD/MM/AAAA): ')
-                data_f = datetime.strptime(data_nascimento, '%d/%m/%Y').date()
-                today = date.today()
-                age = today.year - data_f.year - ((today.month, today.day) < (data_f.month, data_f.day))
-                if age < 18:
-                    print('Menores de idade não podem adotar um animal.')
-                else:
-                    break
-            except ValueError:
-                self.mostra_mensagem('Data inválida, insira a data no formato DD/MM/AAAA. ')
-        endereco = input('Endereço: ')
-        if tipo == 'Adotante':
-            while True:
-                try:
-                    tipo_hab = input('Tipo de habitação (casa, apartamento):').lower()
-                    if tipo_hab == 'casa' or tipo_hab == 'apartamento':
-                        break
-                    else:
-                        raise ValueError
-                except ValueError:
-                    self.mostra_mensagem('Habitação inválida, insira ou "casa" ou "apartamento" como resposta. ')
-
-            while True:
-                try:
-                    tam_hab = input('Tamanho da habitacao (P, M, G): ').upper()
-                    if tam_hab in ['P', 'M', 'G']:
-                        break
-                    else:
-                        raise ValueError
-                except ValueError:
-                    self.mostra_mensagem('Tamanho inválido, insira P, M ou G como resposta. ')
-
-            while True:
-                try:
-                    outros_animais = input('Possui outros animais? (Sim, Nao): ').upper()[0]
-                    if outros_animais in ['S', 'N']:
-                        break
-                    else:
-                        raise ValueError
-                except ValueError:
-                    self.mostra_mensagem('Resposta inválida, insira "Sim" ou "Nao" como resposta. ')
-            return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco, "tipo_hab": tipo_hab,
-                    "tam_hab": tam_hab, "outros_animais": outros_animais}
-
-        return {"nome": nome, "cpf": cpf, "data_nascimento": data_f, "endereco": endereco}
-'''
     def pega_dados_pessoa(self, tipo):
         if tipo == 'Adotante':
             layout = [
@@ -111,14 +47,15 @@ class TelaPessoa(AbstractTela):
             [sg.Text('Nome:', size=(15, 1)), sg.InputText(default_text='', key='nome')],
             [sg.Text('CPF:', size=(15, 1)), sg.InputText('', key='cpf')],
             #[sg.Spin(values=('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15'),initial_value='selecione o dia',key = 'sp_spin1')],
-            [sg.Text('Dia:',size=(15,1)),sg.Slider(range=(1,31), orientation='v',size =(10,10),key='dia'),
-            sg.Text('Mês:', size=(15, 1)), sg.Slider(range=(1, 12), orientation='v',size =(10,10), key='mes'),
-            sg.Text('Ano:', size=(15, 1)), sg.Slider(range=(1920, 2005), orientation='v',size =(10,10), key='ano')],
+            [sg.Text('Dia:',size=(15,1)),sg.Slider(range=(1,31), orientation='h',size =(10,10),key='dia'),
+            sg.Text('Mês:', size=(15, 1)), sg.Slider(range=(1, 12), orientation='h',size =(10,10), key='mes'),
+            sg.Text('Ano:', size=(15, 1)), sg.Slider(range=(1920, 2005), orientation='h',size =(10,10), key='ano')],
             [sg.Text('Endereço:',size = (15,1)), sg.InputText(default_text='',key='endereco')],
             [sg.Text('Tipo de habitação:', size=(16, 1)),sg.Combo(('Casa','Apartamento'), key='cb_tipo_hab')],
             [sg.Text('Tamanho da habitação:',size = (16,1)),sg.Combo(('Pequeno','Médio','Grande'),key = 'cb_tam_hab')],
             [sg.Text('Possui outros animais:', size=(16, 1)),sg.Combo(('Sim','Não'), key='cb_outros_animais')],
-            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+            #[sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+            [sg.Button('Confirmar')]
             ]
 
             self.__window = sg.Window(f'Gerenciando {tipo}').Layout(layout)
@@ -160,7 +97,6 @@ class TelaPessoa(AbstractTela):
     def mostra_pessoa(self,dados_pessoa):
         string_todos_pessoa = str
         for dado in dados_pessoa:
-            '''
             string_todos_pessoa = string_todos_pessoa + "Nome: " + dado["nome"] + '\n'
             string_todos_pessoa = string_todos_pessoa + "Cpf: " + dado["cpf"] + '\n'
             string_todos_pessoa = string_todos_pessoa + "Data de nascimento: " + dado["data"] + '\n'
@@ -170,7 +106,6 @@ class TelaPessoa(AbstractTela):
                 string_todos_pessoa = string_todos_pessoa + "Tamanho da habitação: " + dado["tam_hab"] + '\n'
                 string_todos_pessoa = string_todos_pessoa + "Possui outros animais: " + dado["outros_animais"] + '\n'
         sg.Popup('-------- LISTA DE AMIGOS ----------', string_todos_pessoa)
-        '''
 
     def seleciona_tipo_pessoa(self):
         #equivalente ao tela_opcoes nos outros controladores, porem
@@ -222,6 +157,6 @@ class TelaPessoa(AbstractTela):
         return cpf
 
     def mostra_mensagem(self, msg):
-        sg.popup('',msg)
+        sg.popup(msg,title='Erro')
     def close(self):
         self.__window.Close()
