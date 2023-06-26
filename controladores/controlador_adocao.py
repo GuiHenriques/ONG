@@ -18,10 +18,11 @@ class ControladorAdocao():
         return self.__tela_adocao
 
     def incluir_adocao(self):
+        print("Incluir Adoção")
         dados = self.verifica_adocao()
         if not dados:
             return
-        
+        print(dados)
         data, animal, adotante = dados["data"], dados["animal"], dados["adotante"]
         
         if isinstance(animal, Cachorro) and animal.tamanho == "G" and adotante.tipo_hab == "Apartamento" and adotante.tam_hab == "P":
@@ -36,6 +37,7 @@ class ControladorAdocao():
             return
 
         adocao = Adocao(data, animal, adotante)
+        print("deu bom")
         adocao.termo_responsa = True
         animal.disponivel = False
         self.adocoes.append(adocao)
@@ -86,7 +88,7 @@ class ControladorAdocao():
                 "animal": adocao.animal.nome,
                 "adotante": adocao.adotante.nome,}
 
-            self.tela_adocao.mostra_adocao(dados_adocao)
+        self.tela_adocao.mostra_adocao(dados_adocao)
     
     def listar_adocoes_por_periodo(self):
         if len(self.adocoes) == 0:

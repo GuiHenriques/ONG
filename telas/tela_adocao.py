@@ -18,16 +18,14 @@ class TelaAdocao(AbstractTela):
             return 0
 
         if button:
-            print(button)
             self.close()
-
             return button
             
     def pega_dados_adocao(self):
         layout = [
-            [sg.Text("CPF do Adotante: ", size=15), sg.InputText("", key="cpf")],
-            [sg.Text("Chip do Animal: ", size=15), sg.InputText("", key="chip")],
-            [sg.Text("Data da Adoção:", pad=(10, 10))],
+            [sg.Text("CPF do Adotante: ", size=15,  pad=10,), sg.InputText("", key="cpf")],
+            [sg.Text("Chip do Animal: ", size=15,  pad=10,), sg.InputText("", key="chip")],
+            [sg.Text("Data da Adoção:", pad=(10))],
             [sg.Input(key="data", size=(20,1)), sg.CalendarButton("Selecionar Data", close_when_date_chosen=True,  target='data', location=(860, 465), no_titlebar=False, format="%d/%m/%Y")],
             [sg.Button("Confirmar", size=(10,1), pad=(10)), sg.Button("Sair", size=(10,1), pad=(10))]
         ]
@@ -36,39 +34,41 @@ class TelaAdocao(AbstractTela):
 
         while True:
             button, values = self.open()
-            print(values)
 
             if button == sg.WINDOW_CLOSED or button == "Sair":
                 self.close()
                 return None
             
-            if self.valor_vazio(values["cpf"]) and self.valor_vazio(values["chip"]) and self.valor_vazio(values["data"]):
+            if self.valor_vazio(values["cpf"]) and self.valor_inteiro(values["chip"]) and self.valor_vazio(values["data"]) and button == "Confirmar":
                 self.close()
-                break
-        
-        return {"data": data_f, "cpf": cpf, "chip": chip}
-
+                data_f = datetime.strptime(values["data"], '%d/%m/%Y').date()
+                return {"data": data_f, "cpf": values["cpf"], "chip": int(values["chip"])}
+   
     def mostra_adocao(self, dados_adocao):
-        print("---------- ADOCAO ------------")
-        print("Data:", dados_adocao["data"])
-        print("Adotante:", dados_adocao["adotante"])
-        print("Animal:", dados_adocao["animal"])
+        todas_adocoes = ""
+        for dado in dados_adocao:
+            todas_adocoes += "Data: " + dado["data"] + '\n'
+            todas_adocoes += "Adotante: " + dado["adotante"] + '\n'
+            todas_adocoes += "Animal: " + dado["animal"] + '\n\n'
+
+        sg.Popup('-------- LISTA DE ADOÇÕES ----------', todas_adocoes)
 
     def assinar_termo_responsa(self):
-        print("-------- TERMO DE RESPONSABILIDADE ----------")
-        print("1 - Assinar")
-        print("2 - Não Assinar")
+        layout = [
+        [sg.Text("Deseja assinar o termo de responsabilidade?", size=(30,1), pad=(10))],
+        [sg.Radio("Sim", "assinatura", key=1, pad=(10)), sg.Radio("Não", "assinatura", key=2, pad=(10))],
+        [sg.Text("Motivo: ", size=15,  pad=10,), sg.InputText("", key="motivo")],
+        [sg.Button("Confirmar", size=(10,1), pad=(10)), sg.Button("Sair", size=(10,1), pad=(10))],
+        ]
 
-        opcao = self.le_opcao("Escolha a opcao: ", [1, 2])
+        self.__window = sg.Window("Termo de Responsabilidade", layout, size=(400, 200))
 
-        if opcao == 1:
-            return True
-        else:
-            return False
+        button, values = self.open()
+        print(button, values)
 
-    def pega_data(self, msg):
-        sg.popup_get_date(msg)
-        
+        if button == "Confirmar" and self.valor_vazio(values["motivo"]):
+            print("assinasse")
+            return True if values[1] == True else False
 
     def open(self):
         button, values = self.__window.Read()

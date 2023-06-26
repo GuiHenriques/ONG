@@ -218,6 +218,7 @@ class ControladorAnimal:
             print(animal.chip)
             if animal.chip == chip:
                 return animal
+        self.tela_animal.mostra_mensagem("Erro", "Animal não encontrado")
         return None
 
     def tipo_animal(self):

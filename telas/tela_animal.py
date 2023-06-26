@@ -115,13 +115,14 @@ class TelaAnimal(AbstractTela):
         self.__window = sg.Window("Tipo de Animal", layout, size=(500, 300))
 
         button, values = self.open()
-
-        if button == sg.WINDOW_CLOSED or button == "Sair":
+        
+        if button == "Sair" or button == sg.WINDOW_CLOSED:
             self.close()
             return None
 
-        self.close()
-        return "Cachorro" if button == 1 else "Gato"
+        if button:
+            self.close()
+            return "Cachorro" if button == 1 else "Gato"
 
     def mostra_animal(self, dados_animal):
         width = [4, 11, 11, 4, 8, 18] if len(dados_animal[0]) == 6 else [5, 12, 13, 6, 13]

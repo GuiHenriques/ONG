@@ -54,6 +54,17 @@ class ControladorPessoa:
         self.__pessoa_dao.add(pessoa)
         self.tela_pessoa.mostra_mensagem("Sucesso", f"{self.tipo} incluído com sucesso")
 
+        # Inclui animal a ser doado
+        if self.tipo == "Doador":
+            tipo_animal = (
+                self.__controlador_sistema.controlador_animal.tela_animal.seleciona_tipo_animal()
+            )
+            self.__controlador_sistema.controlador_animal.tipo = tipo_animal
+            animal = self.__controlador_sistema.controlador_animal.inclui_animal()
+            self.__controlador_sistema.controlador_doacao.inclui_doacao_direta(
+                animal, pessoa
+            )
+
     def altera_pessoa(self):
         if not self.lista_pessoas():
             return
@@ -64,6 +75,10 @@ class ControladorPessoa:
 
         if pessoa:
             novos_dados_pessoa = self.tela_pessoa.pega_dados_pessoa(self.tipo)
+
+            if novos_dados_pessoa["cpf"] != cpf:
+                self.__pessoa_dao.remove(pessoa.cpf)
+            
             pessoa.nome = novos_dados_pessoa["nome"]
             pessoa.cpf = novos_dados_pessoa["cpf"]
             pessoa.data_nascimento = novos_dados_pessoa["data"]
@@ -74,7 +89,11 @@ class ControladorPessoa:
                 pessoa.tam_hab = novos_dados_pessoa["tam_hab"]
                 pessoa.outros_animais = novos_dados_pessoa["outros_animais"]
     
-            self.__pessoa_dao.update(pessoa)
+            if cpf == pessoa.cpf:
+                self.__pessoa_dao.update(pessoa)
+            else:
+                self.__pessoa_dao.add(pessoa)
+                
             self.tela_pessoa.mostra_mensagem("Sucesso", f"Dados do {self.tipo} alterado!")
     
     def lista_pessoas(self):
