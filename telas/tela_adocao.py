@@ -47,7 +47,7 @@ class TelaAdocao(AbstractTela):
     def mostra_adocao(self, dados_adocao):
         todas_adocoes = ""
         for dado in dados_adocao:
-            todas_adocoes += "Data: " + dado["data"] + '\n'
+            todas_adocoes += "Data: " + str(dado["data"]) + '\n'
             todas_adocoes += "Adotante: " + dado["adotante"] + '\n'
             todas_adocoes += "Animal: " + dado["animal"] + '\n\n'
 
@@ -57,7 +57,6 @@ class TelaAdocao(AbstractTela):
         layout = [
         [sg.Text("Deseja assinar o termo de responsabilidade?", size=(30,1), pad=(10))],
         [sg.Radio("Sim", "assinatura", key=1, pad=(10)), sg.Radio("Não", "assinatura", key=2, pad=(10))],
-        [sg.Text("Motivo: ", size=15,  pad=10,), sg.InputText("", key="motivo")],
         [sg.Button("Confirmar", size=(10,1), pad=(10)), sg.Button("Sair", size=(10,1), pad=(10))],
         ]
 
@@ -66,9 +65,10 @@ class TelaAdocao(AbstractTela):
         button, values = self.open()
         print(button, values)
 
-        if button == "Confirmar" and self.valor_vazio(values["motivo"]):
-            print("assinasse")
-            return True if values[1] == True else False
+        if button == "Confirmar" and values[1] == True:
+            return True
+        else:
+            return False
 
     def open(self):
         button, values = self.__window.Read()

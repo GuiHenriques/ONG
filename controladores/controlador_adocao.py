@@ -21,7 +21,6 @@ class ControladorAdocao():
         dados = self.verifica_adocao()
         if not dados:
             return
-        print(dados)
         data, animal, adotante = dados["data"], dados["animal"], dados["adotante"]
         
         if isinstance(animal, Cachorro) and animal.tamanho == "G" and adotante.tipo_hab == "Apartamento" and adotante.tam_hab == "P":
@@ -36,7 +35,6 @@ class ControladorAdocao():
             return
 
         adocao = Adocao(data, animal, adotante)
-        print("deu bom")
         adocao.termo_responsa = True
         animal.disponivel = False
         self.adocoes.append(adocao)
@@ -86,12 +84,12 @@ class ControladorAdocao():
         if len(self.adocoes) == 0:
             self.tela_adocao.mostra_mensagem("Erro", "Nenhuma adocao cadastrada")
             return None
-
+        dados_adocao = []
         for adocao in self.adocoes:
-            dados_adocao = {
+            dados_adocao.append({
                 "data": adocao.data,
                 "animal": adocao.animal.nome,
-                "adotante": adocao.adotante.nome,}
+                "adotante": adocao.adotante.nome,})
 
         self.tela_adocao.mostra_adocao(dados_adocao)
     
