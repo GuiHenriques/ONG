@@ -1,11 +1,12 @@
 from entidades.adocao import Adocao
 from entidades.cachorro import Cachorro
 from telas.tela_adocao import TelaAdocao
-
+from DAOs.adocao_dao import AdocaoDAO
 
 class ControladorAdocao():
     def __init__(self, controlador_sistema):
         self.__adocoes = list()
+        self.__adocao_DAO = AdocaoDAO()
         self.__tela_adocao = TelaAdocao()
         self.__controlador_sistema = controlador_sistema
     
@@ -37,7 +38,8 @@ class ControladorAdocao():
         adocao = Adocao(data, animal, adotante)
         adocao.termo_responsa = True
         animal.disponivel = False
-        self.adocoes.append(adocao)
+        #self.adocoes.append(adocao)
+        self.__adocao_DAO.add(adocao)
         self.tela_adocao.mostra_mensagem("Sucesso", "Adoção realizada com sucesso")
 
 
@@ -81,11 +83,12 @@ class ControladorAdocao():
 
 
     def listar_adocoes(self):
-        if len(self.adocoes) == 0:
+        if len(self.__adocao_DAO.get_all()) == 0:
             self.tela_adocao.mostra_mensagem("Erro", "Nenhuma adocao cadastrada")
             return None
         dados_adocao = []
-        for adocao in self.adocoes:
+        #for adocao in self.adocoes:
+        for adocao in self.__adocao_DAO.get_all():
             dados_adocao.append({
                 "data": adocao.data,
                 "animal": adocao.animal.nome,
@@ -94,13 +97,15 @@ class ControladorAdocao():
         self.tela_adocao.mostra_adocao(dados_adocao)
     
     def listar_adocoes_por_periodo(self):
-        if len(self.adocoes) == 0:
+        #if len(self.adocoes) == 0:
+        if len(self.__adocao_DAO.get_all()) == 0:
             self.tela_adocao.mostra_mensagem("Erro", "Nenhuma adocao cadastrada")
         else:
             n_adocoes = 0
             data_inicial, data_final = self.tela_adocao.pega_datas()
            
-            for adocao in self.adocoes:
+            #for adocao in self.adocoes:
+            for adocao in self.__adocao_DAO.get_all():    
                 if adocao.data >= data_inicial and adocao.data <= data_final:
                     dados_adocao = {
                         "data": adocao.data,

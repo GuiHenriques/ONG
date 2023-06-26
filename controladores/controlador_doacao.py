@@ -1,10 +1,12 @@
 from entidades.doacao import Doacao
 from telas.tela_doacao import TelaDoacao
+from DAOs.doacao_dao import DoacaoDAO
 
 class ControladorDoacao():
 
     def __init__(self, controlador_sistema):
-        self.__doacoes = list()
+        #self.__doacoes = list()
+        self.__doacao_DAO = DoacaoDAO()
         self.__tela_doacao = TelaDoacao()
         self.__controlador_sistema = controlador_sistema
 
@@ -19,8 +21,9 @@ class ControladorDoacao():
     def inclui_doacao_direta(self, animal, pessoa):
         dados_doacao = self.tela_doacao.pega_dados_doacao()
         doacao = Doacao(dados_doacao["data"], animal, pessoa, dados_doacao["motivo"])
-        print("animal: ", animal.nome, type(animal))
-        self.doacoes.append(doacao)
+        #self.doacoes.append(doacao)
+        self.__doacao_DAO.add(doacao)
+        
         self.tela_doacao.mostra_mensagem("Sucesso", "Doação realizada com sucesso!")
     
     def incluir_doacao(self):
@@ -28,12 +31,13 @@ class ControladorDoacao():
         self.__controlador_sistema.controlador_pessoa.inclui_pessoa()
     
     def listar_doacoes(self):
-        if len(self.doacoes) == 0:
+        #if len(self.doacoes) == 0:
+        if len(self.__doacao_DAO.get_all()) ==0:    
             self.tela_doacao.mostra_mensagem("Erro", "Nenhuma doacao cadastrada")
             return None
 
         dados_doacao = []
-        for doacao in self.doacoes:
+        for doacao in self.__doacao_DAO.get_all():
             dados_doacao.append({
                 "data": doacao.data,
                 "animal": doacao.animal.nome,
@@ -42,14 +46,16 @@ class ControladorDoacao():
         self.tela_doacao.mostra_doacao(dados_doacao)
     
     def listar_doacoes_por_periodo(self):
-        if len(self.doacoes) == 0:
+        #if len(self.doacoes) == 0:
+        if len(self.__doacao_DAO.get_all()) == 0:    
             self.tela_doacao.mostra_mensagem("Erro", "Nenhuma doacao cadastrada")
             return None
         
         n_doacoes = 0
         data_inicio, data_fim = self.tela_doacao.pega_datas()
         
-        for doacao in self.doacoes:
+        #for doacao in self.doacoes:
+        for doacao in self.__doacao_DAO.get_all():
             if doacao.data >= data_inicio and doacao.data <= data_fim:
                 dados_doacao = {
                     "data": doacao.data,
