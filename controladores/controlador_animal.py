@@ -2,13 +2,14 @@ from telas.tela_animal import TelaAnimal
 from entidades.cachorro import Cachorro
 from entidades.gato import Gato
 from entidades.vacina import Vacina
-
+from DAOs.animal_dao import AnimalDAO
 
 class ControladorAnimal:
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela_animal = TelaAnimal()
-        self.__animais = [Cachorro("Rex", "Vira-lata", 4, "G"), Gato("Mingau", "Persa", 2)]
+        self.__animal_DAO = AnimalDAO()
+        self.__chip = None
         self.__tipo = None
 
     @property
@@ -31,8 +32,13 @@ class ControladorAnimal:
         dados_animal = self.tela_animal.pega_dados_animal(self.tipo)
         if not dados_animal:
             return
+        try:
+            self.__chip = int(list(self.__animal_DAO.get_all())[-1].chip) + 1
+        except IndexError:
+            self.__chip = 1
         if self.tipo == "Cachorro":
             animal = Cachorro(
+                self.__chip,
                 dados_animal["nome"],
                 dados_animal["raca"],
                 dados_animal["idade"],
@@ -40,12 +46,17 @@ class ControladorAnimal:
             )
         else:
             animal = Gato(
-                dados_animal["nome"], dados_animal["raca"], dados_animal["idade"]
+                self.__chip,
+                dados_animal["nome"],
+                dados_animal["raca"],
+                dados_animal["idade"]
             )
 
-        self.animais.append(animal)
+        #self.animais.append(animal)
+        self.__animal_DAO.add(animal)
         self.tela_animal.mostra_mensagem("Sucesso", f"{self.tipo} incluído com sucesso")
-        return animal
+        print()
+        return animal.chip
 
     def altera_animal(self):
         self.lista_animais()
@@ -64,6 +75,7 @@ class ControladorAnimal:
         animal.idade = dados_animal["idade"]
         if self.tipo == "Cachorro":
             animal.tamanho = dados_animal["tamanho"]
+        self.__animal_DAO.update(animal)
 
         self.tela_animal.mostra_mensagem("Sucesso", f"{self.tipo} alterado com sucesso")
 
@@ -74,7 +86,7 @@ class ControladorAnimal:
             else isinstance(animal, Gato)
         )
 
-        if len([animal for animal in self.animais if condicao(animal)]) == 0:
+        if len([animal for animal in self.__animal_DAO.get_all() if condicao(animal)]) == 0:
             self.tela_animal.mostra_mensagem("Erro", f"Nenhum {self.tipo} cadastrado")
             return
 
@@ -85,7 +97,8 @@ class ControladorAnimal:
         )
         lista_animais.append(header)
 
-        for animal in self.animais:
+        #for animal in self.animais:
+        for animal in self.__animal_DAO.get_all():
             dados_animal = [animal.chip, animal.nome, animal.raca, int(animal.idade)]
 
             if self.tipo == "Cachorro" and isinstance(animal, Cachorro):
@@ -106,7 +119,7 @@ class ControladorAnimal:
             if self.tipo == "Cachorro"
             else isinstance(animal, Gato) and animal.disponivel
         )
-        if len([animal for animal in self.animais if condicao(animal)]) == 0:
+        if len([animal for animal in self.__animal_DAO.get_all() if condicao(animal)]) == 0:
             self.tela_animal.mostra_mensagem("Erro", f"Nenhum {self.tipo} disponível")
             return None
 
@@ -117,7 +130,8 @@ class ControladorAnimal:
         )
         lista_animais.append(header)
 
-        for animal in self.animais:
+        #for animal in self.animais:
+        for animal in self.__animal_DAO.get_all():
             if animal.disponivel:
                 dados_animal = [animal.chip, animal.nome, animal.raca, int(animal.idade)]
 
@@ -139,7 +153,7 @@ class ControladorAnimal:
         animal = self.pega_animal_por_chip(chip)
 
         if animal:
-            self.animais.remove(animal)
+            self.__animal_DAO.remove(chip)
             self.tela_animal.mostra_mensagem(
                 "Sucesso", f"{self.tipo} excluído com sucesso"
             )
@@ -158,6 +172,7 @@ class ControladorAnimal:
             return
         
         self.aplicar_vacina(animal, dados_vacina)
+        self.__animal_DAO.update(animal)
 
     def aplicar_vacina(self, animal, dados_vacina):
         if dados_vacina["tipo"] == "Todas":
@@ -197,11 +212,12 @@ class ControladorAnimal:
             except ValueError:
                 self.tela_animal.mostra_mensagem("Erro", "Chip Inválido")
 
-    def pega_animal_por_chip(self, chip):
-        for animal in self.animais:
+    def pega_animal_por_chip(self, chip: int):
+        #for animal in self.animais:
+        for animal in self.__animal_DAO.get_all():
+            print(animal.chip)
             if animal.chip == chip:
                 return animal
-        self.tela_animal.mostra_mensagem("Erro", "Animal não encontrado")
         return None
 
     def tipo_animal(self):
@@ -221,7 +237,7 @@ class ControladorAnimal:
             4: self.lista_animais_disponiveis,
             5: self.exclui_animal,
             6: self.adicionar_vacina,
-            0: self.retornar,
+            0: self.tipo_animal,
         }
 
         while True:
