@@ -7,12 +7,11 @@ class AnimalDAO(DAO):
         super().__init__('animais.pkl')
 
     def add(self, animal):
-        if (animal is not None) and isinstance(animal.chip, int) and (isinstance(animal,Cachorro) or isinstance(animal,Gato)):
+        if ((animal is not None) and isinstance(animal.chip, int)) and (isinstance(animal, Cachorro) or isinstance(animal, Gato)):
             super().add(animal.chip, animal)
 
     def update(self, animal):
-        if (animal is not None) and isinstance(animal.chip, int) and (
-                isinstance(animal, Cachorro) or isinstance(animal, Gato)):
+        if ((animal is not None) and isinstance(animal.chip, int)) and (isinstance(animal, Cachorro) or isinstance(animal, Gato)):
             super().update(animal.chip, animal)
 
     def get(self,key):

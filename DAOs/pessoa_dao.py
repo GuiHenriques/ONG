@@ -8,5 +8,18 @@ class PessoaDAO(DAO):
         super().__init__('pessoas.pkl')
 
     def add(self, pessoa):
-        if(pessoa is not None) and isinstance(pessoa, Adotante) or isinstance(pessoa, Doador):
+        if (pessoa) and isinstance(pessoa, Adotante) or isinstance(pessoa, Doador):
             super().add(pessoa.cpf, pessoa)
+    
+    def update(self, pessoa):
+        if (pessoa) and isinstance(pessoa, Adotante) or isinstance(pessoa, Doador):
+            super().update(pessoa.cpf, pessoa)
+    
+    def get(self, key):
+        if isinstance(key, str):
+            return super().get(key)
+    
+    def remove(self, key):
+        if isinstance(key, str):
+            return super().remove(key)
+        
