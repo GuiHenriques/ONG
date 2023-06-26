@@ -46,7 +46,7 @@ class ControladorPessoa:
             pessoa = Doador(
                 dados_pessoa["nome"],
                 dados_pessoa["cpf"],
-                dados_pessoa["data_nascimento"],
+                dados_pessoa["data"],
                 dados_pessoa["endereco"]
             )
 
@@ -76,7 +76,6 @@ class ControladorPessoa:
             self.tela_pessoa.mostra_mensagem("Sucesso", f"Dados do {self.tipo} alterado!")
 
     def lista_pessoas(self):
-        print("lista pessoas")
         condicao = (
             lambda pessoa: isinstance(pessoa, Adotante)
             if self.tipo == "Adotante"
@@ -92,7 +91,6 @@ class ControladorPessoa:
             ["Nome", "CPF", "Nascimento", "Endereço", "Habitação", "Tamanho Hab.", "Outros Animais"] if self.tipo == "Adotante"
               else ["Nome", "CPF", "Nascimento", "Endereço"]
         )
-        print(lista_de_pessoas)
         lista_de_pessoas.append(header)
 
         for pessoa in self.pessoas:
@@ -107,7 +105,6 @@ class ControladorPessoa:
             elif self.tipo == "Doador" and isinstance(pessoa, Doador):
                 lista_de_pessoas.append(dados_pessoa)
 
-        print(lista_de_pessoas)
         self.tela_pessoa.mostra_pessoa(lista_de_pessoas)
         return True
 
@@ -151,5 +148,4 @@ class ControladorPessoa:
 
         while True:
             opcao = self.tela_pessoa.tela_opcoes(self.tipo)
-            print(opcao)
             lista_opcoes[opcao]()

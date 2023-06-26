@@ -20,7 +20,6 @@ class TelaPessoa(AbstractTela):
 
             if button:
                 self.close()
-                print('Você apertou o botão: ', button)
                 return button
             
     def seleciona_tipo_pessoa(self):
@@ -66,10 +65,9 @@ class TelaPessoa(AbstractTela):
             
             data = f"{int(values['dia'])}/{int(values['mes'])}/{int(values['ano'])}"
             data_f = datetime.strptime(data, '%d/%m/%Y').date()
-            self.close()
             
-            if self.valores_vazios(values):
-                if self.valor_inteiro(values['cpf']):
+            if self.valores_vazios(values) and self.valor_inteiro(values['cpf']):
+                    self.close()
                     if tipo == 'Adotante':
                         return {"nome": values['nome'], "cpf": values['cpf'], "data": data_f, "endereco": values['endereco'], "tipo_hab": values['cb_tipo_hab'], "tam_hab": values['cb_tam_hab'], "outros_animais": values['cb_outros_animais']}
                     else:
@@ -110,7 +108,7 @@ class TelaPessoa(AbstractTela):
             
             if self.valores_vazios(values):
                 if not self.valor_inteiro(values['cpf']):
-                    self.mostra_mensagem('CPF inválido')
+                    self.mostra_mensagem("Erro", 'CPF inválido')
                 else:
                     self.close()
                     return (values['cpf'])
