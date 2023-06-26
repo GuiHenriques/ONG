@@ -8,6 +8,8 @@ class TelaSistema(AbstractTela):
     
     def tela_opcoes(self):
         layout = self.define_layout_button(["Animais", "Pessoas", "Adocao", "Doacao"])
+        
+        sg.ChangeLookAndFeel('DarkBlue4')
         self.__window = sg.Window("Sistema ONG", layout, size=(500, 300))
         button, values = self.open()
 

@@ -37,6 +37,11 @@ class AbstractTela:
         self.mostra_mensagem("Erro", "Selecione uma opção do Radio Button")
         return False
 
+    def valor_inteiro(self, valor):
+        if not valor.isnumeric():
+            self.mostra_mensagem("Erro", "CPF deve ser um número inteiro")
+            return False
+        return True
 
     def mostra_mensagem(self, titulo: str, mensagem: str):
         sg.Popup(mensagem, title=titulo)
