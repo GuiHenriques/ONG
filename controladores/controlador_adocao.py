@@ -18,7 +18,6 @@ class ControladorAdocao():
         return self.__tela_adocao
 
     def incluir_adocao(self):
-        print("Incluir Adoção")
         dados = self.verifica_adocao()
         if not dados:
             return
@@ -46,15 +45,17 @@ class ControladorAdocao():
 
     def verifica_adocao(self):
         # verifica lista de adotantes vazia
+        self.__controlador_sistema.controlador_pessoa.tipo = "Adotante"
         if not self.__controlador_sistema.controlador_pessoa.lista_pessoas():
             return None
-
+        print("tem adotante na lista")
         # verfica lista de animais vazia
         tipo_animal = self.__controlador_sistema.controlador_animal.tela_animal.seleciona_tipo_animal()
         self.__controlador_sistema.controlador_animal.tipo = tipo_animal
 
         if not self.__controlador_sistema.controlador_animal.lista_animais_disponiveis():
             return None
+        print("tem animal na animais")
         
         dados = self.tela_adocao.pega_dados_adocao()
         # verifica se dados foram preenchidos
@@ -63,8 +64,12 @@ class ControladorAdocao():
 
         # verifica animal invalido
         animal = self.__controlador_sistema.controlador_animal.pega_animal_por_chip(dados["chip"])
+        print(animal.nome)
         if not animal:
             return None
+        
+
+
         if not animal.disponivel:
             self.tela_adocao.mostra_mensagem("Erro", "Animal não disponível para adoção")
             return None
