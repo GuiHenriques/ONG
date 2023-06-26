@@ -135,7 +135,7 @@ class ControladorPessoa:
         pessoa = self.pega_pessoa_por_cpf(cpf)
 
         if pessoa:
-            self.__pessoa_dao.remove(pessoa)
+            self.__pessoa_dao.remove(pessoa.cpf)
             self.tela_pessoa.mostra_mensagem("Sucesso", f"{self.tipo} removido!")
 
     def pega_pessoa_por_cpf(self, cpf: str):
