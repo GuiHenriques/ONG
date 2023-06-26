@@ -8,7 +8,8 @@ class ControladorPessoa:
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela_pessoa = TelaPessoa()
-        self.__pessoas = [Adotante("João", "12345678910", "01/01/2000", "Rua A", "Casa", "Pequeno", "Sim"),Doador("Maria", "10987654321", "01/01/2000", "Rua B")]
+        # self.__pessoas = [Adotante("João", "12345678910", "01/01/2000", "Rua A", "Casa", "Pequeno", "Sim"),Doador("Maria", "10987654321", "01/01/2000", "Rua B")]
+        self.__pessoa_dao = PessoaDAO()
         self.__tipo = None
 
     @property
@@ -50,7 +51,7 @@ class ControladorPessoa:
                 dados_pessoa["endereco"]
             )
 
-        self.pessoas.append(pessoa)
+        self.__pessoa_dao.add(pessoa)
         self.tela_pessoa.mostra_mensagem("Sucesso", f"{self.tipo} incluído com sucesso")
 
     def altera_pessoa(self):
@@ -72,9 +73,10 @@ class ControladorPessoa:
                 pessoa.tipo_hab = novos_dados_pessoa["tipo_hab"]
                 pessoa.tam_hab = novos_dados_pessoa["tam_hab"]
                 pessoa.outros_animais = novos_dados_pessoa["outros_animais"]
-
+    
+            self.__pessoa_dao.update(pessoa)
             self.tela_pessoa.mostra_mensagem("Sucesso", f"Dados do {self.tipo} alterado!")
-
+    
     def lista_pessoas(self):
         print("lista pessoas")
         condicao = (
@@ -83,7 +85,7 @@ class ControladorPessoa:
             else isinstance(pessoa, Doador)
         )
 
-        if len([pessoa for pessoa in self.pessoas if condicao(pessoa)]) == 0:
+        if len([pessoa for pessoa in self.__pessoa_dao.get_all() if condicao(pessoa)]) == 0:
             self.tela_pessoa.mostra_mensagem("Erro", f"Nenhum {self.tipo} cadastrado")
             return
 
@@ -95,7 +97,7 @@ class ControladorPessoa:
         print(lista_de_pessoas)
         lista_de_pessoas.append(header)
 
-        for pessoa in self.pessoas:
+        for pessoa in self.__pessoa_dao.get_all():
             dados_pessoa = [pessoa.nome, pessoa.cpf, pessoa.data_nascimento, pessoa.endereco]
 
             if self.tipo == "Adotante" and isinstance(pessoa, Adotante):
@@ -112,17 +114,16 @@ class ControladorPessoa:
         return True
 
     def exclui_pessoa(self):
-        if not self.lista_pessoas():
-            return
+        self.lista_pessoas()
         cpf = self.tela_pessoa.pega_cpf()
         pessoa = self.pega_pessoa_por_cpf(cpf)
 
         if pessoa:
-            self.pessoas.remove(pessoa)
+            self.__pessoa_dao.remove(pessoa)
             self.tela_pessoa.mostra_mensagem("Sucesso", f"{self.tipo} removido!")
 
     def pega_pessoa_por_cpf(self, cpf: str):
-        for pessoa in self.pessoas:
+        for pessoa in self.__pessoa_dao.get_all():
             if pessoa.cpf == cpf:
                 return pessoa
         self.tela_pessoa.mostra_mensagem("Erro", "CPF não cadastrado!")

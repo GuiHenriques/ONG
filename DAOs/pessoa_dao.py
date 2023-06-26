@@ -22,4 +22,3 @@ class PessoaDAO(DAO):
     def remove(self, key):
         if isinstance(key, str):
             return super().remove(key)
-        
