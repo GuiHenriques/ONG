@@ -10,7 +10,6 @@ class ControladorAnimal:
         self.__tela_animal = TelaAnimal()
         self.__animal_DAO = AnimalDAO()
         self.__chip = None
-        self.__animais = []
         self.__tipo = None
 
     @property
@@ -173,6 +172,7 @@ class ControladorAnimal:
             return
         
         self.aplicar_vacina(animal, dados_vacina)
+        self.__animal_DAO.update(animal)
 
     def aplicar_vacina(self, animal, dados_vacina):
         if dados_vacina["tipo"] == "Todas":
