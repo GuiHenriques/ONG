@@ -1,14 +1,15 @@
 from abc import ABC, abstractmethod
-
-
+import pickle
 class Animal(ABC):
-    
-    numero_chip = 1
+
+    #numero_chip = 1
 
     @abstractmethod
-    def __init__(self, nome: str, raca: str, idade: int):
-        self.__chip = Animal.numero_chip
-        Animal.numero_chip += 1
+    def __init__(self, chip: int,nome: str, raca: str, idade: int):
+        self.__chip = chip
+        #Animal.numero_chip += 1
+        #arq_numero_chip = ('numero.pkl','wb')
+        #pickle.dump(Animal.numero_chip, arq_numero_chip)
         self.__nome = nome
         self.__raca = raca
         self.__idade = idade
@@ -50,7 +51,7 @@ class Animal(ABC):
     @property
     def vacinas(self):
         return self.__vacinas
-    
+
     @vacinas.setter
     def adocao_atual(self, vacinas):
         self.__vacinas = vacinas
