@@ -88,8 +88,10 @@ class TelaAdocao(AbstractTela):
         print(button, values)
 
         if button == "Confirmar" and values[1] == True:
+            self.close()
             return True
         else:
+            self.close()
             return False
 
     def open(self):
