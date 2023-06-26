@@ -1,3 +1,5 @@
+from exceptions.valor_vazio_exception import ValorVazioException
+from exceptions.radio_vazio_exception import RadioVazioException
 import PySimpleGUI as sg
 
 
@@ -18,24 +20,35 @@ class AbstractTela:
         return layout
 
     def valores_vazios(self, valores):
-        for valor in valores.values():
-            if valor == "":
-                self.mostra_mensagem("Erro", "Valores não podem ser vazios")
-                return False
-        return True
+        try:
+            for valor in valores.values():
+                if valor == "":
+                    self.mostra_mensagem("Erro", "Valores não podem ser vazios")
+                    raise ValorVazioException("Valores não podem ser vazios")
+        except ValorVazioException:
+            return False
+        else:
+            return True
 
     def valor_vazio(self, valor):
-        if valor == "":
-            self.mostra_mensagem("Erro", "Valores não podem ser vazios")
+        try:
+            if valor == "":
+                self.mostra_mensagem("Erro", "Valores não podem ser vazios")
+                raise ValorVazioException
+        except ValorVazioException:
             return False
-        return True
+        else:
+            return True
     
     def valor_vazio_radio(self, valores):
-        for valor in valores:
-            if valor == True:
-                return True
-        self.mostra_mensagem("Erro", "Selecione uma opção do Radio Button")
-        return False
+        try:
+            for valor in valores:
+                if valor == True:
+                    return True
+            self.mostra_mensagem("Erro", "Selecione uma opção do Radio Button")
+            raise RadioVazioException
+        except RadioVazioException:
+            return False
 
     def valor_inteiro(self, valor):
         if not valor.isnumeric():

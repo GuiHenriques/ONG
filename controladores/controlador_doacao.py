@@ -32,13 +32,14 @@ class ControladorDoacao():
             self.tela_doacao.mostra_mensagem("Erro", "Nenhuma doacao cadastrada")
             return None
 
+        dados_doacao = []
         for doacao in self.doacoes:
-            dados_doacao = {
+            dados_doacao.append({
                 "data": doacao.data,
                 "animal": doacao.animal.nome,
                 "doador": doacao.doador.nome,
-                "motivo": doacao.motivo}
-            self.tela_doacao.mostra_doacao(dados_doacao)
+                "motivo": doacao.motivo})
+        self.tela_doacao.mostra_doacao(dados_doacao)
     
     def listar_doacoes_por_periodo(self):
         if len(self.doacoes) == 0:

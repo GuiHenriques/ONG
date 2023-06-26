@@ -60,8 +60,8 @@ class TelaDoacao(AbstractTela):
 
     def pega_datas(self):
         layout = [
-            [sg.Text("Data Inicial:", pad=(10), key="data_inicial"), sg.CalendarButton("Selecionar Data", close_when_date_chosen=True,  target='data_inicial', location=(860, 465), format="%d/%m/%Y")],
-            [sg.Text("Data Final:", pad=(10), key="data_final"), sg.CalendarButton("Selecionar Data", close_when_date_chosen=True,  target='data_final', location=(860, 465), format="%d/%m/%Y")],
+            [sg.Text("Data Inicial:", pad=(13), size=9), sg.Input("", size=(10), pad=10, key="data_inicial"), sg.CalendarButton("Selecionar Data", close_when_date_chosen=True,  target='data_inicial', location=(860, 465), format="%d/%m/%Y")],
+            [sg.Text("Data Final:", pad=(13), size=9), sg.Input("", size=10,pad=10, key="data_final"), sg.CalendarButton("Selecionar Data", close_when_date_chosen=True,  target='data_final', location=(860, 465), format="%d/%m/%Y")],
             [sg.Button("Confirmar", size=(10,1), pad=(10)), sg.Button("Sair", size=(10,1), pad=(10))],
         ]
 

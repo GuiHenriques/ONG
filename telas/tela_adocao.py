@@ -43,9 +43,31 @@ class TelaAdocao(AbstractTela):
                 self.close()
                 data_f = datetime.strptime(values["data"], '%d/%m/%Y').date()
                 return {"data": data_f, "cpf": values["cpf"], "chip": int(values["chip"])}
-   
+    
+    def pega_datas(self):
+        layout = [
+            [sg.Text("Data Inicial:", pad=(13), size=9), sg.Input("", size=(10), pad=10, key="data_inicial"), sg.CalendarButton("Selecionar Data", close_when_date_chosen=True,  target='data_inicial', location=(860, 465), format="%d/%m/%Y")],
+            [sg.Text("Data Final:", pad=(13), size=9), sg.Input("", size=10,pad=10, key="data_final"), sg.CalendarButton("Selecionar Data", close_when_date_chosen=True,  target='data_final', location=(860, 465), format="%d/%m/%Y")],
+            [sg.Button("Confirmar", size=(10,1), pad=(10)), sg.Button("Sair", size=(10,1), pad=(10))],
+        ]
+
+        self.__window = sg.Window("Definir Período", layout, size=(500, 300))
+
+        while True:
+            button, values = self.open()
+            self.close()
+
+            if button == sg.WINDOW_CLOSED or button == "Sair":
+                return None, None
+            
+            if self.valor_vazio(values["data_inicial"]) and self.valor_vazio(values["data_final"]):
+                data_inicial = datetime.strptime(values["data_inicial"], '%d/%m/%Y').date()
+                data_final = datetime.strptime(values["data_final"], '%d/%m/%Y').date()
+                return data_inicial, data_final
+    
     def mostra_adocao(self, dados_adocao):
         todas_adocoes = ""
+        print(dados_adocao)
         for dado in dados_adocao:
             todas_adocoes += "Data: " + str(dado["data"]) + '\n'
             todas_adocoes += "Adotante: " + dado["adotante"] + '\n'

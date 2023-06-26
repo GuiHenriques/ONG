@@ -98,8 +98,7 @@ class ControladorAdocao():
             self.tela_adocao.mostra_mensagem("Erro", "Nenhuma adocao cadastrada")
         else:
             n_adocoes = 0
-            data_inicial = self.tela_adocao.pega_data("Data inicial (DD/MM/AAAA): ")
-            data_final = self.tela_adocao.pega_data("Data final (DD/MM/AAAA): ")
+            data_inicial, data_final = self.tela_adocao.pega_datas()
            
             for adocao in self.adocoes:
                 if adocao.data >= data_inicial and adocao.data <= data_final:
