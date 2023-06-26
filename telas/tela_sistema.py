@@ -8,8 +8,9 @@ class TelaSistema(AbstractTela):
     
     def tela_opcoes(self):
         layout = self.define_layout_button(["Animais", "Pessoas", "Adocao", "Doacao"])
+        
+        sg.ChangeLookAndFeel('DarkBlue4')
         self.__window = sg.Window("Sistema ONG", layout, size=(500, 300))
-
         button, values = self.open()
 
         if button == sg.WINDOW_CLOSED or button == 'Sair':
@@ -19,9 +20,6 @@ class TelaSistema(AbstractTela):
         if button:
             self.close()
             return button
-        else:
-            self.close()
-            return 0
 
     def open(self):
         button, values = self.__window.Read()

@@ -200,6 +200,8 @@ class ControladorAnimal:
 
             vacina = Vacina(dados_vacina["data"], animal, dados_vacina["tipo"])
             animal.vacinas.append(vacina)
+            if len(animal.vacinas) == 3:
+                animal.disponivel = True
             self.tela_animal.mostra_mensagem("Sucesso", "Vacina aplicada com sucesso")
 
     def pega_chip(self):
