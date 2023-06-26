@@ -1,11 +1,12 @@
 from entidades.adocao import Adocao
 from entidades.cachorro import Cachorro
 from telas.tela_adocao import TelaAdocao
-
+from DAOs.adocao_dao import AdocaoDAO
 
 class ControladorAdocao():
     def __init__(self, controlador_sistema):
-        self.__adocoes = list()
+        self.__adocao_DAO = AdocaoDAO()
+        #self.__adocoes = list()
         self.__tela_adocao = TelaAdocao()
         self.__controlador_sistema = controlador_sistema
     
@@ -39,7 +40,9 @@ class ControladorAdocao():
         print("deu bom")
         adocao.termo_responsa = True
         animal.disponivel = False
-        self.adocoes.append(adocao)
+        
+        #self.adocoes.append(adocao)
+        self.__adocao_DAO.add(adocao)
         self.tela_adocao.mostra_mensagem("Sucesso", "Adoção realizada com sucesso")
 
 
